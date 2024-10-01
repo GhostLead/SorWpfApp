@@ -1,0 +1,22 @@
+﻿<Page x:Class="SorWpfApp.LogInPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SorWpfApp"
+      mc:Ignorable="d" 
+      d:DesignHeight="480" d:DesignWidth="280"
+      Title="LogInPage">
+
+    <StackPanel Background="White" Height="430">
+        <Label Content="Bejelentkezés" FontFamily="times new roman" FontSize="23" FontWeight="Bold"/>
+        <Label Content="Jelentkezz be a fiókodba" Margin="0,0,0,0" Foreground="Gray" FontSize="11"/>
+        <Label Content="Felhasználónév" Margin="0,40,0,0" Foreground="Gray"/>
+        <TextBox x:Name="tbUsername" Style="{DynamicResource LogRegTextbox}" Width="270" Height="37" Padding="10" HorizontalAlignment="Left" Margin="5,0,0,0" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
+        <Label Content="Jelszó" Margin="0,15,0,0" Foreground="Gray"/>
+        <PasswordBox x:Name="tbPassword" Style="{DynamicResource PasswordBox}" Width="270" Height="37" Padding="10" HorizontalAlignment="Left" Margin="5,0,0,0"  HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
+        <Button Style="{DynamicResource TransparentButton}" Content="Elfelejtetted a jelszavad?" FontWeight="Bold" Margin="5,10,0,0" HorizontalAlignment="Left"/>
+        
+        
+    </StackPanel>
+</Page>

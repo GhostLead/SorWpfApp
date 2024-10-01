@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34316.72
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SorWpfApp", "SorWpfApp\SorWpfApp.csproj", "{BC58F336-9F25-41A3-A2C7-90CDCF2C8574}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BC58F336-9F25-41A3-A2C7-90CDCF2C8574}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC58F336-9F25-41A3-A2C7-90CDCF2C8574}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC58F336-9F25-41A3-A2C7-90CDCF2C8574}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC58F336-9F25-41A3-A2C7-90CDCF2C8574}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B101F796-2BE4-488E-878A-A35FEA1B6CD3}
+	EndGlobalSection
+EndGlobal
