@@ -21,9 +21,8 @@ namespace SorWpfApp
     {
         public LogRegWindow()
         {
-            InitializeComponent();
-            LogInPage logInPage = new LogInPage();
-            Container.Content = logInPage;
+            InitializeComponent(); 
+            Container.Content = new LogInPage();
         }
 
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -38,17 +37,22 @@ namespace SorWpfApp
             this.Close();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+        
 
         private void btnLogReg_Click(object sender, RoutedEventArgs e)
         {
-            RegistrationPage registrationPage = new RegistrationPage();
-            Container.Content = registrationPage;
-            btnLogReg.Content = "Van fiókom / Bejelentkezek";
-            btnLogin.Content = "Regisztráció";
+            if (Container.Content is RegistrationPage)
+            {
+                Container.Content = new LogInPage();
+                btnLogReg.Content = "Nincs fiókom / Bejelentkezek";
+                btnLogin.Content = "Bejelentkezés";
+            }
+            else
+            {
+                Container.Content = new RegistrationPage();
+                btnLogReg.Content = "Van fiókom / Regisztrálok";
+                btnLogin.Content = "Regisztráció";
+            }
         }
     }
 }

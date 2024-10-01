@@ -9,8 +9,11 @@
       Title="LogInPage">
 
     <StackPanel Background="White" Height="430">
-        <Label Content="Bejelentkezés" FontFamily="times new roman" FontSize="23" FontWeight="Bold"/>
-        <Label Content="Jelentkezz be a fiókodba" Margin="0,0,0,0" Foreground="Gray" FontSize="11"/>
+        <StackPanel Orientation="Horizontal">
+            <Label Content="Bejelentkezés" FontFamily="times new roman" FontSize="23" FontWeight="Bold"/>
+            <Button x:Name="btnShutdown" Content="X" Style="{DynamicResource GeneralButton}" Width="20" Height="20" Foreground="White" Background="Red" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="0" Margin="93,0,0,0" Click="btnShutdown_Click"/>
+        </StackPanel>
+        <Label Content="Jelentkezz be a fiókodba" Margin="0,-5,0,0" Foreground="Gray" FontSize="11"/>
         <Label Content="Felhasználónév" Margin="0,40,0,0" Foreground="Gray"/>
         <TextBox x:Name="tbUsername" Style="{DynamicResource LogRegTextbox}" Width="270" Height="37" Padding="10" HorizontalAlignment="Left" Margin="5,0,0,0" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
         <Label Content="Jelszó" Margin="0,15,0,0" Foreground="Gray"/>
