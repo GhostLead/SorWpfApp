@@ -13,7 +13,7 @@
             <Image Source="/adcard1.jpg" Width="500" Margin="0,20,0,0"/>
         </Border>
         <StackPanel Orientation="Horizontal" Margin="0,30,0,0">
-            <Border Width="500" Height="325" BorderBrush="Black" BorderThickness="2" Margin="75,0,0,0">
+            <Border Width="600" Height="325" BorderBrush="Black" BorderThickness="2" Margin="45,0,0,0">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <StackPanel x:Name="scrollContent" Orientation="Vertical" Margin="5"/>
                 </ScrollViewer>
