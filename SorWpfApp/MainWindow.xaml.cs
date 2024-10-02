@@ -21,6 +21,7 @@ namespace SorWpfApp
         public MainWindow()
         {
             InitializeComponent();
+            btnFiok_Click(btnFiok, new RoutedEventArgs());
         }
 
         private void megnyit_Click(object sender, RoutedEventArgs e)
@@ -60,7 +61,7 @@ namespace SorWpfApp
             btnFogadas.Effect = null;
             btnAdmin.Effect = null;
             btnOrganizer.Effect = null;
-            Container.Content = new PageFogadas();
+            Container.Content = new PageAccount();
         }
 
         private void btnAdmin_Click(object sender, RoutedEventArgs e)
