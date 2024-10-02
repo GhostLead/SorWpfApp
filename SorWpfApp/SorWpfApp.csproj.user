@@ -13,6 +13,9 @@
     <Compile Update="LogRegWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="PageFogadas.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="RegistrationPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -25,6 +28,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="PageFogadas.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="RegistrationPage.xaml">
