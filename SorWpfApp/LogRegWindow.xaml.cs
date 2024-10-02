@@ -24,8 +24,8 @@ namespace SorWpfApp
         List<Bettors> fogadok = new();
         public string connectionString = "datasource = 127.0.0.1;port=3306;username=root;password=;database=fogadasok";
         private MySqlConnection? connection;
-        static LogInPage logp;
-        static RegistrationPage regp;
+        static LogInPage logp = new LogInPage();
+        static RegistrationPage regp = new RegistrationPage();
         bool vanHiba = false;
         string hibaÜzenet = "";
         string nev = "";
@@ -37,6 +37,7 @@ namespace SorWpfApp
             Container.Content = new LogInPage();
             loadUsers();
             
+
         }
 
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -46,9 +47,8 @@ namespace SorWpfApp
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow mainWindow = new MainWindow();
-            mainWindow.Show();
-            this.Close();
+            checkUser(logp);
+            
         }
 
         
