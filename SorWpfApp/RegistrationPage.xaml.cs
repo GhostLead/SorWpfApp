@@ -30,9 +30,9 @@ namespace SorWpfApp
         {
             InitializeComponent();
             loadUsers();
-            txtUsername.KeyDown += new KeyEventHandler(input_KeyDown);
-            passPassword.KeyDown += new KeyEventHandler(input_KeyDown);
-            txtEmail.KeyDown += new KeyEventHandler(input_KeyDown);
+            //txtUsername.KeyDown += new KeyEventHandler(input_KeyDown);
+            //passPassword.KeyDown += new KeyEventHandler(input_KeyDown);
+            //txtEmail.KeyDown += new KeyEventHandler(input_KeyDown);
         }
 
        
@@ -67,18 +67,18 @@ namespace SorWpfApp
 
         
 
-        private void input_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-            {
-                checkRegistration();
-            }
-        }
+        //private void input_KeyDown(object sender, KeyEventArgs e)
+        //{
+        //    if (e.Key == Key.Enter)
+        //    {
+        //        checkRegistration();
+        //    }
+        //}
 
-        private void btnReg_Click(object sender, RoutedEventArgs e)
-        {
-            checkRegistration();
-        }
+        //private void btnReg_Click(object sender, RoutedEventArgs e)
+        //{
+        //    checkRegistration();
+        //}
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {

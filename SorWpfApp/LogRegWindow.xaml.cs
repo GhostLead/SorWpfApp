@@ -36,6 +36,7 @@ namespace SorWpfApp
             InitializeComponent(); 
             Container.Content = new LogInPage();
             loadUsers();
+            
         }
 
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -182,10 +183,7 @@ namespace SorWpfApp
             }
         }
 
-        private void btnShutdown_Click(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Shutdown();
-        }
+        
         private void userUpload()
         {
             try
