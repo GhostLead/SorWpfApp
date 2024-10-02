@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -21,14 +22,13 @@ namespace SorWpfApp
     /// </summary>
     public partial class LogInPage : Page
     {
+        
         public LogInPage()
         {
             InitializeComponent();
         }
 
-        private void btnShutdown_Click(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Shutdown();
-        }
+        
+
     }
 }
