@@ -107,9 +107,9 @@
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <Border Margin="10,0,0,0" Grid.Column="0" Width="250" BorderThickness="1" CornerRadius="20" Background="#FFFFCF4D">
+                        <Border Margin="10,0,0,0" Grid.Column="0" Width="150" BorderThickness="1" CornerRadius="20" Background="#FFFFCF4D">
                             <StackPanel Orientation="Horizontal" Width="330">
-                                <Label Content="ÖSSZEG" Margin="75,0,0,0" Foreground="Gray" FontWeight="DemiBold"/>
+                                <Label Content="ÖSSZEG" Margin="25,0,0,0" Foreground="Gray" FontWeight="DemiBold"/>
                                 <Label Content="100 Ft" HorizontalAlignment="Left" Margin="0,0,-150,0" FontWeight="DemiBold"/>
                             </StackPanel>
                         </Border>
