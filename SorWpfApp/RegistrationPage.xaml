@@ -15,15 +15,16 @@
         </StackPanel>
         <Label Content="Regisztráld a fiókod" Margin="0,-5,0,0" Foreground="Gray" FontSize="11"/>
         <Label Content="Felhasználónév" Margin="0,12,0,0" Foreground="Gray"/>
-        <TextBox x:Name="txtUsername" Style="{DynamicResource LogRegTextbox}" Width="270" Height="25" Padding="5" HorizontalAlignment="Left" Margin="5,0,0,0" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="txtUsername" Style="{DynamicResource LogRegTextbox}" Width="270" Height="25" Padding="5" HorizontalAlignment="Left" Margin="5,0,0,0" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" TextChanged="txtUsername_TextChanged"/>
         <Label Content="Jelszó" Margin="0,5,0,0" Foreground="Gray"/>
-        <TextBox x:Name="passPassword" Style="{DynamicResource LogRegTextbox}" Width="270" Height="25" Padding="5" HorizontalAlignment="Left" Margin="5,0,0,0"  HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="passPassword" Style="{DynamicResource LogRegTextbox}" Width="270" Height="25" Padding="5" HorizontalAlignment="Left" Margin="5,0,0,0"  HorizontalContentAlignment="Left" VerticalContentAlignment="Center" TextChanged="passPassword_TextChanged"/>
         <Label Content="Email cím" Margin="0,5,0,0" Foreground="Gray"/>
-        <TextBox x:Name="txtEmail" Style="{DynamicResource LogRegTextbox}" Width="270" Height="25" Padding="5" HorizontalAlignment="Left" Margin="5,0,0,0" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="txtEmail" Style="{DynamicResource LogRegTextbox}" Width="270" Height="25" Padding="5" HorizontalAlignment="Left" Margin="5,0,0,0" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" TextChanged="txtEmail_TextChanged"/>
         <Label Content="Egyenleg" Margin="0,5,0,0" Foreground="Gray"/>
         <StackPanel Orientation="Horizontal">
-            <TextBox x:Name="txtEgyenleg" Style="{DynamicResource LogRegTextbox}" Width="75" Height="25" Padding="5" HorizontalAlignment="Left" Margin="5,0,0,0"  HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
+            <TextBox x:Name="txtEgyenleg" Style="{DynamicResource LogRegTextbox}" Width="75" Height="25" Padding="5" HorizontalAlignment="Left" Margin="5,0,0,0"  HorizontalContentAlignment="Left" VerticalContentAlignment="Center" TextChanged="txtEgyenleg_TextChanged" MaxLength="6"/>
             <Label Content="FT" Foreground="Gray" FontWeight="DemiBold"/>
+            
         </StackPanel>
         
     </StackPanel>

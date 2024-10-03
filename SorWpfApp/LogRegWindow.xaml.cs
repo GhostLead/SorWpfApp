@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Security.Cryptography;
 
 namespace SorWpfApp
 {
@@ -21,16 +22,19 @@ namespace SorWpfApp
     /// </summary>
     public partial class LogRegWindow : Window
     {
-        List<Bettors> fogadok = new();
-        public string connectionString = "datasource = 127.0.0.1;port=3306;username=root;password=;database=fogadasok";
+        static List<Bettors> fogadok = new();
+        public static string connectionString = "datasource = 127.0.0.1;port=3306;username=root;password=;database=fogadasok";
         private MySqlConnection? connection;
         static LogInPage logp = new LogInPage();
         static RegistrationPage regp = new RegistrationPage();
-        bool vanHiba = false;
-        string hibaÜzenet = "";
-        string nev = "";
-        string email = "";
-        string jelszo = "";
+        static bool vanHiba = false;
+        static string hibaÜzenet = "";
+        static string nev = "";
+        static string email = "";
+        static string jelszo = "";
+        bool hasznalva = false;
+        static bool vanNev = false;
+        static bool vanJelszo = false;
         public LogRegWindow()
         {
             InitializeComponent(); 
@@ -45,9 +49,15 @@ namespace SorWpfApp
             DragMove();
         }
 
+
+
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            checkUser(logp);
+            if (!hasznalva || !vanJelszo || !vanNev)
+            {
+                HandleLogin(sender,e);
+                hasznalva = true;
+            }
             
         }
 
@@ -55,13 +65,19 @@ namespace SorWpfApp
 
         private void btnLogReg_Click(object sender, RoutedEventArgs e)
         {
+            hasznalva = true;
+            vanJelszo = true;
+            vanNev = true;
+            
             if (Container.Content is RegistrationPage)
             {
                 logp = new LogInPage();
+                Container.Content = logp;
                 btnLogReg.Content = "Nincs fiókom / Regisztrálok";
                 btnLogin.Content = "Bejelentkezés";
-                btnLogin.Click -= (sender, e) => { checkRegistration(regp); };
-                btnLogin.Click += (sender, e) => { checkUser(logp); };
+                btnLogin.Click -= HandleRegister;
+                btnLogin.Click += HandleLogin;
+                ;
                 
             }
             else
@@ -70,8 +86,31 @@ namespace SorWpfApp
                 Container.Content = regp;
                 btnLogReg.Content = "Van fiókom / Bejelentkezek";
                 btnLogin.Content = "Regisztráció";
-                btnLogin.Click -= (sender, e) => { checkUser(logp); };
-                btnLogin.Click += (sender, e) => { checkRegistration(regp); };
+                btnLogin.Click -= HandleLogin;
+                btnLogin.Click += HandleRegister;
+            }
+        }
+
+        private  void HandleLogin(object sender, RoutedEventArgs e)
+        {
+            checkUser(logp);
+        }
+        private void HandleRegister(object sender, RoutedEventArgs e)
+        {
+            checkRegistration(regp);
+        }
+        public static void HandleLoginInput(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                checkUser(logp);
+            }
+        }
+        public static void HandleRegisterInput(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                checkRegistration(regp);
             }
         }
         private void loadUsers()
@@ -101,36 +140,38 @@ namespace SorWpfApp
                 MessageBox.Show(ex.Message);
             }
         }
-        private void checkUser(LogInPage page)
+        private static void checkUser(LogInPage page)
         {
-            bool vanNev = false;
-            bool vanJelszo = false;
+            vanNev = false;
+            vanJelszo = false;
             bool isAdmin = false;
             bool isOrganizer = false;
+            string loginUser = LoginClass.Username;
+            string loginPassword = LoginClass.Password;
             foreach (var user in fogadok)
             {
-                if (user.username == page.txtUsername.Text && user.password == page.passPassword.Password)
+                if (user.username == loginUser && user.password == loginPassword)
                 {
                     vanNev = true;
                     vanJelszo = true;
-                    if (user.username == "admin")
+                    if (user.username.Contains("admin"))
                     {
                         isAdmin = true;
                     }
-                    else if (user.username == "organizer")
+                    else if (user.username.Contains("organizer"))
                     {
                         isOrganizer = true;
                     }
                     break;
 
                 }
-                else if (user.username == page.txtUsername.Text && user.password != page.passPassword.Password)
+                else if (user.username == loginUser && user.password != loginPassword)
                 {
                     vanNev = true;
                     break;
 
                 }
-                else if (user.username != page.txtUsername.Text && user.password == page.passPassword.Password)
+                else if (user.username != loginUser && user.password == loginPassword)
                 {
                     vanJelszo = true;
                     break;
@@ -175,16 +216,9 @@ namespace SorWpfApp
                 MessageBox.Show("Nincs regisztálva ilyen fiók!");
             }
         }
-        private void input_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-            {
-                checkUser(logp);
-            }
-        }
 
         
-        private void userUpload()
+        private static void userUpload()
         {
             try
             {
@@ -216,11 +250,11 @@ namespace SorWpfApp
             }
         }
 
-        private void checkRegistration(RegistrationPage page)
+        private static void checkRegistration(RegistrationPage page)
         {
-            nev = page.txtUsername.Text;
-            email = page.txtEmail.Text;
-            jelszo = page.passPassword.Text;
+            nev = RegisterClass.Username;
+            email = RegisterClass.Email;
+            jelszo = RegisterClass.Password;
             string emailPattern = @"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$";
             List<string> nevek = new();
             List<string> emailCimek = new();
@@ -236,13 +270,19 @@ namespace SorWpfApp
             {
                 hibaÜzenet += "\nMár van ilyen felhasználónév!";
                 page.txtUsername.Focus();
+                page.txtUsername.BorderThickness = new Thickness(2);
                 page.txtUsername.BorderBrush = Brushes.Red;
                 vanHiba = true;
             }
-            if (jelszo.Length < 8)
+            if (nev == null)
+            {
+                hibaÜzenet += "\nÜres a felhasználónév mező";
+            }
+            if ( jelszo == null || jelszo.Length < 8 || jelszo == "")
             {
                 hibaÜzenet += "\nLegalább 8 karakternek kell lennie a jelszónak!";
                 page.passPassword.Focus();
+                page.passPassword.BorderThickness = new Thickness(2);
                 page.passPassword.BorderBrush = Brushes.Red;
                 vanHiba = true;
             }
@@ -250,14 +290,16 @@ namespace SorWpfApp
             {
                 hibaÜzenet += "\nMár van ilyen email cím hozzárendelve egy fiókhoz!";
                 page.txtEmail.Focus();
+                page.txtEmail.BorderThickness = new Thickness(2);
                 page.txtEmail.BorderBrush = Brushes.Red;
                 vanHiba = true;
 
             }
-            if (!Regex.IsMatch(email, emailPattern))
+            if (email == null || !Regex.IsMatch(email, emailPattern))
             {
                 hibaÜzenet += "\nHibás az email formátuma!";
                 page.txtEmail.Focus();
+                page.txtEmail.BorderThickness = new Thickness(2);
                 page.txtEmail.BorderBrush = Brushes.Red;
                 vanHiba = true;
             }
@@ -277,4 +319,7 @@ namespace SorWpfApp
 
         }
     }
+
+
+
 }

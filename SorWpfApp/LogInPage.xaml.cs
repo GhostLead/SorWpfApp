@@ -26,6 +26,8 @@ namespace SorWpfApp
         public LogInPage()
         {
             InitializeComponent();
+            txtUsername.KeyDown += new KeyEventHandler(LogRegWindow.HandleLoginInput);
+            passPassword.KeyDown += new KeyEventHandler(LogRegWindow.HandleLoginInput);
         }
 
         private void btnShutdown_Click(object sender, RoutedEventArgs e)
@@ -33,5 +35,14 @@ namespace SorWpfApp
             Application.Current.Shutdown();
         }
 
+        private void txtUsername_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            LoginClass.Username = txtUsername.Text;
+        }
+
+        private void passPassword_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            LoginClass.Password = passPassword.Password;
+        }
     }
 }

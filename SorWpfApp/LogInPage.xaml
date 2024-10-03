@@ -15,9 +15,9 @@
         </StackPanel>
         <Label Content="Jelentkezz be a fiókodba" Margin="0,-5,0,0" Foreground="Gray" FontSize="11"/>
         <Label Content="Felhasználónév" Margin="0,40,0,0" Foreground="Gray"/>
-        <TextBox x:Name="txtUsername" Style="{DynamicResource LogRegTextbox}" Width="270" Height="37" Padding="10" HorizontalAlignment="Left" Margin="5,0,0,0" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="txtUsername" Style="{DynamicResource LogRegTextbox}" Width="270" Height="37" Padding="10" HorizontalAlignment="Left" Margin="5,0,0,0" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" TextChanged="txtUsername_TextChanged"/>
         <Label Content="Jelszó" Margin="0,15,0,0" Foreground="Gray"/>
-        <PasswordBox x:Name="passPassword" Style="{DynamicResource PasswordBox}" Width="270" Height="37" Padding="10" HorizontalAlignment="Left" Margin="5,0,0,0"  HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
+        <PasswordBox x:Name="passPassword" Style="{DynamicResource PasswordBox}" Width="270" Height="37" Padding="10" HorizontalAlignment="Left" Margin="5,0,0,0"  HorizontalContentAlignment="Left" VerticalContentAlignment="Center" PasswordChanged="passPassword_PasswordChanged"/>
         <Button Style="{DynamicResource TransparentButton}" Content="Elfelejtetted a jelszavad?" FontWeight="Bold" Margin="5,10,0,0" HorizontalAlignment="Left"/>
         
         

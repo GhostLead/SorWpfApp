@@ -22,67 +22,65 @@ namespace SorWpfApp
     /// </summary>
     public partial class RegistrationPage : Page
     {
-        public string connectionString = "datasource = 127.0.0.1;port=3306;username=root;password=;database=fogadasok";
-        private MySqlConnection connection;
-        List<Bettors> bettors;
-        
+        private static readonly Regex _regex = new Regex("[^0-9.-]+");
+
+
         public RegistrationPage()
         {
             InitializeComponent();
-            loadUsers();
-            //txtUsername.KeyDown += new KeyEventHandler(input_KeyDown);
-            //passPassword.KeyDown += new KeyEventHandler(input_KeyDown);
-            //txtEmail.KeyDown += new KeyEventHandler(input_KeyDown);
+            
+            txtUsername.KeyDown += new KeyEventHandler(LogRegWindow.HandleRegisterInput);
+            passPassword.KeyDown += new KeyEventHandler(LogRegWindow.HandleRegisterInput);
+            txtEmail.KeyDown += new KeyEventHandler(LogRegWindow.HandleRegisterInput);
         }
 
        
 
-        private void loadUsers()
-        {
-            bettors = new List<Bettors>();
-
-            try
-            {
-                connection = new MySqlConnection(connectionString);
-                connection.Open();
-                string lekerdezesSzoveg = "SELECT * FROM bettors ORDER BY BettorsID";
-
-                MySqlCommand lekerdezes = new MySqlCommand(lekerdezesSzoveg, connection);
-                lekerdezes.CommandTimeout = 60;
-                MySqlDataReader reader = lekerdezes.ExecuteReader();
-                while (reader.Read())
-                {
-                    bettors.Add(new Bettors(reader));
-                }
-                reader.Close();
-                connection.Close();
-
-            }
-            catch (Exception ex)
-            {
-
-                MessageBox.Show(ex.Message);
-            }
-        }
-
         
-
-        //private void input_KeyDown(object sender, KeyEventArgs e)
-        //{
-        //    if (e.Key == Key.Enter)
-        //    {
-        //        checkRegistration();
-        //    }
-        //}
-
-        //private void btnReg_Click(object sender, RoutedEventArgs e)
-        //{
-        //    checkRegistration();
-        //}
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+
+        private void txtUsername_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            RegisterClass.Username = txtUsername.Text;
+        }
+
+        private void passPassword_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            RegisterClass.Password = passPassword.Text;
+        }
+
+        private void txtEmail_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            RegisterClass.Email = txtEmail.Text;
+        }
+
+        private void txtEgyenleg_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (!_regex.IsMatch(txtEgyenleg.Text) && txtEgyenleg.Text != "")
+            {
+                RegisterClass.Balance = int.Parse(txtEgyenleg.Text);
+            }
+            else 
+            {
+                if(txtEgyenleg.Text == "")
+                {
+
+                }
+                else
+                {
+                    txtEgyenleg.Text = "";
+                    MessageBox.Show("Csak számokat adhat meg ebbe a bezőbe!");
+                    txtEgyenleg.BorderThickness = new Thickness(2);
+                    txtEgyenleg.BorderBrush = Brushes.Red;
+                    txtEgyenleg.Focus();
+
+                }
+            }
+
         }
     }
 }
