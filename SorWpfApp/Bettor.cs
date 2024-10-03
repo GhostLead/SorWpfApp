@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SorWpfApp
 {
-    internal class Bettors
+    public class Bettor
     {
         public int bettorsID { get; set; }
         public string? username { get; set; }
@@ -17,7 +17,7 @@ namespace SorWpfApp
         public DateOnly joinDate { get; set; }
         public bool isActive { get; set; }
 
-        public Bettors(MySqlDataReader olvaso)
+        public Bettor(MySqlDataReader olvaso)
         {
             bettorsID = olvaso.GetInt32(0);
             username = olvaso.GetString(1);

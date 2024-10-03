@@ -22,7 +22,7 @@ namespace SorWpfApp
     /// </summary>
     public partial class LogRegWindow : Window
     {
-        static List<Bettors> fogadok = new();
+        static List<Bettor> fogadok = new();
         public static string connectionString = "datasource = 127.0.0.1;port=3306;username=root;password=;database=fogadasok";
         private MySqlConnection? connection;
         static LogInPage logp = new LogInPage();
@@ -35,6 +35,7 @@ namespace SorWpfApp
         bool hasznalva = false;
         static bool vanNev = false;
         static bool vanJelszo = false;
+        public static Bettor bejelentkezettFogado;
         public LogRegWindow()
         {
             InitializeComponent(); 
@@ -111,24 +112,25 @@ namespace SorWpfApp
             if (e.Key == Key.Enter)
             {
                 checkRegistration(regp);
+                
             }
         }
         private void loadUsers()
         {
-            fogadok = new List<Bettors>();
+            fogadok = new List<Bettor>();
 
             try
             {
                 connection = new MySqlConnection(connectionString);
                 connection.Open();
-                string lekerdezesSzoveg = "SELECT * FROM bettors ORDER BY BettorsID";
+                string lekerdezesSzoveg = "SELECT * FROM Bettors ORDER BY BettorsID";
 
                 MySqlCommand lekerdezes = new MySqlCommand(lekerdezesSzoveg, connection);
                 lekerdezes.CommandTimeout = 60;
                 MySqlDataReader reader = lekerdezes.ExecuteReader();
                 while (reader.Read())
                 {
-                    fogadok.Add(new Bettors(reader));
+                    fogadok.Add(new Bettor(reader));
                 }
                 reader.Close();
                 connection.Close();
@@ -162,6 +164,7 @@ namespace SorWpfApp
                     {
                         isOrganizer = true;
                     }
+                    bejelentkezettFogado = user;
                     break;
 
                 }
@@ -226,7 +229,7 @@ namespace SorWpfApp
                 {
                     connection.Open();
 
-                    string lekerdezesSzoveg = "INSERT INTO `bettors`(`Username`, `Password`, `Balance`, `Email`, `IsActive`) VALUES (@nev,@jelszo,'100',@email,true)";
+                    string lekerdezesSzoveg = "INSERT INTO `Bettors`(`Username`, `Password`, `Balance`, `Email`, `IsActive`) VALUES (@nev,@jelszo,'100',@email,true)";
 
                     using (var lekerdezes = new MySqlCommand(lekerdezesSzoveg, connection))
                     {
@@ -250,7 +253,7 @@ namespace SorWpfApp
             }
         }
 
-        private static void checkRegistration(RegistrationPage page)
+        public static void checkRegistration(RegistrationPage page)
         {
             nev = RegisterClass.Username;
             email = RegisterClass.Email;
@@ -310,14 +313,16 @@ namespace SorWpfApp
             else
             {
                 userUpload();
+                
                 MessageBox.Show("Köszönjük a regisztrálását!\nKöszönetünk jeleként jóváírtunk 100$ kezdő összeget a fiókján!");
-                //ApplicationWindow appwin = new ApplicationWindow();
-                MainWindow win = new MainWindow();
-                win.Show();
+                ////ApplicationWindow appwin = new ApplicationWindow();
+                LogRegWindow logRegWindow = new LogRegWindow();
+                logRegWindow.Show();
                 Application.Current.MainWindow.Close();
             }
 
         }
+        
     }
 
 
