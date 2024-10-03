@@ -18,6 +18,9 @@ namespace SorWpfApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        private bool isDarkMode = false;
+        private string backgroundcolor = "#FF2D2E35";
+        private string navbarBackgroundColor = "#FF2E2E31";
         public MainWindow()
         {
             InitializeComponent();
@@ -95,6 +98,49 @@ namespace SorWpfApp
         private void ShutdownButton_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+
+        private void SwitchToDarkMode()
+        {
+            window.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(backgroundcolor));
+            navbar.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(navbarBackgroundColor));
+            
+            btnBefizetes.Style = (Style)FindResource("GeneralButtonDARK");
+            btnAdmin.Style = (Style)FindResource("TransparentButtonDARK");
+            btnOrganizer.Style = (Style)FindResource("TransparentButtonDARK");
+            btnFogadas.Style = (Style)FindResource("TransparentButtonDARK");
+            btnFiok.Style = (Style)FindResource("TransparentButtonDARK");
+            btnThemeToggle.Foreground = Brushes.White;
+        }
+
+        private void SwitchToLightMode()
+        {
+            window.Background = Brushes.White;
+            navbar.Background = Brushes.White;
+            Container.Background = Brushes.White;
+            btnBefizetes.Style = (Style)FindResource("GeneralButton");
+            btnAdmin.Style = (Style)FindResource("TransparentButton");
+            btnOrganizer.Style = (Style)FindResource("TransparentButton");
+            btnFogadas.Style = (Style)FindResource("TransparentButton");
+            btnFiok.Style = (Style)FindResource("TransparentButton");
+            btnBefizetes.Style = (Style)FindResource("GeneralButton");
+            btnThemeToggle.Foreground = Brushes.Black;
+        }
+
+        private void btnThemeToggle_Click(object sender, RoutedEventArgs e)
+        {
+            if (isDarkMode)
+            {
+                SwitchToLightMode();
+                btnThemeToggle.Content = "🌙";
+                isDarkMode = false;
+            }
+            else
+            {
+                SwitchToDarkMode();
+                btnThemeToggle.Content = "☀";
+                isDarkMode = true;
+            }
         }
     }
 }
