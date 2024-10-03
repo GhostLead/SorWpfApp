@@ -27,8 +27,8 @@
                         <Button x:Name="btnBefizetes" Content="Befizetés" Style="{DynamicResource GeneralButton}" Height="35" Width="100" FontSize="15" FontWeight="Bold" Margin="75,0,0,0"/>
 
                         <StackPanel Margin="75,0,0,0">
-                            <Label Content="Username" Foreground="Gray" FontSize="13" FontWeight="DemiBold" HorizontalAlignment="Right" Margin="0,0,0,-5"/>
-                            <Label Content="100 Ft" Foreground="Black" FontWeight="Bold" HorizontalAlignment="Right"/>
+                            <Label x:Name="lblUsername" Content="Username" Foreground="Gray" FontSize="13" FontWeight="DemiBold" HorizontalAlignment="Right" Margin="0,0,0,-5"/>
+                            <Label x:Name="lblBalance" Content="100 Ft" Foreground="Black" FontWeight="Bold" HorizontalAlignment="Right"/>
                         </StackPanel>
                         <Image Width="60" Height="60" Source="/userimg.jpg" Margin="0,-5,0,0"/>
 
