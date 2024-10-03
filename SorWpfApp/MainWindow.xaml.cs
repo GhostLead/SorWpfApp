@@ -6,6 +6,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Converters;
 using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
@@ -18,7 +19,7 @@ namespace SorWpfApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        private bool isDarkMode = false;
+        private bool IsLightModeActive = true;
         private string backgroundcolor = "#FF2D2E35";
         private string navbarBackgroundColor = "#FF2E2E31";
         public MainWindow()
@@ -100,47 +101,38 @@ namespace SorWpfApp
             Application.Current.Shutdown();
         }
 
-        private void SwitchToDarkMode()
-        {
-            window.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(backgroundcolor));
-            navbar.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(navbarBackgroundColor));
-            
-            btnBefizetes.Style = (Style)FindResource("GeneralButtonDARK");
-            btnAdmin.Style = (Style)FindResource("TransparentButtonDARK");
-            btnOrganizer.Style = (Style)FindResource("TransparentButtonDARK");
-            btnFogadas.Style = (Style)FindResource("TransparentButtonDARK");
-            btnFiok.Style = (Style)FindResource("TransparentButtonDARK");
-            btnThemeToggle.Foreground = Brushes.White;
-        }
-
-        private void SwitchToLightMode()
-        {
-            window.Background = Brushes.White;
-            navbar.Background = Brushes.White;
-            Container.Background = Brushes.White;
-            btnBefizetes.Style = (Style)FindResource("GeneralButton");
-            btnAdmin.Style = (Style)FindResource("TransparentButton");
-            btnOrganizer.Style = (Style)FindResource("TransparentButton");
-            btnFogadas.Style = (Style)FindResource("TransparentButton");
-            btnFiok.Style = (Style)FindResource("TransparentButton");
-            btnBefizetes.Style = (Style)FindResource("GeneralButton");
-            btnThemeToggle.Foreground = Brushes.Black;
-        }
-
         private void btnThemeToggle_Click(object sender, RoutedEventArgs e)
         {
-            if (isDarkMode)
+            if (IsLightModeActive)
             {
-                SwitchToLightMode();
                 btnThemeToggle.Content = "🌙";
-                isDarkMode = false;
+                IsLightModeActive = false;
+                Application.Current.Resources.MergedDictionaries.Clear();
+                Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary
+                {
+                    Source = new Uri("LightTheme.xaml", UriKind.Relative)
+                });
+                window.Background = Brushes.White;
+                
+
             }
             else
             {
-                SwitchToDarkMode();
                 btnThemeToggle.Content = "☀";
-                isDarkMode = true;
+                IsLightModeActive = true;
+                Application.Current.Resources.MergedDictionaries.Clear();
+                Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary
+                {
+                    Source = new Uri("DarkTheme.xaml", UriKind.Relative)
+                });
+                window.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF262627"));
+
             }
+        }
+
+        private void ToggleTheme_Click(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }
