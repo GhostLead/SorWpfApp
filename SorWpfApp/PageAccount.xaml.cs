@@ -23,6 +23,7 @@ namespace SorWpfApp
         public PageAccount()
         {
             InitializeComponent();
+            lblOsszegBalance.Content = UserAtkuldese.bejelentkezettFogado.balance+" Ft";
         }
 
         

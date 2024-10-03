@@ -35,7 +35,7 @@ namespace SorWpfApp
         bool hasznalva = false;
         static bool vanNev = false;
         static bool vanJelszo = false;
-        public static Bettor bejelentkezettFogado;
+        
         public LogRegWindow()
         {
             InitializeComponent(); 
@@ -164,7 +164,7 @@ namespace SorWpfApp
                     {
                         isOrganizer = true;
                     }
-                    bejelentkezettFogado = user;
+                    UserAtkuldese.bejelentkezettFogado = user;
                     break;
 
                 }
@@ -229,7 +229,7 @@ namespace SorWpfApp
                 {
                     connection.Open();
 
-                    string lekerdezesSzoveg = "INSERT INTO `Bettors`(`Username`, `Password`, `Balance`, `Email`, `IsActive`) VALUES (@nev,@jelszo,'100',@email,true)";
+                    string lekerdezesSzoveg = "INSERT INTO `Bettors`(`Username`, `Password`, `Balance`, `Email`, `IsActive`) VALUES (@nev,@jelszo,'10000',@email,true)";
 
                     using (var lekerdezes = new MySqlCommand(lekerdezesSzoveg, connection))
                     {
@@ -261,12 +261,14 @@ namespace SorWpfApp
             string emailPattern = @"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$";
             List<string> nevek = new();
             List<string> emailCimek = new();
+            List<string> jelszavak = new();
             hibaÜzenet = "";
             vanHiba = false;
             foreach (var item in fogadok)
             {
                 nevek.Add(item.username);
                 emailCimek.Add(item.email);
+                jelszavak.Add(item.password);
 
             }
             if (nevek.Contains(nev) || nev == "")
@@ -280,6 +282,14 @@ namespace SorWpfApp
             if (nev == null)
             {
                 hibaÜzenet += "\nÜres a felhasználónév mező";
+            }
+            if (jelszavak.Contains(jelszo))
+            {
+                hibaÜzenet += "\nMár létezik ilyen jelszó, kérem adjon másikat!";
+                page.passPassword.Focus();
+                page.passPassword.BorderThickness = new Thickness(2);
+                page.passPassword.BorderBrush = Brushes.Red;
+                vanHiba = true;
             }
             if ( jelszo == null || jelszo.Length < 8 || jelszo == "")
             {
@@ -314,11 +324,18 @@ namespace SorWpfApp
             {
                 userUpload();
                 
-                MessageBox.Show("Köszönjük a regisztrálását!\nKöszönetünk jeleként jóváírtunk 100$ kezdő összeget a fiókján!");
+                MessageBox.Show("Köszönjük a regisztrálását!\nKöszönetünk jeleként jóváírtunk 10000 Ft kezdő összeget a fiókján!");
                 ////ApplicationWindow appwin = new ApplicationWindow();
-                LogRegWindow logRegWindow = new LogRegWindow();
-                logRegWindow.Show();
-                Application.Current.MainWindow.Close();
+                var logRegWindow = Application.Current.Windows.OfType<LogRegWindow>().FirstOrDefault();
+                if (logRegWindow != null)
+                {
+                    logRegWindow.Container.Content = new LogInPage();
+                    logRegWindow.btnLogReg.Content = "Nincs fiókom / Regisztrálok";
+                    logRegWindow.btnLogin.Content = "Bejelentkezés";
+                    
+                }
+
+                
             }
 
         }

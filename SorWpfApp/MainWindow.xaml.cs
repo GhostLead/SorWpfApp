@@ -22,10 +22,14 @@ namespace SorWpfApp
         private bool IsLightModeActive = true;
         private string backgroundcolor = "#FF2D2E35";
         private string navbarBackgroundColor = "#FF2E2E31";
+        static Bettor bejelentkezettBettor;
         public MainWindow()
         {
             InitializeComponent();
             btnFiok_Click(btnFiok, new RoutedEventArgs());
+            bejelentkezettBettor = UserAtkuldese.bejelentkezettFogado;
+            lblUsername.Content = bejelentkezettBettor.username;
+            lblBalance.Content = bejelentkezettBettor.balance+" Ft";
         }
 
         private void megnyit_Click(object sender, RoutedEventArgs e)
@@ -39,6 +43,23 @@ namespace SorWpfApp
         {
             DragMove();
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         private void btnFogadas_Click(object sender, RoutedEventArgs e)
         {
