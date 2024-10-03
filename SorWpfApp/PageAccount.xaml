@@ -70,21 +70,21 @@
                     <DropShadowEffect Color="Black" BlurRadius="12" Opacity=".7" ShadowDepth="0"/>
                 </Border.Effect>
                 <StackPanel>
-                    <ScrollViewer Height="160" HorizontalScrollBarVisibility="Hidden">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Label Height="30" Grid.Row="0" Grid.Column="0" Content="Dátum" HorizontalAlignment="Center" FontSize="15"/>
+                        <Label Height="30" Grid.Row="0" Grid.Column="1" Content="Típus" HorizontalAlignment="Center" FontSize="15"/>
+                        <Label Height="30" Grid.Row="0" Grid.Column="2" Content="Valami" HorizontalAlignment="Center" FontSize="15"/>
+                        <Label Height="30" Grid.Row="0" Grid.Column="3" Content="Összeg" HorizontalAlignment="Center" FontSize="15"/>
+                    </Grid>
+                    <Separator Grid.Row="0" Grid.ColumnSpan="4" BorderBrush="Black" VerticalAlignment="Bottom" BorderThickness="2" Margin="10,0,10,0"/>
+                    <ScrollViewer Height="125" HorizontalScrollBarVisibility="Hidden">
                         <StackPanel Orientation="Vertical">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-                                <Label Height="30" Grid.Row="0" Grid.Column="0" Content="Dátum" HorizontalAlignment="Center" FontSize="15"/>
-                                <Label Height="30" Grid.Row="0" Grid.Column="1" Content="Típus" HorizontalAlignment="Center" FontSize="15"/>
-                                <Label Height="30" Grid.Row="0" Grid.Column="2" Content="Valami" HorizontalAlignment="Center" FontSize="15"/>
-                                <Label Height="30" Grid.Row="0" Grid.Column="3" Content="Összeg" HorizontalAlignment="Center" FontSize="15"/>
-                            </Grid>
-                            <Separator Grid.Row="0" Grid.ColumnSpan="4" BorderBrush="Black" VerticalAlignment="Bottom" BorderThickness="2" Margin="10,0,10,0"/>
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>

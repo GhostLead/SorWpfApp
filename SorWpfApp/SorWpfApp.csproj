@@ -12,7 +12,10 @@
     <None Remove="adcard1.jpg" />
     <None Remove="best-beer-logo-icon-design-vector-white.jpg" />
     <None Remove="darkmode.png" />
+    <None Remove="maxver.avif" />
+    <None Remove="norris.jpg" />
     <None Remove="userimg.jpg" />
+    <None Remove="verstappen.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,7 +26,9 @@
     <Resource Include="adcard1.jpg" />
     <Resource Include="best-beer-logo-icon-design-vector-white.jpg" />
     <Resource Include="darkmode.png" />
+    <Resource Include="norris.jpg" />
     <Resource Include="userimg.jpg" />
+    <Resource Include="verstappen.jpg" />
   </ItemGroup>
 
 </Project>
