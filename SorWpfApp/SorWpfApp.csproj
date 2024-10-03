@@ -23,6 +23,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="MySql.Data" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="adcard1.jpg" />
     <Resource Include="best-beer-logo-icon-design-vector-white.jpg" />
     <Resource Include="darkmode.png" />
