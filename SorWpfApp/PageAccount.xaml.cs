@@ -20,9 +20,27 @@ namespace SorWpfApp
     /// </summary>
     public partial class PageAccount : Page
     {
+        string backgroundcolor = "#FF343538";
+        
         public PageAccount()
         {
             InitializeComponent();
+            if (IsUsingLightTheme())
+            {
+                title1.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(backgroundcolor));
+                Title1.Foreground = Brushes.White;
+                sectionTransactionHistory.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(backgroundcolor));
+                lb1.Foreground = Brushes.White;
+                lb2.Foreground = Brushes.White;
+                lb3.Foreground = Brushes.White;
+                lb4.Foreground = Brushes.White;
+
+                InitializeComponent();
+            }
+            else
+            {
+
+            }
             lblOsszegBalance.Content = UserAtkuldese.bejelentkezettFogado.balance+" Ft";
             lbusername.Content = UserAtkuldese.bejelentkezettFogado.username;
             
@@ -37,6 +55,13 @@ namespace SorWpfApp
             var main = Window.GetWindow(this);
             main.Close();
             
+
+        public bool IsUsingLightTheme()
+        {
+            // Check if any of the merged dictionaries contains lighttheme.xaml
+            return Application.Current.Resources.MergedDictionaries
+                .Any(dict => dict.Source != null && dict.Source.OriginalString.EndsWith("LightTheme.xaml", StringComparison.OrdinalIgnoreCase));
+
         }
     }
 }

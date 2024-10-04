@@ -134,6 +134,8 @@ namespace SorWpfApp
                     Source = new Uri("LightTheme.xaml", UriKind.Relative)
                 });
                 window.Background = Brushes.White;
+                navbar.Background = Brushes.White;
+                
                 
 
             }
@@ -147,6 +149,7 @@ namespace SorWpfApp
                     Source = new Uri("DarkTheme.xaml", UriKind.Relative)
                 });
                 window.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF262627"));
+                navbar.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF343538"));
 
             }
         }

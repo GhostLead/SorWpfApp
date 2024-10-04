@@ -15,7 +15,7 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Column="0" Width="275" Height="575">
-            <Border Name="userCard" CornerRadius="5" Width="200" Height="250" Background="White" Margin="0,15,0,0">
+            <Border Style="{DynamicResource borderback}" Name="userCard" CornerRadius="5" Width="200" Height="250" Margin="0,15,0,0">
                 <Border.Effect>
                     <DropShadowEffect Color="Black" BlurRadius="12" Opacity=".7" ShadowDepth="0"/>
                 </Border.Effect>
@@ -34,7 +34,7 @@
                     </Button>
                 </StackPanel>
             </Border>
-            <Border x:Name="informCard" CornerRadius="5" Width="200" Height="250" Background="White" Margin="0,25,0,0">
+            <Border Style="{DynamicResource borderback}" x:Name="informCard" CornerRadius="5" Width="200" Height="250" Margin="0,25,0,0">
                 <Border.Effect>
                     <DropShadowEffect Color="Black" BlurRadius="12" Opacity=".7" ShadowDepth="0"/>
                 </Border.Effect>
@@ -55,22 +55,22 @@
                     <Label x:Name="lbszoveg1" FontFamily="arial" FontSize="18" FontWeight="DemiBold" Content="82" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
                     <Label x:Name="lbszoveg2" FontSize="16" FontWeight="DemiBold" Content="Fogadás" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"/>
                     <Label x:Name="lbszoveg3" FontFamily="arial" FontSize="18" FontWeight="DemiBold" Content="150.000" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                    <TextBlock x:Name="lbszoveg4" FontSize="16" FontWeight="DemiBold" Text="Kifizetett összeg" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" TextWrapping="Wrap"/>
+                    <TextBlock Style="{DynamicResource txtb}" x:Name="lbszoveg4" FontSize="16" FontWeight="DemiBold" Text="Kifizetett összeg" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" TextWrapping="Wrap"/>
                     <Label x:Name="lbszoveg5" FontFamily="arial" FontSize="18" FontWeight="DemiBold" Content="300.000" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                    <TextBlock x:Name="lbszoveg6" FontSize="16" FontWeight="DemiBold" Text="Feltöltött összeg" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" TextWrapping="Wrap"/>
+                    <TextBlock Style="{DynamicResource txtb}" x:Name="lbszoveg6" FontSize="16" FontWeight="DemiBold" Text="Feltöltött összeg" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" TextWrapping="Wrap"/>
                     <Label x:Name="lbszoveg7" FontFamily="arial" FontSize="18" FontWeight="DemiBold" Content="3x" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
                     <Label x:Name="lbszoveg8" FontSize="16" FontWeight="DemiBold" Content="Deaktiválva" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center"/>
                 </Grid>
             </Border>
         </StackPanel>
         <StackPanel Grid.Column="1" Width="715">
-            <Border x:Name="title1" Background="White" Margin="20,20,20,5" CornerRadius="5">
+            <Border Style="{DynamicResource borderback}" x:Name="title1" Margin="20,20,20,5" CornerRadius="5">
                 <Border.Effect>
                     <DropShadowEffect Color="Black" BlurRadius="12" Opacity=".7" ShadowDepth="0"/>
                 </Border.Effect>
-                <Label FontFamily="calibri" Content="Tranzakciós előzmények" FontSize="20" FontWeight="Regular"/>
+                <Label x:Name="Title1" FontFamily="calibri" Content="Tranzakciós előzmények" FontSize="20" FontWeight="Regular"/>
             </Border>
-            <Border x:Name="sectionTransactionHistory" Background="White" Height="200" Margin="20,0,20,20" CornerRadius="5">
+            <Border Style="{DynamicResource borderback}" x:Name="sectionTransactionHistory" Height="200" Margin="20,0,20,20" CornerRadius="5">
                 <Border.Effect>
                     <DropShadowEffect Color="Black" BlurRadius="12" Opacity=".7" ShadowDepth="0"/>
                 </Border.Effect>
@@ -82,12 +82,12 @@
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <Label Height="30" Grid.Row="0" Grid.Column="0" Content="Dátum" HorizontalAlignment="Center" FontSize="15"/>
-                        <Label Height="30" Grid.Row="0" Grid.Column="1" Content="Típus" HorizontalAlignment="Center" FontSize="15"/>
-                        <Label Height="30" Grid.Row="0" Grid.Column="2" Content="Valami" HorizontalAlignment="Center" FontSize="15"/>
-                        <Label Height="30" Grid.Row="0" Grid.Column="3" Content="Összeg" HorizontalAlignment="Center" FontSize="15"/>
+                        <Label x:Name="lb1" Height="30" Grid.Row="0" Grid.Column="0" Content="Dátum" HorizontalAlignment="Center" FontSize="15"/>
+                        <Label x:Name="lb2" Height="30" Grid.Row="0" Grid.Column="1" Content="Típus" HorizontalAlignment="Center" FontSize="15"/>
+                        <Label x:Name="lb3" Height="30" Grid.Row="0" Grid.Column="2" Content="Valami" HorizontalAlignment="Center" FontSize="15"/>
+                        <Label x:Name="lb4" Height="30" Grid.Row="0" Grid.Column="3" Content="Összeg" HorizontalAlignment="Center" FontSize="15"/>
                     </Grid>
-                    <Separator Grid.Row="0" Grid.ColumnSpan="4" BorderBrush="Black" VerticalAlignment="Bottom" BorderThickness="2" Margin="10,0,10,0"/>
+                    <Separator x:Name="sep1" Grid.Row="0" Grid.ColumnSpan="4" BorderBrush="Black" VerticalAlignment="Bottom" BorderThickness="2" Margin="10,0,10,0"/>
                     <ScrollViewer x:Name="scroll1" Height="125" HorizontalScrollBarVisibility="Hidden">
                         <StackPanel Orientation="Vertical">
                             <Grid>
@@ -105,7 +105,7 @@
                         </StackPanel>
                         
                     </ScrollViewer>
-                    <Separator BorderBrush="Black" BorderThickness="2"/>
+                    <Separator x:Name="sep2" BorderBrush="Black" BorderThickness="2"/>
                     <Grid Margin="0,5,0,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="350"/>
@@ -115,7 +115,7 @@
                         <Border Margin="10,0,0,0" Grid.Column="0" Width="150" BorderThickness="1" CornerRadius="20" Background="#FFFFCF4D">
                             <StackPanel Orientation="Horizontal" Width="330">
                                 <Label Content="ÖSSZEG" Margin="25,0,0,0" Foreground="Gray" FontWeight="DemiBold"/>
-                                <Label x:Name="lblOsszegBalance" Content="100 Ft" HorizontalAlignment="Left" Margin="0,0,-150,0" FontWeight="DemiBold"/>
+                                <Label x:Name="lblOsszegBalance" Content="100 Ft" Foreground="Black" HorizontalAlignment="Left" Margin="0,0,-150,0" FontWeight="DemiBold"/>
                             </StackPanel>
                         </Border>
                         
@@ -124,13 +124,13 @@
                     </Grid>
                 </StackPanel>
             </Border>
-            <Border x:Name="title2" Background="White" Margin="20,0,20,5" CornerRadius="5">
+            <Border Style="{DynamicResource borderback}" x:Name="title2" Margin="20,0,20,5" CornerRadius="5">
                 <Border.Effect>
                     <DropShadowEffect Color="Black" BlurRadius="12" Opacity=".7" ShadowDepth="0"/>
                 </Border.Effect>
-                <Label FontFamily="calibri" Content="Fogadási előzmények" FontSize="20" FontWeight="Regular"/>
+                <Label x:Name="Title2" FontFamily="calibri" Content="Fogadási előzmények" FontSize="20" FontWeight="Regular"/>
             </Border>
-            <Border x:Name="sectionBetHistory" Background="White" Height="225" Margin="20,0,20,5" CornerRadius="5">
+            <Border Style="{DynamicResource borderback}" x:Name="sectionBetHistory"  Height="225" Margin="20,0,20,5" CornerRadius="5">
                 <Border.Effect>
                     <DropShadowEffect Color="Black" BlurRadius="12" Opacity=".7" ShadowDepth="0"/>
                 </Border.Effect>
