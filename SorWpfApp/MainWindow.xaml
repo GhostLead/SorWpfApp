@@ -6,6 +6,9 @@
         xmlns:local="clr-namespace:SorWpfApp"
         mc:Ignorable="d"
         Title="MainWindow" Height="770" Width="1150" Background="Transparent" AllowsTransparency="True" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    
+    
+    
     <Border Margin="20">
         <Border x:Name="window" Margin="20" Background="#FF262627" CornerRadius="1.5">
             <Border.Effect>

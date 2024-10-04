@@ -14,7 +14,7 @@
         <StackPanel>
             <Frame x:Name="Container" Margin="20,20,20,10" Height="430" NavigationUIVisibility="Hidden"/>
             
-            <Button x:Name="btnLogReg" Style="{DynamicResource TransparentButton}" Content="Nincs fiókom / Regisztrálok" FontWeight="Bold" Margin="0,-15,0,5" HorizontalAlignment="Center" Click="btnLogReg_Click"/>
+            <Button x:Name="btnLogReg" Style="{DynamicResource TransparentButton}" Foreground="Black" Content="Nincs fiókom / Regisztrálok" FontWeight="Bold" Margin="0,-15,0,5" HorizontalAlignment="Center" Click="btnLogReg_Click"/>
             <Button x:Name="btnLogin" Style="{DynamicResource GeneralButton}" BorderBrush="Transparent" Content="Bejelentkezés" HorizontalAlignment="Center" Width="180" Height="45" Click="btnLogin_Click"/>
         </StackPanel>
     </Border>

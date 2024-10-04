@@ -217,6 +217,16 @@
     </Style>
 
 
+    <Style TargetType="Label">
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
 
+    <Style x:Key="borderback" TargetType="Border">
+        <Setter Property="Background" Value="#FF343538"/>
+    </Style>
+
+    <Style x:Key="txtb" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
 
 </ResourceDictionary>
