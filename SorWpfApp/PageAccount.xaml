@@ -27,7 +27,7 @@
                             <DropShadowEffect Color="Black" BlurRadius="5" Opacity="1" ShadowDepth=".5"/>
                         </Label.Effect>
                     </Label>
-                    <Button x:Name="btnLogOut" Content="Kijelentkezés" Foreground="Red" Margin="0,30,0,0" Width="150" Height="25" Style="{DynamicResource TransparentButton}">
+                    <Button x:Name="btnLogOut" Content="Kijelentkezés" Foreground="Red" Margin="0,30,0,0" Width="150" Height="25" Style="{DynamicResource TransparentButton}" Click="btnLogOut_Click">
                         <Button.Effect>
                             <DropShadowEffect Color="Gray" BlurRadius="1" Opacity="1" ShadowDepth=".5"/>
                         </Button.Effect>
