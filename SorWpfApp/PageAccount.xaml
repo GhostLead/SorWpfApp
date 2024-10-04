@@ -51,15 +51,15 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
 
-                    <Label x:Name="lbinfotitle" Content="Fogadási Információk" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="DemiBold" FontSize="18"/>
-                    <Label x:Name="lbszoveg1" FontFamily="arial" FontSize="18" FontWeight="DemiBold" Content="82" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                    <Label x:Name="lbszoveg2" FontSize="16" FontWeight="DemiBold" Content="Fogadás" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"/>
-                    <Label x:Name="lbszoveg3" FontFamily="arial" FontSize="18" FontWeight="DemiBold" Content="150.000" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                    <TextBlock Style="{DynamicResource txtb}" x:Name="lbszoveg4" FontSize="16" FontWeight="DemiBold" Text="Kifizetett összeg" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" TextWrapping="Wrap"/>
-                    <Label x:Name="lbszoveg5" FontFamily="arial" FontSize="18" FontWeight="DemiBold" Content="300.000" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                    <TextBlock Style="{DynamicResource txtb}" x:Name="lbszoveg6" FontSize="16" FontWeight="DemiBold" Text="Feltöltött összeg" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" TextWrapping="Wrap"/>
-                    <Label x:Name="lbszoveg7" FontFamily="arial" FontSize="18" FontWeight="DemiBold" Content="3x" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-                    <Label x:Name="lbszoveg8" FontSize="16" FontWeight="DemiBold" Content="Deaktiválva" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center"/>
+                    <Label x:Name="lbinfotitle" Content="Egyéb Információk" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="DemiBold" FontSize="18"/>
+                    <TextBlock Style="{DynamicResource txtb}" x:Name="lbszoveg2" FontSize="16" FontWeight="DemiBold" TextWrapping="Wrap" Text="Fogadások száma: " Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"/>
+                    <Label x:Name="lblFogadasok" FontFamily="arial" FontSize="18" FontWeight="DemiBold" Content="82" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                    <TextBlock Style="{DynamicResource txtb}" x:Name="lbszoveg4" FontSize="16" FontWeight="DemiBold" Text="Elköltött összeg" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" TextWrapping="Wrap"/>
+                    <Label x:Name="lblElkoltott" FontFamily="arial" FontSize="18" FontWeight="DemiBold" Content="150.000" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                    <Label x:Name="lblFeltoltott" FontFamily="arial" FontSize="16" FontWeight="DemiBold" Content="Email: " Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                    <TextBlock Style="{DynamicResource txtb}" x:Name="lblEmail" FontSize="16" FontWeight="DemiBold" Text="Email helye" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" TextWrapping="Wrap"/>
+                    <TextBlock Style="{DynamicResource txtb}"  x:Name="lblDeaktivalva" FontFamily="arial" FontSize="16" TextWrapping="Wrap" FontWeight="DemiBold" Text="Csatlakozás dátuma: " Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <Label x:Name="lblJoinDate" FontSize="16" FontWeight="DemiBold" Content="Deaktiválva" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center"/>
                 </Grid>
             </Border>
         </StackPanel>
@@ -134,9 +134,36 @@
                 <Border.Effect>
                     <DropShadowEffect Color="Black" BlurRadius="12" Opacity=".7" ShadowDepth="0"/>
                 </Border.Effect>
-                <Grid>
+                <StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Label Height="30" Grid.Row="0" Grid.Column="0" Content="Event" HorizontalAlignment="Center" FontSize="15"/>
+                        <Label Height="30" Grid.Row="0" Grid.Column="1" Content="Event Date" HorizontalAlignment="Center" FontSize="15"/>
+                        <Label Height="30" Grid.Row="0" Grid.Column="2" Content="Odds" HorizontalAlignment="Center" FontSize="15"/>
+                        <Label Height="30" Grid.Row="0" Grid.Column="3" Content="Amount" HorizontalAlignment="Center" FontSize="15"/>
+                        <Label Height="30" Grid.Row="0" Grid.Column="4" Content="Status" HorizontalAlignment="Center" FontSize="15"/>
+                    </Grid>
+                    <Grid x:Name="grdElozmeny">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        
+                    </Grid>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <StackPanel x:Name="scrollContent" Orientation="Vertical" Margin="5"/>
+                    </ScrollViewer>
 
-                </Grid>
+                </StackPanel>
             </Border>
 
         </StackPanel>
