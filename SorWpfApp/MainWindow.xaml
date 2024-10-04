@@ -21,7 +21,7 @@
                     </Border.Effect>
                     <StackPanel Orientation="Horizontal" Width="1000" Height="50">
                         <Image Width="70" Height="70" Source="/best-beer-logo-icon-design-vector-white.jpg" Margin="15,-5,0,0"/>
-                        <Button x:Name="btnThemeToggle" Width="30" Height="30" Content="🌙" FontSize="20" Style="{DynamicResource TransparentButton}" Margin="50,0,0,0" Click="btnThemeToggle_Click"/>
+                        <Button x:Name="btnThemeToggle" Width="30" Height="30" Content="☀" FontSize="20" Style="{DynamicResource ThemeChanger}" Margin="50,0,0,0" Click="btnThemeToggle_Click"/>
                         <Button x:Name="btnOrganizer" Content="Organizer" Style="{DynamicResource NavButton}" Height="22" FontWeight="Bold" FontSize="15" Margin="70,0,0,0" Click="btnOrganizer_Click"/>
                         <Button x:Name="btnAdmin" Content="Admin" Style="{DynamicResource NavButton}" Height="22" FontWeight="Bold" FontSize="15" Margin="30,0,0,0" Click="btnAdmin_Click"/>
                         <Button x:Name="btnFogadas" Content="Fogadás" Style="{DynamicResource NavButton}" Height="22" FontWeight="Bold" FontSize="15" Margin="30,0,0,0" Click="btnFogadas_Click"/>
