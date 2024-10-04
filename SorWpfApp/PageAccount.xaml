@@ -96,7 +96,7 @@
                     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Height="200" Width="325" Margin="65,0,0,0">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,38,0,0">
                             <Label Content="Egyenleg:" FontSize="18" FontWeight="Bold" FontFamily="arial" FontStyle="Italic" VerticalAlignment="Center"/>
-                            <Label x:Name="egyenleglabel" Foreground="Lime" Content="500 Ft" FontSize="35" FontWeight="Bold" FontFamily="arial" Margin="13,0,0,0" HorizontalAlignment="Right">
+                            <Label x:Name="egyenleglabel"  Foreground="Lime" Content="500 Ft" FontSize="35" FontWeight="Bold" FontFamily="arial" Margin="13,0,0,0" HorizontalAlignment="Right">
                                 <Label.Effect>
                                     <DropShadowEffect Color="Black" BlurRadius="1.5" Opacity="1" ShadowDepth=".5"/>
                                 </Label.Effect>
