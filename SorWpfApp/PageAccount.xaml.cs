@@ -39,7 +39,7 @@ namespace SorWpfApp
             loadBets();
             loadEvents();
             addEventCards();
-            lbusername.Content = user.username;
+            lbusername.Content = user.username.ToUpper();
             txtUsername.Text = user.username;
             lblFogadasok.Content = fogadasokSzama;
             egyenleglabel.Content = user.balance + " Ft";
@@ -123,22 +123,30 @@ namespace SorWpfApp
 
                     titleLabel.Content = eventName;
                     titleLabel.FontWeight = FontWeights.Bold;
+                    titleLabel.HorizontalAlignment = HorizontalAlignment.Center;
+                    titleLabel.VerticalAlignment = VerticalAlignment.Center;
                     grdElozmeny.Children.Add(titleLabel);
                     Grid.SetColumn(titleLabel, 0);
                     Grid.SetRow(titleLabel, kartyaIndex);
 
 
-                    lblDate.Content = "\t"+date;
+                    lblDate.Content = date;
+                    lblDate.HorizontalAlignment = HorizontalAlignment.Center;
+                    lblDate.VerticalAlignment = VerticalAlignment.Center;
                     grdElozmeny.Children.Add(lblDate);
                     Grid.SetColumn(lblDate, 1);
                     Grid.SetRow(lblDate, kartyaIndex);
 
-                    lblOdds.Content = "\t" + odds;
+                    lblOdds.Content = odds;
+                    lblOdds.HorizontalAlignment = HorizontalAlignment.Center;
+                    lblOdds.VerticalAlignment = VerticalAlignment.Center;
                     grdElozmeny.Children.Add(lblOdds);
                     Grid.SetColumn(lblOdds, 2);
                     Grid.SetRow(lblOdds, kartyaIndex);
 
-                    lblPrice.Content = "\t" + price;
+                    lblPrice.Content = price;
+                    lblPrice.HorizontalAlignment = HorizontalAlignment.Center;
+                    lblPrice.VerticalAlignment = VerticalAlignment.Center;
                     grdElozmeny.Children.Add(lblPrice);
                     Grid.SetColumn(lblPrice, 3);
                     Grid.SetRow(lblPrice, kartyaIndex);
@@ -146,26 +154,21 @@ namespace SorWpfApp
 
                     if (active == 1)
                     {
-                        lblActive.Content = "\tActive";
+                        lblActive.Content = "Active";
 
 
                     }
                     else
                     {
-                        lblActive.Content = "\tInactive";
+                        lblActive.Content = "Inactive";
 
                     }
+                    lblActive.HorizontalAlignment = HorizontalAlignment.Center;
+                    lblActive.VerticalAlignment = VerticalAlignment.Center;
                     grdElozmeny.Children.Add(lblActive);
                     Grid.SetColumn(lblActive, 4);
-                    Grid.SetRow(lblActive, kartyaIndex);
-                
-            
-            kartyaIndex++;
-            
-            
-
-           
-
+                    Grid.SetRow(lblActive, kartyaIndex);            
+                    kartyaIndex++;
         }
         private void addEventCards()
         {
