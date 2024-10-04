@@ -19,9 +19,7 @@ namespace SorWpfApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        private bool IsLightModeActive = true;
-        private string backgroundcolor = "#FF2D2E35";
-        private string navbarBackgroundColor = "#FF2E2E31";
+        private bool IsDarkModeOn = true;
         static Bettor bejelentkezettBettor;
         public MainWindow()
         {
@@ -43,23 +41,6 @@ namespace SorWpfApp
         {
             DragMove();
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         private void btnFogadas_Click(object sender, RoutedEventArgs e)
         {
@@ -124,10 +105,9 @@ namespace SorWpfApp
 
         private void btnThemeToggle_Click(object sender, RoutedEventArgs e)
         {
-            if (IsLightModeActive)
+            if (IsDarkModeOn)
             {
                 btnThemeToggle.Content = "🌙";
-                IsLightModeActive = false;
                 Application.Current.Resources.MergedDictionaries.Clear();
                 Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary
                 {
@@ -135,14 +115,13 @@ namespace SorWpfApp
                 });
                 window.Background = Brushes.White;
                 navbar.Background = Brushes.White;
-                
-                
+                IsDarkModeOn = false;
+
 
             }
             else
             {
                 btnThemeToggle.Content = "☀";
-                IsLightModeActive = true;
                 Application.Current.Resources.MergedDictionaries.Clear();
                 Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary
                 {
@@ -150,13 +129,9 @@ namespace SorWpfApp
                 });
                 window.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF262627"));
                 navbar.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF343538"));
-
+                IsDarkModeOn = true;
             }
         }
 
-        private void ToggleTheme_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
     }
 }

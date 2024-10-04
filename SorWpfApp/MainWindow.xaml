@@ -10,12 +10,12 @@
     
     
     <Border Margin="20">
-        <Border x:Name="window" Margin="20" Background="#FF262627" CornerRadius="1.5">
+        <Border x:Name="window" Margin="20" Style="{DynamicResource borderback}" CornerRadius="1.5">
             <Border.Effect>
                 <DropShadowEffect Direction="0" BlurRadius="12" Opacity="1" ShadowDepth="0"/>
             </Border.Effect>
             <StackPanel>
-                <Border x:Name="navbar" Width="1000" Height="60" Margin="20" Background="#FF343538" CornerRadius="5" MouseLeftButtonDown="Border_MouseLeftButtonDown">
+                <Border x:Name="navbar" Width="1000" Height="60" Margin="20" Style="{DynamicResource borderback}" CornerRadius="5" MouseLeftButtonDown="Border_MouseLeftButtonDown">
                     <Border.Effect>
                         <DropShadowEffect Color="Black" BlurRadius="12" Opacity=".7" ShadowDepth="0"/>
                     </Border.Effect>
@@ -31,7 +31,7 @@
 
                         <StackPanel Margin="75,0,0,0">
                             <Label x:Name="lblUsername" Content="Username" Foreground="Gray" FontSize="13" FontWeight="DemiBold" HorizontalAlignment="Right" Margin="0,0,0,-5"/>
-                            <Label x:Name="lblBalance" Content="100 Ft" Foreground="Black" FontWeight="Bold" HorizontalAlignment="Right"/>
+                            <Label x:Name="lblBalance" Content="100 Ft" FontWeight="Bold" HorizontalAlignment="Right"/>
                         </StackPanel>
                         <Image Width="60" Height="60" Source="/userimg.jpg" Margin="0,-5,0,0"/>
 

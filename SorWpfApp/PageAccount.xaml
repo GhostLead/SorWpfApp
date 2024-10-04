@@ -52,14 +52,14 @@
                     </Grid.RowDefinitions>
 
                     <Label x:Name="lbinfotitle" Content="Egyéb Információk" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="DemiBold" FontSize="18"/>
-                    <TextBlock Style="{DynamicResource txtb}" x:Name="lbszoveg2" FontSize="16" FontWeight="DemiBold" TextWrapping="Wrap" Text="Fogadások száma: " Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"/>
-                    <Label x:Name="lblFogadasok" FontFamily="arial" FontSize="18" FontWeight="DemiBold" Content="82" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                    <TextBlock Style="{DynamicResource txtb}" x:Name="lbszoveg4" FontSize="16" FontWeight="DemiBold" Text="Elköltött összeg" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" TextWrapping="Wrap"/>
-                    <Label x:Name="lblElkoltott" FontFamily="arial" FontSize="18" FontWeight="DemiBold" Content="150.000" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                    <TextBlock Style="{DynamicResource txtb}" x:Name="lbszoveg2" FontSize="16" FontWeight="DemiBold" TextWrapping="Wrap" Text="Fogadások száma: " Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" TextAlignment="Right"/>
+                    <Label x:Name="lblFogadasok" FontFamily="arial" FontSize="18" FontWeight="DemiBold" Content="82" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                    <TextBlock Style="{DynamicResource txtb}" x:Name="lbszoveg4" FontSize="16" FontWeight="DemiBold" Text="Elköltött összeg" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" TextWrapping="Wrap" HorizontalAlignment="Right" TextAlignment="Right"/>
+                    <Label x:Name="lblElkoltott" FontFamily="arial" FontSize="18" FontWeight="DemiBold" Content="150.000" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left"/>
                     <Label x:Name="lblFeltoltott" FontFamily="arial" FontSize="16" FontWeight="DemiBold" Content="Email: " Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                    <TextBlock Style="{DynamicResource txtb}" x:Name="lblEmail" FontSize="16" FontWeight="DemiBold" Text="Email helye" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" TextWrapping="Wrap"/>
-                    <TextBlock Style="{DynamicResource txtb}"  x:Name="lblDeaktivalva" FontFamily="arial" FontSize="16" TextWrapping="Wrap" FontWeight="DemiBold" Text="Csatlakozás dátuma: " Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-                    <Label x:Name="lblJoinDate" FontSize="16" FontWeight="DemiBold" Content="Deaktiválva" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center"/>
+                    <TextBlock Style="{DynamicResource txtb}" x:Name="lblEmail" FontSize="13" FontWeight="DemiBold" Text="Email helye" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" TextWrapping="Wrap"/>
+                    <TextBlock Style="{DynamicResource txtb}"  x:Name="lblDeaktivalva" FontFamily="arial" FontSize="16" TextWrapping="Wrap" FontWeight="DemiBold" Text="Csatlakozás dátuma: " Grid.Row="4" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" TextAlignment="Right"/>
+                    <Label x:Name="lblJoinDate" FontSize="16" FontWeight="DemiBold" Content="ok" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center"/>
                 </Grid>
             </Border>
         </StackPanel>
@@ -134,6 +134,7 @@
                         <Label Height="30" Grid.Row="0" Grid.Column="3" Content="Amount" HorizontalAlignment="Center" FontSize="15"/>
                         <Label Height="30" Grid.Row="0" Grid.Column="4" Content="Status" HorizontalAlignment="Center" FontSize="15"/>
                     </Grid>
+                    <Separator  Margin="10,0,10,0"/>
                     <Grid x:Name="grdElozmeny">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>

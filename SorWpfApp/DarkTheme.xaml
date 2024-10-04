@@ -266,4 +266,10 @@
         <Setter Property="Foreground" Value="White"/>
     </Style>
 
+    <Style TargetType="Separator">
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="BorderBrush" Value="White"/>
+        <Setter Property="BorderThickness" Value="2"/>
+    </Style>
+    
 </ResourceDictionary>

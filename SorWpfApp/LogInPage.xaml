@@ -8,16 +8,16 @@
       d:DesignHeight="480" d:DesignWidth="280"
       Title="LogInPage">
 
-    <StackPanel x:Name="window" Height="430">
+    <StackPanel x:Name="window" Height="430" FocusManager.FocusedElement="{Binding ElementName=txtUsername}">
         <StackPanel Orientation="Horizontal">
             <Label Content="Bejelentkezés" FontFamily="times new roman" FontSize="23" FontWeight="Bold"/>
             <Button x:Name="btnShutdown" Content="X" Style="{DynamicResource ShutdownButton}" Width="20" Height="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="0" Margin="93,0,0,0" Click="btnShutdown_Click"/>
         </StackPanel>
         <Label Content="Jelentkezz be a fiókodba" Margin="0,-5,0,0" FontSize="11"/>
         <Label Content="Felhasználónév" Margin="0,40,0,0"/>
-        <TextBox x:Name="txtUsername" Style="{DynamicResource LogRegTextbox}" Width="270" Height="37" Padding="10" HorizontalAlignment="Left" Margin="5,0,0,0" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" TextChanged="txtUsername_TextChanged"/>
+        <TextBox x:Name="txtUsername" Text="speedster01" Style="{DynamicResource LogRegTextbox}" Width="270" Height="37" Padding="10" HorizontalAlignment="Left" Margin="5,0,0,0" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" TextChanged="txtUsername_TextChanged"/>
         <Label Content="Jelszó" Margin="0,15,0,0"/>
-        <PasswordBox x:Name="passPassword" Style="{DynamicResource PasswordBox}" Width="270" Height="37" Padding="10" HorizontalAlignment="Left" Margin="5,0,0,0"  HorizontalContentAlignment="Left" VerticalContentAlignment="Center" PasswordChanged="passPassword_PasswordChanged"/>
+        <PasswordBox x:Name="passPassword" Password="hashed_password1" Style="{DynamicResource PasswordBox}" Width="270" Height="37" Padding="10" HorizontalAlignment="Left" Margin="5,0,0,0"  HorizontalContentAlignment="Left" VerticalContentAlignment="Center" PasswordChanged="passPassword_PasswordChanged"/>
         <Button Style="{DynamicResource TransparentButton}" Content="Elfelejtetted a jelszavad?" FontWeight="Bold" Margin="5,10,0,0" HorizontalAlignment="Left"/>
         
         

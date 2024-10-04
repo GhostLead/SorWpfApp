@@ -186,7 +186,7 @@ namespace SorWpfApp
             }
             if (isAdmin)
             {
-                MessageBox.Show("Ügyi vagy admin");
+                
                 //ApplicationWindow win = new ApplicationWindow();
                 MainWindow mainwin = new MainWindow();
                 mainwin.Show();
@@ -194,7 +194,7 @@ namespace SorWpfApp
             }
             else if (isOrganizer)
             {
-                MessageBox.Show("Ügyi vagy Ork");
+                
                 // ApplicationWindow win = new ApplicationWindow();
                 MainWindow mainwin = new MainWindow();
                 mainwin.Show();
@@ -209,15 +209,15 @@ namespace SorWpfApp
             }
             else if (vanNev && !vanJelszo)
             {
-                MessageBox.Show("Hibás a jelszó!");
+                MessageBox.Show("Hibás a jelszó!","Hiba!",MessageBoxButton.OK,MessageBoxImage.Stop);
             }
             else if (!vanNev && vanJelszo)
             {
-                MessageBox.Show("Hibás a felhasználónév!");
+                MessageBox.Show("Hibás a felhasználónév!", "Hiba!", MessageBoxButton.OK, MessageBoxImage.Stop);
             }
             else
             {
-                MessageBox.Show("Nincs regisztálva ilyen fiók!");
+                MessageBox.Show("Nincs regisztálva ilyen fiók!", "Hiba!", MessageBoxButton.OK, MessageBoxImage.Stop);
             }
         }
 
@@ -321,7 +321,7 @@ namespace SorWpfApp
             }
             if (vanHiba)
             {
-                MessageBox.Show(hibaÜzenet);
+                MessageBox.Show(hibaÜzenet, "Hiba!", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             else
             {
