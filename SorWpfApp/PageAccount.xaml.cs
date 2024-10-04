@@ -36,15 +36,17 @@ namespace SorWpfApp
         public PageAccount()
         {
             InitializeComponent();
-            lblOsszegBalance.Content = user.balance + " Ft";
-            lbusername.Content = user.username;
             loadBets();
-            lblFogadasok.Content = fogadasokSzama;
-            lblElkoltott.Content = osszesKoltes + " Ft";
-            lblEmail.Text = user.email;
-            lblJoinDate.Content = user.joinDate;
             loadEvents();
             addEventCards();
+            lbusername.Content = user.username;
+            txtUsername.Text = user.username;
+            lblFogadasok.Content = fogadasokSzama;
+            egyenleglabel.Content = user.balance + " Ft";
+            lblElkoltott.Content = osszesKoltes + " Ft";
+            lblEmail.Text = user.email;
+            txtEmail.Text = user.email;
+            lblJoinDate.Content = user.joinDate;
         }
 
         private void loadBets()
@@ -220,7 +222,7 @@ namespace SorWpfApp
             {
                 txtUsername.IsEnabled = true;
                 txtPassword.Visibility = Visibility.Visible;
-                txtPassword.Text = "examplepassword";
+                txtPassword.Text = user.password;
                 txtPassword.IsEnabled = true;
                 passPassword.Visibility = Visibility.Hidden;
                 txtEmail.IsEnabled = true;
@@ -231,7 +233,7 @@ namespace SorWpfApp
             {
                 txtUsername.IsEnabled = false;
                 txtPassword.Visibility = Visibility.Hidden;
-                txtPassword.Text = "examplepassword";
+                txtPassword.Text = user.password;
                 txtPassword.IsEnabled = false;
                 passPassword.Visibility = Visibility.Visible;
                 txtEmail.IsEnabled = false;
