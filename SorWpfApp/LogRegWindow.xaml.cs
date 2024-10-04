@@ -324,7 +324,7 @@ namespace SorWpfApp
             {
                 userUpload();
                 
-                MessageBox.Show("Köszönjük a regisztrálását!\nKöszönetünk jeleként jóváírtunk 10000 Ft kezdő összeget a fiókján!");
+                MessageBox.Show("Köszönjük a regisztrálását!","",MessageBoxButton.OK,MessageBoxImage.Hand);
                 ////ApplicationWindow appwin = new ApplicationWindow();
                 var logRegWindow = Application.Current.Windows.OfType<LogRegWindow>().FirstOrDefault();
                 if (logRegWindow != null)

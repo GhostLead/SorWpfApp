@@ -21,27 +21,13 @@ namespace SorWpfApp
     public partial class PageAccount : Page
     {
         string backgroundcolor = "#FF343538";
+        private static bool modosit = false;
         
         public PageAccount()
         {
             InitializeComponent();
-            if (IsUsingLightTheme())
-            {
-                title1.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(backgroundcolor));
-                Title1.Foreground = Brushes.White;
-                sectionTransactionHistory.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(backgroundcolor));
-                lb1.Foreground = Brushes.White;
-                lb2.Foreground = Brushes.White;
-                lb3.Foreground = Brushes.White;
-                lb4.Foreground = Brushes.White;
-
-                InitializeComponent();
-            }
-            else
-            {
-
-            }
-            lblOsszegBalance.Content = UserAtkuldese.bejelentkezettFogado.balance+" Ft";
+            
+            
         }
 
         public bool IsUsingLightTheme()
@@ -49,6 +35,34 @@ namespace SorWpfApp
             // Check if any of the merged dictionaries contains lighttheme.xaml
             return Application.Current.Resources.MergedDictionaries
                 .Any(dict => dict.Source != null && dict.Source.OriginalString.EndsWith("LightTheme.xaml", StringComparison.OrdinalIgnoreCase));
+        }
+
+        private void btnModosit_Click(object sender, RoutedEventArgs e)
+        {
+            if (!modosit)
+            {
+                txtUsername.IsEnabled = true;
+                txtPassword.Visibility = Visibility.Visible;
+                txtPassword.Text = "examplepassword";
+                txtPassword.IsEnabled = true;
+                passPassword.Visibility = Visibility.Hidden;
+                txtEmail.IsEnabled = true;
+                btnModosit.Content = "💾";
+                modosit = true;
+            }
+            else
+            {
+                txtUsername.IsEnabled = false;
+                txtPassword.Visibility = Visibility.Hidden;
+                txtPassword.Text = "examplepassword";
+                txtPassword.IsEnabled = false;
+                passPassword.Visibility = Visibility.Visible;
+                txtEmail.IsEnabled = false;
+                btnModosit.Content = "✏";
+                modosit = false;
+            }
+
+            
         }
     }
 }
