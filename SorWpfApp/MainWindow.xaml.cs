@@ -48,7 +48,7 @@ namespace SorWpfApp
             dropShadowEffect.Opacity = 1;
             dropShadowEffect.BlurRadius = 10;
             dropShadowEffect.ShadowDepth = 1;
-            dropShadowEffect.Color = Colors.Yellow;
+            dropShadowEffect.Color = Colors.DarkOrange;
             btnFogadas.Effect = dropShadowEffect;
             btnAdmin.Effect = null;
             btnOrganizer.Effect = null;
@@ -62,7 +62,7 @@ namespace SorWpfApp
             dropShadowEffect.Opacity = 1;
             dropShadowEffect.BlurRadius = 10;
             dropShadowEffect.ShadowDepth = 1;
-            dropShadowEffect.Color = Colors.Yellow;
+            dropShadowEffect.Color = Colors.DarkOrange;
             btnFiok.Effect = dropShadowEffect;
             btnFogadas.Effect = null;
             btnAdmin.Effect = null;
@@ -76,7 +76,7 @@ namespace SorWpfApp
             dropShadowEffect.Opacity = 1;
             dropShadowEffect.BlurRadius = 10;
             dropShadowEffect.ShadowDepth = 1;
-            dropShadowEffect.Color = Colors.Yellow;
+            dropShadowEffect.Color = Colors.DarkOrange;
             btnAdmin.Effect = dropShadowEffect;
             btnFiok.Effect= null;
             btnFogadas.Effect= null;
@@ -90,7 +90,7 @@ namespace SorWpfApp
             dropShadowEffect.Opacity = 1;
             dropShadowEffect.BlurRadius = 10;
             dropShadowEffect.ShadowDepth = 1;
-            dropShadowEffect.Color = Colors.Yellow;
+            dropShadowEffect.Color = Colors.DarkOrange;
             btnOrganizer.Effect = dropShadowEffect;
             btnAdmin.Effect= null;
             btnFiok.Effect= null;

@@ -198,11 +198,11 @@
                             <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="true">
-                            <Setter Property="Foreground" Value="Gray"/>
+                            <Setter Property="Foreground" Value="#FF2F2F2F"/>
                             <Setter Property="Cursor" Value="Hand"/>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="true">
-                            <Setter Property="Foreground" Value="DarkGray"/>
+                            <Setter Property="Foreground" Value="#FF2F2F2F"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
