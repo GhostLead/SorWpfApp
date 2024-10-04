@@ -32,6 +32,7 @@ namespace SorWpfApp
         static string nev = "";
         static string email = "";
         static string jelszo = "";
+        static int egyenleg = 0;
         bool hasznalva = false;
         static bool vanNev = false;
         static bool vanJelszo = false;
@@ -229,7 +230,7 @@ namespace SorWpfApp
                 {
                     connection.Open();
 
-                    string lekerdezesSzoveg = "INSERT INTO `Bettors`(`Username`, `Password`, `Balance`, `Email`, `IsActive`) VALUES (@nev,@jelszo,'10000',@email,true)";
+                    string lekerdezesSzoveg = "INSERT INTO `Bettors`(`Username`, `Password`, `Balance`, `Email`, `IsActive`) VALUES (@nev,@jelszo,@egyenleg,@email,true)";
 
                     using (var lekerdezes = new MySqlCommand(lekerdezesSzoveg, connection))
                     {
@@ -239,6 +240,7 @@ namespace SorWpfApp
                         lekerdezes.Parameters.AddWithValue("@nev", nev);
                         lekerdezes.Parameters.AddWithValue("@jelszo", jelszo);
                         lekerdezes.Parameters.AddWithValue("@email", email);
+                        lekerdezes.Parameters.AddWithValue("@egyenleg", egyenleg);
 
 
                         lekerdezes.ExecuteNonQuery();
@@ -258,6 +260,7 @@ namespace SorWpfApp
             nev = RegisterClass.Username;
             email = RegisterClass.Email;
             jelszo = RegisterClass.Password;
+            egyenleg = RegisterClass.Balance;
             string emailPattern = @"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$";
             List<string> nevek = new();
             List<string> emailCimek = new();

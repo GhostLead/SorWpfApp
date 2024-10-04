@@ -24,8 +24,19 @@ namespace SorWpfApp
         {
             InitializeComponent();
             lblOsszegBalance.Content = UserAtkuldese.bejelentkezettFogado.balance+" Ft";
+            lbusername.Content = UserAtkuldese.bejelentkezettFogado.username;
+            
         }
 
-        
+        private void btnLogOut_Click(object sender, RoutedEventArgs e)
+        {
+
+            LogRegWindow logRegWindow = new LogRegWindow();
+            logRegWindow.Show();
+
+            var main = Window.GetWindow(this);
+            main.Close();
+            
+        }
     }
 }
