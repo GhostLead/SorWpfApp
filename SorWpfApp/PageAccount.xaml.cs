@@ -206,9 +206,9 @@ namespace SorWpfApp
 
             LogRegWindow logRegWindow = new LogRegWindow();
             logRegWindow.Show();
-
             var main = Window.GetWindow(this);
             main.Close();
+            
         }
 
         public bool IsUsingLightTheme()
@@ -231,9 +231,35 @@ namespace SorWpfApp
                 txtEmail.IsEnabled = true;
                 btnModosit.Content = "💾";
                 modosit = true;
+                
             }
             else
             {
+                MessageBoxResult messageBoxresult = MessageBox.Show("Biztos hogy módosíja a fiókja adatait?\nA módosítás után ismét be kell jelentkezni!", "Fiók módosítása", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (messageBoxresult == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        connection = new MySqlConnection(connectionString);
+                        connection.Open();
+                        string lekerdezesSzoveg = $"UPDATE `bettors` SET `Username`='{txtUsername.Text}',`Password`='{txtPassword.Text}',`Email`='{txtEmail.Text}' WHERE Username = '{user.username}'";
+                        MySqlCommand lekerdezes = new MySqlCommand(lekerdezesSzoveg, connection);
+                        lekerdezes.CommandTimeout = 60;
+                        lekerdezes.ExecuteNonQuery();
+                        connection.Close();
+                        
+                    }
+                    catch (Exception ex)
+                    {
+
+                        MessageBox.Show(ex.Message);
+                    }
+                    LogRegWindow logRegWindow = new LogRegWindow();
+                    logRegWindow.Show();
+                    var ablakBezarasa = Window.GetWindow(this);
+                    ablakBezarasa.Close();
+                }
+
                 txtUsername.IsEnabled = false;
                 txtPassword.Visibility = Visibility.Hidden;
                 txtPassword.Text = user.password;

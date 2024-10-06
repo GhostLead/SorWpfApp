@@ -93,7 +93,7 @@ namespace SorWpfApp
             }
         }
 
-        private  void HandleLogin(object sender, RoutedEventArgs e)
+        private void HandleLogin(object sender, RoutedEventArgs e)
         {
             checkUser(logp);
         }
@@ -186,26 +186,38 @@ namespace SorWpfApp
             }
             if (isAdmin)
             {
-                
-                //ApplicationWindow win = new ApplicationWindow();
+
+
                 MainWindow mainwin = new MainWindow();
                 mainwin.Show();
-                Application.Current.MainWindow.Close();
+                var logRegWindow = Application.Current.Windows.OfType<LogRegWindow>().FirstOrDefault();
+                if (logRegWindow != null)
+                {
+                    logRegWindow.Close();
+                }
             }
             else if (isOrganizer)
             {
-                
-                // ApplicationWindow win = new ApplicationWindow();
+
+
                 MainWindow mainwin = new MainWindow();
                 mainwin.Show();
-                Application.Current.MainWindow.Close();
+                var logRegWindow = Application.Current.Windows.OfType<LogRegWindow>().FirstOrDefault();
+                if (logRegWindow != null)
+                {
+                    logRegWindow.Close();
+                }
             }
             else if (vanNev && vanJelszo)
             {
-                //ApplicationWindow win = new ApplicationWindow();
+
                 MainWindow mainwin = new MainWindow();
                 mainwin.Show();
-                Application.Current.MainWindow.Close();
+                var logRegWindow = Application.Current.Windows.OfType<LogRegWindow>().FirstOrDefault();
+                if (logRegWindow != null)
+                {
+                    logRegWindow.Close();
+                }
             }
             else if (vanNev && !vanJelszo)
             {
