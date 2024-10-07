@@ -145,8 +145,16 @@
                         </Grid.ColumnDefinitions>
                         
                     </Grid>
-                    <ScrollViewer VerticalScrollBarVisibility="Auto">
-                        <StackPanel x:Name="scrollContent" Orientation="Vertical" Margin="5"/>
+                    <ScrollViewer VerticalScrollBarVisibility="Visible">
+                        <Grid x:Name="scrollContent" Margin="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                        </Grid>
                     </ScrollViewer>
 
                 </StackPanel>

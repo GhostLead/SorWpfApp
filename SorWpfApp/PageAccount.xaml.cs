@@ -109,8 +109,8 @@ namespace SorWpfApp
 
         private void AddCard(string eventName, string date, string price, string odds, int active)
         {
-            int sorokSzama = grdElozmeny.RowDefinitions.Count;
-            int oszlopokSzama = grdElozmeny.ColumnDefinitions.Count;
+            int sorokSzama = scrollContent.RowDefinitions.Count;
+            int oszlopokSzama = scrollContent.ColumnDefinitions.Count;
             
             // Create and add the labels (title and description)
             
@@ -125,7 +125,7 @@ namespace SorWpfApp
                     titleLabel.FontWeight = FontWeights.Bold;
                     titleLabel.HorizontalAlignment = HorizontalAlignment.Center;
                     titleLabel.VerticalAlignment = VerticalAlignment.Center;
-                    grdElozmeny.Children.Add(titleLabel);
+                    scrollContent.Children.Add(titleLabel);
                     Grid.SetColumn(titleLabel, 0);
                     Grid.SetRow(titleLabel, kartyaIndex);
 
@@ -133,21 +133,21 @@ namespace SorWpfApp
                     lblDate.Content = date;
                     lblDate.HorizontalAlignment = HorizontalAlignment.Center;
                     lblDate.VerticalAlignment = VerticalAlignment.Center;
-                    grdElozmeny.Children.Add(lblDate);
+                    scrollContent.Children.Add(lblDate);
                     Grid.SetColumn(lblDate, 1);
                     Grid.SetRow(lblDate, kartyaIndex);
 
                     lblOdds.Content = odds;
                     lblOdds.HorizontalAlignment = HorizontalAlignment.Center;
                     lblOdds.VerticalAlignment = VerticalAlignment.Center;
-                    grdElozmeny.Children.Add(lblOdds);
+                    scrollContent.Children.Add(lblOdds);
                     Grid.SetColumn(lblOdds, 2);
                     Grid.SetRow(lblOdds, kartyaIndex);
 
                     lblPrice.Content = price;
                     lblPrice.HorizontalAlignment = HorizontalAlignment.Center;
                     lblPrice.VerticalAlignment = VerticalAlignment.Center;
-                    grdElozmeny.Children.Add(lblPrice);
+                    scrollContent.Children.Add(lblPrice);
                     Grid.SetColumn(lblPrice, 3);
                     Grid.SetRow(lblPrice, kartyaIndex);
 
@@ -165,7 +165,7 @@ namespace SorWpfApp
                     }
                     lblActive.HorizontalAlignment = HorizontalAlignment.Center;
                     lblActive.VerticalAlignment = VerticalAlignment.Center;
-                    grdElozmeny.Children.Add(lblActive);
+                    scrollContent.Children.Add(lblActive);
                     Grid.SetColumn(lblActive, 4);
                     Grid.SetRow(lblActive, kartyaIndex);            
                     kartyaIndex++;
@@ -175,7 +175,7 @@ namespace SorWpfApp
             kartyaIndex = 0;
             for (int i = 0; i <= fogadasokSzama; i++)
             {
-                grdElozmeny.RowDefinitions.Add(new RowDefinition());
+                scrollContent.RowDefinitions.Add(new RowDefinition());
             }
             List<string> eventNevek = new();
             int index = 0;
