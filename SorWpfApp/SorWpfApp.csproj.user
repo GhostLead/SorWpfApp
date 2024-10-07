@@ -7,6 +7,9 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Befizetes.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="LogInPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -16,7 +19,13 @@
     <Compile Update="PageAccount.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="PageAdmin.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="PageFogadas.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="PageOrganizer.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="RegistrationPage.xaml.cs">
@@ -24,6 +33,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Befizetes.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="DarkTheme.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -42,7 +54,13 @@
     <Page Update="PageAccount.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="PageAdmin.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="PageFogadas.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="PageOrganizer.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="RegistrationPage.xaml">

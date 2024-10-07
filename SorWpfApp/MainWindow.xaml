@@ -27,7 +27,7 @@
                         <Button x:Name="btnFogadas" Content="Fogadás" Style="{DynamicResource NavButton}" Height="22" FontWeight="Bold" FontSize="15" Margin="30,0,0,0" Click="btnFogadas_Click"/>
                         <Button x:Name="btnFiok" Content="Fiók" Style="{DynamicResource NavButton}" Height="22" FontWeight="Bold" FontSize="15" Margin="30,0,0,0" Click="btnFiok_Click"/>
 
-                        <Button x:Name="btnBefizetes" Content="Befizetés" Style="{DynamicResource GeneralButton}" Height="35" Width="100" FontSize="15" FontWeight="Bold" Margin="75,0,0,0"/>
+                        <Button x:Name="btnBefizetes" Content="Befizetés" Style="{DynamicResource GeneralButton}" Height="35" Width="100" FontSize="15" FontWeight="Bold" Margin="75,0,0,0" Click="btnBefizetes_Click"/>
 
                         <StackPanel Margin="75,0,0,0">
                             <Label x:Name="lblUsername" Content="Username" Foreground="Gray" FontSize="13" FontWeight="DemiBold" HorizontalAlignment="Right" Margin="0,0,0,-5"/>

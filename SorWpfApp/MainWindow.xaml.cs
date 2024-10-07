@@ -81,7 +81,7 @@ namespace SorWpfApp
             btnFiok.Effect= null;
             btnFogadas.Effect= null;
             btnOrganizer.Effect = null;
-            Container.Content = new PageFogadas();
+            Container.Content = new PageAdmin();
         }
 
         private void btnOrganizer_Click(object sender, RoutedEventArgs e)
@@ -95,7 +95,7 @@ namespace SorWpfApp
             btnAdmin.Effect= null;
             btnFiok.Effect= null;
             btnFogadas.Effect= null;
-            Container.Content = new PageFogadas();
+            Container.Content = new PageOrganizer();
         }
 
         private void ShutdownButton_Click(object sender, RoutedEventArgs e)
@@ -133,5 +133,16 @@ namespace SorWpfApp
             }
         }
 
+        private void btnBefizetes_Click(object sender, RoutedEventArgs e)
+        {
+            
+            BlurEffect blurEffect = new BlurEffect();
+            blurEffect.Radius = 22;
+            this.Effect = blurEffect;
+            Befizetes windowbefiz = new Befizetes();
+            windowbefiz.Owner = this;
+            windowbefiz.ShowDialog();
+            this.Effect = null;
+        }
     }
 }
