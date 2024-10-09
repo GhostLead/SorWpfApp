@@ -11,6 +11,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -271,6 +272,36 @@ namespace SorWpfApp
             }
 
 
+        }
+
+        private void btnBefizetes_Click(object sender, RoutedEventArgs e)
+        {
+            BlurEffect blurEffect = new BlurEffect();
+            blurEffect.Radius = 22;
+            this.Effect = blurEffect;
+            Befizetes windowbefiz = new Befizetes();
+            windowbefiz.Owner = Application.Current.Windows.OfType<MainWindow>().First();
+            windowbefiz.ShowDialog();
+            this.Effect = null;
+        }
+
+        private void btnFelvetel_Click(object sender, RoutedEventArgs e)
+        {
+            if (user.balance < 1000)
+            {
+                MessageBox.Show("Túl kevés összeg van a fiókján hogy pénzt vegyen ki!", "Pénz felvétel", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
+            {
+                BlurEffect blurEffect = new BlurEffect();
+                blurEffect.Radius = 22;
+                this.Effect = blurEffect;
+                Felvetel windowbefiz = new Felvetel();
+                windowbefiz.Owner = Application.Current.Windows.OfType<MainWindow>().First();
+                windowbefiz.ShowDialog();
+                this.Effect = null;
+            }
+            
         }
     }
 }
