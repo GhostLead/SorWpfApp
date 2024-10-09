@@ -64,104 +64,185 @@ namespace SorWpfApp
 
         private void AddCard(string titleText, string descriptionText, int eventID)
         {
-            // Create a StackPanel to hold the labels and buttons
-            StackPanel cardPanel = new StackPanel();
-            cardPanel.Margin = new Thickness(10);
-            cardPanel.Orientation = Orientation.Horizontal;
+            // Create the main Grid with 4 columns and 2 rows
+            Grid cardGrid = new Grid();
+            cardGrid.Style = (Style)FindResource("EventStackpanelStyle");
 
-            // Create and add the labels (title and description)
-            Label titleLabel = new Label();
-            titleLabel.Content = titleText;
-            titleLabel.FontWeight = FontWeights.Bold;
-            cardPanel.Children.Add(titleLabel);
-
-            Label descriptionLabel = new Label();
-            descriptionLabel.Content = descriptionText;
-            cardPanel.Children.Add(descriptionLabel);
-
-            // Create a StackPanel for buttons (so they appear next to each other)
-            StackPanel buttonPanel = new StackPanel();
-            buttonPanel.Orientation = Orientation.Horizontal;
-
-            Label betType = new Label();
-            if (titleText == "Race") {
-                betType.Content = "Biztonsági autók száma a versenyben: ";
-                betType.Margin = new Thickness(5);
-                cardPanel.Children.Add(betType);
-            }
-            else
+            // Define columns
+            for (int i = 0; i < 4; i++)
             {
-                betType.Content = "Bocsika, még nincs ilyen fogadás típus: ";
-                betType.Margin = new Thickness(5);
-                cardPanel.Children.Add(betType);
+                cardGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(135) });
             }
 
-            // Create a Label to display the bet value
-            Label betLabel = new Label();
-            betLabel.Content = "0";
-            betLabel.Margin = new Thickness(5);
-            betLabel.Name = $"lblEvent{eventIndex}";
-            cardPanel.Children.Add(betLabel);
+            // Define rows
+            cardGrid.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
+            cardGrid.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
 
-            // Create the '-' button to decrement the bet value
-            Button decrementButton = new Button();
-            decrementButton.Content = "-";
-            decrementButton.Margin = new Thickness(5);
+            // Title Label - Row 0, Column 0
+            Label titleLabel = new Label
+            {
+                Style = (Style)FindResource("EventLabelCategory"),
+                Content = titleText,
+                FontWeight = FontWeights.Bold
+            };
+            Grid.SetRow(titleLabel, 0);
+            Grid.SetColumn(titleLabel, 0);
+            cardGrid.Children.Add(titleLabel);
+
+            // Description Label - Row 1, Column 0 (below the title in the first column)
+            Label descriptionLabel = new Label
+            {
+                Style = (Style)FindResource("EventLabelDescription"),
+                Content = descriptionText,
+                VerticalAlignment = VerticalAlignment.Center,
+            };
+            Grid.SetRow(descriptionLabel, 0);
+            Grid.SetColumn(descriptionLabel, 0);
+            cardGrid.Children.Add(descriptionLabel);
+
+            // Create a StackPanel for Bet Type and Bet Value Labels with buttons
+            StackPanel betInfoStackPanel = new StackPanel();
+            betInfoStackPanel.Orientation = Orientation.Vertical;
+            betInfoStackPanel.HorizontalAlignment = HorizontalAlignment.Center;
+
+            // Bet Type Label - Row 0, Column 1
+            Label betType = new Label
+            {
+                Style = (Style)FindResource("EventLabelCounter"),
+                Content = titleText == "Race" ? "Biztonsági autók száma a versenyben: " : "Bocsika, még nincs ilyen fogadás típus: ",
+                Margin = new Thickness(5),
+                HorizontalAlignment = HorizontalAlignment.Center,
+            };
+            betInfoStackPanel.Children.Add(betType);
+
+            // Bet Value Label - Row 1, Column 1
+            Label betLabel = new Label
+            {
+                Style = (Style)FindResource("EventLabelCounter"),
+                Content = "0",
+                Margin = new Thickness(5),
+                Name = $"lblEvent{eventID}", // Use eventID for naming
+                HorizontalAlignment = HorizontalAlignment.Center,
+            };
+            betInfoStackPanel.Children.Add(betLabel);
+
+            // Create a nested StackPanel for increment and decrement buttons
+            StackPanel buttonStackPanel = new StackPanel
+            {
+                Orientation = Orientation.Horizontal,
+                HorizontalAlignment = HorizontalAlignment.Center
+            };
+
+            // Decrement Button
+            Button decrementButton = new Button
+            {
+                Style = (Style)FindResource("EventValueChangeButton"),
+                Content = "-",
+                Margin = new Thickness(5),
+                HorizontalAlignment= HorizontalAlignment.Center,
+            };
             decrementButton.Click += (s, e) =>
             {
-                // Parse the current bet value and decrement it
                 int currentValue = int.Parse(betLabel.Content.ToString());
-                if (currentValue > 0) // Ensure value doesn't go below 0
+                if (currentValue > 0)
                 {
                     betLabel.Content = (currentValue - 1).ToString();
                 }
             };
-            buttonPanel.Children.Add(decrementButton);
+            buttonStackPanel.Children.Add(decrementButton);
 
-            // Create the '+' button to increment the bet value
-            Button incrementButton = new Button();
-            incrementButton.Content = "+";
-            incrementButton.Margin = new Thickness(5);
+            // Increment Button
+            Button incrementButton = new Button
+            {
+                Style = (Style)FindResource("EventValueChangeButton"),
+                Content = "+",
+                Margin = new Thickness(5),
+                HorizontalAlignment = HorizontalAlignment.Center
+            };
             incrementButton.Click += (s, e) =>
             {
-                // Parse the current bet value and increment it
                 int currentValue = int.Parse(betLabel.Content.ToString());
                 betLabel.Content = (currentValue + 1).ToString();
             };
-            buttonPanel.Children.Add(incrementButton);
+            buttonStackPanel.Children.Add(incrementButton);
 
-            // Add the button panel to the main card panel
-            cardPanel.Children.Add(buttonPanel);
+            // Add buttonStackPanel to betInfoStackPanel
+            betInfoStackPanel.Children.Add(buttonStackPanel);
 
-            Button saveBet = new Button();
-            saveBet.Content = "Fogadás leadása";
-            saveBet.Margin = new Thickness(5);
+            // Place the betInfoStackPanel in the main grid at Row 0, Column 1
+            Grid.SetRow(betInfoStackPanel, 0);
+            Grid.SetColumn(betInfoStackPanel, 1);
+            Grid.SetColumnSpan(betInfoStackPanel,2);
+            cardGrid.Children.Add(betInfoStackPanel);
+
+            // Save Bet Button - Row 1, Column 3
+            Button saveBet = new Button
+            {
+                Style = (Style)FindResource("GeneralButton"),
+                Height = 30,
+                Width = 111,
+                Content = "Fogadás leadása",
+                Margin = new Thickness(20, 5, 5, 5),
+                VerticalAlignment = VerticalAlignment.Center,
+                HorizontalAlignment = HorizontalAlignment.Center
+            };
             saveBet.Click += (s, e) =>
             {
                 try
                 {
-                    connection = new MySqlConnection(connectionString);
-                    connection.Open();
-                    string lekerdezesSzoveg = $"INSERT INTO `bets`(`BetDate`, `Odds`, `Amount`, `BettorsID`, `EventID`, `Status`) VALUES ('{System.DateTime.Now.Year}-{System.DateTime.Now.Month}-{System.DateTime.Now.Day}','0.25','200','{UserAtkuldese.bejelentkezettFogado.bettorsID}','{eventID}','1'); ";
-
-                    MySqlCommand lekerdezes = new MySqlCommand(lekerdezesSzoveg, connection);
-                    lekerdezes.CommandTimeout = 60;
-                    lekerdezes.ExecuteNonQuery();
-                    connection.Close();
-                    MessageBox.Show("Sikeresen leadta a fogadást!");
+                    using (var connection = new MySqlConnection(connectionString))
+                    {
+                        connection.Open();
+                        string query = $"INSERT INTO `bets`(`BetDate`, `Odds`, `Amount`, `BettorsID`, `EventID`, `Status`) VALUES ('{DateTime.Now:yyyy-MM-dd}','0.25','200','{UserAtkuldese.bejelentkezettFogado.bettorsID}','{eventID}','1');";
+                        MySqlCommand command = new MySqlCommand(query, connection);
+                        command.CommandTimeout = 60;
+                        command.ExecuteNonQuery();
+                        MessageBox.Show("Sikeresen leadta a fogadást!");
+                    }
                 }
                 catch (Exception ex)
                 {
-
                     MessageBox.Show(ex.Message);
                 }
             };
-            cardPanel.Children.Add(saveBet);
+            Grid.SetRow(saveBet, 0);
+            Grid.SetColumn(saveBet, 3);
+            cardGrid.Children.Add(saveBet);
 
+            // Border around the card
+            Border border = new Border
+            {
+                MinWidth = 522,
+                Width = double.NaN,
+                // Height is set to Auto to ensure all content is visible
+                Height = double.NaN, // This allows the Border to auto-size based on its content
+                CornerRadius = new CornerRadius(3),
+                BorderBrush = Brushes.Black,
+                BorderThickness = new Thickness(2),
+                Margin = new Thickness(7),
+                Child = cardGrid
+            };
 
-            // Finally, add the card panel to the StackPanel
-            scrollContent.Children.Add(cardPanel);
+            // Ensure the ScrollViewer is used to encapsulate card elements
+            ScrollViewer scrollViewer = new ScrollViewer
+            {
+                HorizontalScrollBarVisibility = ScrollBarVisibility.Auto,
+                VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
+                Content = border
+            };
+
+            // Add the scroll viewer to the parent container
+            scrollContent.Children.Add(scrollViewer);
         }
+
+
+
+
+
+
+
+
+
         private void addEventCards()
         {
             eventIndex = 1;
