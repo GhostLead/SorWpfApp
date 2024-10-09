@@ -145,7 +145,7 @@
                         </Grid.ColumnDefinitions>
                         
                     </Grid>
-                    <ScrollViewer VerticalScrollBarVisibility="Visible">
+                    <ScrollViewer VerticalScrollBarVisibility="Hidden" Height="190">
                         <Grid x:Name="scrollContent" Margin="5">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition/>
@@ -154,6 +154,7 @@
                                 <ColumnDefinition/>
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
+                            
                         </Grid>
                     </ScrollViewer>
 

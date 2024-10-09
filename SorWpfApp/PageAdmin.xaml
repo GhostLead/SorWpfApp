@@ -14,17 +14,19 @@
                 <TextBox Text="Serach" Width="200" Margin="20,0,0,0" Height="25" Style="{DynamicResource LogRegTextbox}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
                 <Button Content="🔍" FontSize="15" Margin="15,0,0,0" Style="{DynamicResource TransparentButton}"/>
             </StackPanel>
-            
-            <ScrollViewer Margin="25">
-                <Grid x:Name="grdUsers">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
 
-                    
-                </Grid>
+            <ScrollViewer Margin="25" Height="450" Width="980">
+
+                <Grid x:Name="grdUsers">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+
+                    </Grid>
+
             </ScrollViewer>
         </StackPanel>
     </Border>

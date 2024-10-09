@@ -74,8 +74,10 @@ namespace SorWpfApp
         {
             int sorokSzama = grdUsers.RowDefinitions.Count;
             int oszlopokSzama = grdUsers.ColumnDefinitions.Count;
-            
+
             //User Panel
+
+
             StackPanel userPanel = new StackPanel();
             userPanel.Width = 200;
             userPanel.Height = 350;
@@ -147,10 +149,19 @@ namespace SorWpfApp
             Button btnDeactivate = new Button();
             btnDeactivate.Width = 150;
             btnDeactivate.Height = 30;
-            btnDeactivate.Content = "Deaktiválás";
             btnDeactivate.Style = (Style)FindResource("ShutdownButton");
             btnDeactivate.HorizontalAlignment = HorizontalAlignment.Center;
-            btnDeactivate.Background = new SolidColorBrush(Colors.Maroon);
+            if (userCard.isActive)
+            {
+                btnDeactivate.Content = "Deaktiválás";
+                btnDeactivate.Background = new SolidColorBrush(Colors.Maroon);
+
+            }
+            else
+            {
+                btnDeactivate.Content = "Aktiválás";
+                btnDeactivate.Background = new SolidColorBrush(Colors.DarkGreen);
+            }
             btnDeactivate.Margin = new Thickness(5);
             btnDeactivate.Click += (s, e) =>
             {
@@ -244,6 +255,7 @@ namespace SorWpfApp
 
             Grid.SetColumn(userPanel,kartyaIndexCol);
             Grid.SetRow(userPanel, kartyaIndexRow);
+            
             grdUsers.Children.Add(userPanel);
             if (kartyaIndexCol == 2)
             {
