@@ -16,49 +16,14 @@
             </StackPanel>
             
             <ScrollViewer Margin="25">
-                <Grid>
+                <Grid x:Name="grdUsers">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
-                    <StackPanel Grid.Column="0" Width="200" Height="350" Style="{DynamicResource stackback}">
-                        <Image Source="/userimg.jpg" Width="100" Height="100"/>
-                        <TextBox Text="Username" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,5,0,0"/>
-                        <Label Content="Email:" FontSize="14" FontWeight="DemiBold"/>
-                        <TextBox Text="example@example.com" Style="{DynamicResource LogRegTextbox}" TextWrapping="Wrap" HorizontalAlignment="Center"/>
-                        <Label Content="Jelszó:" FontSize="14" FontWeight="DemiBold"/>
-                        <TextBox Text="examplepassword" Style="{DynamicResource LogRegTextbox}" TextWrapping="Wrap" HorizontalAlignment="Center"/>
-                        <Label Content="Egyenleg:" FontSize="14" FontWeight="DemiBold"/>
-                        <TextBox Text="1000" Style="{DynamicResource LogRegTextbox}" TextWrapping="Wrap" HorizontalAlignment="Center"/>
-                        <Button Width="150" Height="30" Content="Deaktiválás" Style="{DynamicResource ShutdownButton}" Background="maroon" Margin="0,25,0,0"/>
-                    </StackPanel>
-
-                    <StackPanel Grid.Column="1" Width="200" Height="350" Style="{DynamicResource stackback}">
-                        <Image Source="/userimg.jpg" Width="100" Height="100"/>
-                        <TextBox Text="Username" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,5,0,0"/>
-                        <Label Content="Email:" FontSize="14" FontWeight="DemiBold"/>
-                        <TextBox Text="example@example.com" Style="{DynamicResource LogRegTextbox}" TextWrapping="Wrap" HorizontalAlignment="Center"/>
-                        <Label Content="Jelszó:" FontSize="14" FontWeight="DemiBold"/>
-                        <TextBox Text="examplepassword" Style="{DynamicResource LogRegTextbox}" TextWrapping="Wrap" HorizontalAlignment="Center"/>
-                        <Label Content="Egyenleg:" FontSize="14" FontWeight="DemiBold"/>
-                        <TextBox Text="1000" Style="{DynamicResource LogRegTextbox}" TextWrapping="Wrap" HorizontalAlignment="Center"/>
-                        <Button Width="150" Height="30" Content="Deaktiválás" Style="{DynamicResource ShutdownButton}" Background="maroon" Margin="0,25,0,0"/>
-                    </StackPanel>
-
-                    <StackPanel Grid.Column="2" Width="200" Height="350" Style="{DynamicResource stackback}">
-                        <Image Source="/userimg.jpg" Width="100" Height="100"/>
-                        <TextBox Text="Username" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,5,0,0"/>
-                        <Label Content="Email:" FontSize="14" FontWeight="DemiBold"/>
-                        <TextBox Text="example@example.com" Style="{DynamicResource LogRegTextbox}" TextWrapping="Wrap" HorizontalAlignment="Center"/>
-                        <Label Content="Jelszó:" FontSize="14" FontWeight="DemiBold"/>
-                        <TextBox Text="examplepassword" Style="{DynamicResource LogRegTextbox}" TextWrapping="Wrap" HorizontalAlignment="Center"/>
-                        <Label Content="Egyenleg:" FontSize="14" FontWeight="DemiBold"/>
-                        <TextBox Text="1000" Style="{DynamicResource LogRegTextbox}" TextWrapping="Wrap" HorizontalAlignment="Center"/>
-                        <Button Width="150" Height="30" Content="Deaktiválás" Style="{DynamicResource ShutdownButton}" Background="maroon" Margin="0,25,0,0"/>
-                    </StackPanel>
-
+                    
                 </Grid>
             </ScrollViewer>
         </StackPanel>

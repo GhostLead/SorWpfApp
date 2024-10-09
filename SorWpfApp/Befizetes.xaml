@@ -9,7 +9,7 @@
     <Border Width="300" Height="250" BorderThickness="2" BorderBrush="Black" CornerRadius="20" Style="{DynamicResource borderback}">
         <StackPanel Margin="10">
             <Label Content="Befizetés" HorizontalAlignment="Center" FontSize="25" Margin="5"/>
-            <Slider x:Name="sliBefiz" Value="5000" Width="222" Minimum="1" Maximum="10000" Margin="0,20,0,0" TickFrequency="1" IsSnapToTickEnabled="True" Background="#019C8585" Foreground="Black"/>
+            <Slider x:Name="sliBefiz" Value="5000" Width="222" Minimum="100" Maximum="10000" Margin="0,20,0,0" TickFrequency="100" IsSnapToTickEnabled="True" Background="#019C8585" Foreground="Black"/>
             <Label Content="{Binding ElementName=sliBefiz, Path=Value}" HorizontalAlignment="Center" FontSize="17" FontStyle="Italic" FontWeight="Bold" Foreground="Lime"/>
             <Button x:Name="paybtn" Style="{DynamicResource GeneralButton}" Height="30" Width="150" Content="Befizetés" FontSize="15" Background="#FFFFBB00" Click="paybtn_Click" Margin="0,20,0,0"/>
             <Button x:Name="cancelbtn" Style="{DynamicResource GeneralButton}" Height="28" Width="80" Content="Mégsem" FontSize="15" Foreground="White" Background="Maroon" Margin="0,10,0,0" Click="cancelbtn_Click" />
