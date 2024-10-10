@@ -12,21 +12,23 @@
         <StackPanel Orientation="Horizontal" Width="750" Height="100" Margin="20" Background="#FF23359C">
             <StackPanel>
                 <Label Content="Kategória"/>
-                <TextBox VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Padding="2" Width="150" Height="25" HorizontalAlignment="Left" Margin="5"/>
+                <ComboBox x:Name="cbCategory" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Padding="2" Width="150" Height="25" HorizontalAlignment="Left" Margin="5">
+                    <ComboBoxItem Content="Race" IsSelected="True"/>
+                </ComboBox>
             </StackPanel>
             <StackPanel>
-                <Label Content="Név"/>
-                <TextBox VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Padding="2" Width="150" Height="25" HorizontalAlignment="Left" Margin="5"/>
+                <Label Content="Esemény Neve"/>
+                <TextBox x:Name="txtEventName" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Padding="2" Width="150" Height="25" HorizontalAlignment="Left" Margin="5"/>
             </StackPanel>
             <StackPanel>
                 <Label Content="Dátum"/>
-                <DatePicker  IsTodayHighlighted="True" Margin="0,5,0,0" Height="30" VerticalAlignment="Center" Width="150" Text="asd"/>
+                <DatePicker x:Name="dpStartDate" IsTodayHighlighted="True" Margin="0,5,0,0" Height="30" VerticalAlignment="Center" Width="150" Text="asd"/>
             </StackPanel>
             <StackPanel>
                 <Label Content="Helyszín"/>
-                <TextBox VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Padding="2" Width="150" Height="25" HorizontalAlignment="Left" Margin="5"/>
+                <TextBox x:Name="txtLocation" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Padding="2" Width="150" Height="25" HorizontalAlignment="Left" Margin="5"/>
             </StackPanel>
-            <Button Content="Hozzáadás" Width="95" Height="35" Margin="5,0,0,0" Style="{DynamicResource GeneralButton}" Background="Black" Foreground="Lime" BorderBrush="Lime"/>
+            <Button x:Name="btnAddEvent" Content="Hozzáadás" Width="95" Height="35" Margin="5,0,0,0" Style="{DynamicResource GeneralButton}" Background="Black" Foreground="Lime" BorderBrush="Lime" Click="btnAddEvent_Click"/>
 
         </StackPanel>
 
