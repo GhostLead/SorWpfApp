@@ -20,7 +20,11 @@
                     <DropShadowEffect Color="Black" BlurRadius="12" Opacity=".7" ShadowDepth="0"/>
                 </Border.Effect>
                 <StackPanel>
-                    <Image Width="100" Height="100" Source="/userimg.jpg" Margin="0,25,0,0"/>
+                    <Ellipse Margin="0,20,0,0" Width="100" Height="100">
+                        <Ellipse.Fill>
+                            <ImageBrush ImageSource="/userimg.jpg" />
+                        </Ellipse.Fill>
+                    </Ellipse>
                     <Label x:Name="lbusername" Content="FELHASZNÁLÓNÉV" HorizontalAlignment="Center" FontSize="17" FontWeight="Bold"/>
                     <Label x:Name="lbisactive" Content="Aktív" HorizontalAlignment="Center" FontSize="17" FontWeight="Bold" Foreground="#FF00CA00">
                         <Label.Effect>

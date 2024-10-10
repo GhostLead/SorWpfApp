@@ -11,6 +11,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -64,15 +65,27 @@ namespace SorWpfApp
 
         private void AddCard(Event eventCard)
         {
+            DropShadowEffect shadowEffect = new DropShadowEffect
+            {
+                Color = Colors.Black,
+                BlurRadius = 10,
+                ShadowDepth = 0,
+                Opacity = 1
+            };
+
+            
+
             StackPanel containerPanel = new StackPanel();
             containerPanel.Width = 750;
             containerPanel.Height = 110;
             containerPanel.Margin = new Thickness(20);
-            containerPanel.Background = new SolidColorBrush(Brushes.DarkOrange.Color);
+            containerPanel.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF2A2A2D"));
+
 
             Label lblCategory = new Label();
             lblCategory.Content = eventCard.Category;
             lblCategory.FontSize = 20;
+            lblCategory.Foreground = Brushes.White;
             lblCategory.FontWeight = FontWeights.Bold;
             lblCategory.FontStyle = FontStyles.Italic;
             
@@ -207,9 +220,13 @@ namespace SorWpfApp
                 grdButtons.Children.Add(btnEdit);
 
                 containerPanel.Children.Add(grdButtons);
+            Border border = new Border();
+            border.CornerRadius = new CornerRadius(10);
+            border.Effect = shadowEffect;
+            border.Child = containerPanel;
 
-                Grid.SetRow(containerPanel, rowIndex);
-                grdContainer.Children.Add(containerPanel);
+            Grid.SetRow(border, rowIndex);
+                grdContainer.Children.Add(border);
 
                 rowIndex++;
             

@@ -50,6 +50,13 @@ namespace SorWpfApp
             lblJoinDate.Content = user.joinDate;
         }
 
+        public bool IsDarkThemeApplied()
+        {
+            var darkThemeUri = new Uri("DarkTheme.xaml", UriKind.Relative);
+            return Application.Current.Resources.MergedDictionaries.Any(
+                d => d.Source == darkThemeUri);
+        }
+
         private void loadBets()
         {
             fogadasok = new ObservableCollection<Bet>();

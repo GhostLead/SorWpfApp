@@ -244,6 +244,7 @@ namespace SorWpfApp
             btnSave.Width = 150;
             btnSave.Height = 30;
             btnSave.Content = "💾";
+            btnSave.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFE8A91E"));
             btnSave.FontSize = 19.5;
             btnSave.Style = (Style)FindResource("ThemeChanger");
             btnSave.Margin = new Thickness(0, 8.5, 0, 0);

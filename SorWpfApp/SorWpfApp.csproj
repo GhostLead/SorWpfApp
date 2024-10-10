@@ -11,6 +11,7 @@
   <ItemGroup>
     <None Remove="adcard1.jpg" />
     <None Remove="best-beer-logo-icon-design-vector-white.jpg" />
+    <None Remove="best-beer-logo.png" />
     <None Remove="darkmode.png" />
     <None Remove="maxver.avif" />
     <None Remove="norris.jpg" />
@@ -29,6 +30,7 @@
   <ItemGroup>
     <Resource Include="adcard1.jpg" />
     <Resource Include="best-beer-logo-icon-design-vector-white.jpg" />
+    <Resource Include="best-beer-logo.png" />
     <Resource Include="darkmode.png" />
     <Resource Include="norris.jpg" />
     <Resource Include="userimg.jpg" />

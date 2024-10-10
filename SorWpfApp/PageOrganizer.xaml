@@ -9,37 +9,43 @@
       Title="PageOrganizer">
 
     <StackPanel Margin="20">
-        <StackPanel Orientation="Horizontal" Width="750" Height="100" Margin="20" Background="#FF23359C">
-            <StackPanel>
-                <Label Content="Kategória"/>
-                <ComboBox x:Name="cbCategory" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Padding="2" Width="150" Height="25" HorizontalAlignment="Left" Margin="5">
-                    <ComboBoxItem Content="Race" IsSelected="True"/>
-                </ComboBox>
+        <Border Width="750" Height="100" CornerRadius="5" Margin="20">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="10" ShadowDepth="0"  Opacity="1" Color="Black"/>
+            </Border.Effect>
+            <StackPanel Orientation="Horizontal"  Margin="0" Style="{DynamicResource stackback}">
+                <StackPanel>
+                    <Label Content="Kategória" FontSize="17"/>
+                    <ComboBox x:Name="cbCategory" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Padding="2" Width="150" Height="25" HorizontalAlignment="Left" Margin="5">
+                        <ComboBoxItem Content="Race" IsSelected="True"/>
+                    </ComboBox>
+                </StackPanel>
+                <StackPanel>
+                    <Label Content="Esemény Neve" FontSize="17"/>
+                    <TextBox x:Name="txtEventName" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Padding="2" Width="150" Height="25" HorizontalAlignment="Left" Margin="5"/>
+                </StackPanel>
+                <StackPanel>
+                    <Label Content="Dátum" FontSize="17"/>
+                    <DatePicker x:Name="dpStartDate" IsTodayHighlighted="True" Margin="0,5,0,0" Height="30" VerticalAlignment="Center" Width="150" Text="asd"/>
+                </StackPanel>
+                <StackPanel>
+                    <Label Content="Helyszín" FontSize="17"/>
+                    <TextBox x:Name="txtLocation" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Padding="2" Width="150" Height="25" HorizontalAlignment="Left" Margin="5"/>
+                </StackPanel>
+                <Button x:Name="btnAddEvent" Content="Hozzáadás" Width="95" Height="35" Margin="5,0,0,0" Style="{DynamicResource GeneralButton}" Background="Black" Foreground="Lime" BorderBrush="Lime" Click="btnAddEvent_Click"/>
+
             </StackPanel>
-            <StackPanel>
-                <Label Content="Esemény Neve"/>
-                <TextBox x:Name="txtEventName" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Padding="2" Width="150" Height="25" HorizontalAlignment="Left" Margin="5"/>
-            </StackPanel>
-            <StackPanel>
-                <Label Content="Dátum"/>
-                <DatePicker x:Name="dpStartDate" IsTodayHighlighted="True" Margin="0,5,0,0" Height="30" VerticalAlignment="Center" Width="150" Text="asd"/>
-            </StackPanel>
-            <StackPanel>
-                <Label Content="Helyszín"/>
-                <TextBox x:Name="txtLocation" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Padding="2" Width="150" Height="25" HorizontalAlignment="Left" Margin="5"/>
-            </StackPanel>
-            <Button x:Name="btnAddEvent" Content="Hozzáadás" Width="95" Height="35" Margin="5,0,0,0" Style="{DynamicResource GeneralButton}" Background="Black" Foreground="Lime" BorderBrush="Lime" Click="btnAddEvent_Click"/>
-
-        </StackPanel>
+        </Border>
 
 
-        <ScrollViewer x:Name="scrollContent" Width="750" Height="390">
-            <Grid x:Name="grdContainer">
-                
-            </Grid>
-
-
-        </ScrollViewer>
+        <Border Style="{DynamicResource borderback}" Width="750" Height="390" BorderThickness="2" BorderBrush="Black" CornerRadius="5">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="15" ShadowDepth="0" Opacity="1" Color="Black"/>
+            </Border.Effect>
+            <ScrollViewer x:Name="scrollContent" Margin="5" VerticalScrollBarVisibility="Hidden">
+                <Grid x:Name="grdContainer"/>
+            </ScrollViewer>
+        </Border>
         
     </StackPanel>
 </Page>
