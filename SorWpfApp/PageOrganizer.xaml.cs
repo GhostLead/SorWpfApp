@@ -31,6 +31,8 @@ namespace SorWpfApp
             InitializeComponent();
             loadEvents();
             addEventCards();
+            dpStartDate.DisplayDateStart = DateTime.Today;
+            dpStartDate.SelectedDate = DateTime.Today;
         }
         private void loadEvents()
         {
@@ -40,7 +42,7 @@ namespace SorWpfApp
             {
                 connection = new MySqlConnection(connectionString);
                 connection.Open();
-                string lekerdezesSzoveg = "SELECT * FROM events ORDER BY EventID";
+                string lekerdezesSzoveg = "SELECT * FROM events ORDER BY EventID DESC";
 
                 MySqlCommand lekerdezes = new MySqlCommand(lekerdezesSzoveg, connection);
                 lekerdezes.CommandTimeout = 60;
@@ -116,67 +118,101 @@ namespace SorWpfApp
             btnDelete.Style = (Style)FindResource("GeneralButton");
             btnDelete.Background = new SolidColorBrush(Brushes.Red.Color);
             btnDelete.Foreground = new SolidColorBrush(Brushes.White.Color);
-            Grid.SetColumn(btnDelete, 0);
-            grdButtons.Children.Add(btnDelete);
-
-            Button btnEdit = new Button();
-            btnEdit.Content = "Szerkesztés";
-            btnEdit.Width = 150;
-            btnEdit.Height = 25;
-            btnEdit.Margin = new Thickness(0, 5, 0, 0);
-            btnEdit.Style = (Style)FindResource("GeneralButton");
-            btnEdit.Background = new SolidColorBrush(Brushes.Green.Color);
-            btnEdit.Foreground = new SolidColorBrush(Brushes.White.Color);
-            btnEdit.Click += (s, e) =>
+            btnDelete.Click += (s, e) =>
             {
-                if (txtCountry.IsEnabled)
+                MessageBoxResult messageBoxresult = MessageBox.Show("Biztos hogy törli ezt az eseményt?", "Esemény törlése", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (messageBoxresult == MessageBoxResult.Yes)
                 {
-                    MessageBoxResult messageBoxresult = MessageBox.Show("Biztos hogy módosíja ezt az eseményt?", "Esemény módosítása", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                    if (messageBoxresult == MessageBoxResult.Yes)
+                    txtCountry.IsEnabled = false;
+                    txtGp.IsEnabled = false;
+                    dpDate.IsEnabled = false;
+                    try
                     {
-                        txtCountry.IsEnabled = false;
-                        txtGp.IsEnabled = false;
-                        dpDate.IsEnabled = false;
-                        try
-                        {
-                            connection = new MySqlConnection(connectionString);
-                            connection.Open();
-                            string lekerdezesSzoveg = $"UPDATE `events` SET `EventName`='{txtGp.Text}',`EventDate`='{dpDate.SelectedDate.Value.Year}-{dpDate.SelectedDate.Value.Month}-{dpDate.SelectedDate.Value.Day}', `Location`='{txtCountry.Text}' WHERE EventID = '{eventCard.EventID}'";
-                            MySqlCommand lekerdezes = new MySqlCommand(lekerdezesSzoveg, connection);
-                            lekerdezes.CommandTimeout = 60;
-                            lekerdezes.ExecuteNonQuery();
-                            connection.Close();
-                            
-                        }
-                        catch (Exception ex)
-                        {
+                        connection = new MySqlConnection(connectionString);
+                        connection.Open();
+                        string lekerdezesSzoveg = $"DELETE FROM `events` WHERE EventID = '{eventCard.EventID}'";
+                        MySqlCommand lekerdezes = new MySqlCommand(lekerdezesSzoveg, connection);
+                        lekerdezes.CommandTimeout = 60;
+                        lekerdezes.ExecuteNonQuery();
+                        connection.Close();
+                        events.Clear();
+                        grdContainer.Children.Clear();
+                        loadEvents();
+                        addEventCards();
+                    }
+                    catch (Exception ex)
+                    {
 
-                            MessageBox.Show(ex.Message);
+                        MessageBox.Show(ex.Message);
+                    }
+                };
+
+            };
+                Grid.SetColumn(btnDelete, 0);
+                grdButtons.Children.Add(btnDelete);
+
+                Button btnEdit = new Button();
+                btnEdit.Content = "Szerkesztés";
+                btnEdit.Width = 150;
+                btnEdit.Height = 25;
+                btnEdit.Margin = new Thickness(0, 5, 0, 0);
+                btnEdit.Style = (Style)FindResource("GeneralButton");
+                btnEdit.Background = new SolidColorBrush(Brushes.Green.Color);
+                btnEdit.Foreground = new SolidColorBrush(Brushes.White.Color);
+                btnEdit.Click += (s, e) =>
+                {
+                    if (txtCountry.IsEnabled)
+                    {
+                        MessageBoxResult messageBoxresult = MessageBox.Show("Biztos hogy módosíja ezt az eseményt?", "Esemény módosítása", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                        if (messageBoxresult == MessageBoxResult.Yes)
+                        {
+                            txtCountry.IsEnabled = false;
+                            txtGp.IsEnabled = false;
+                            dpDate.IsEnabled = false;
+                            try
+                            {
+                                connection = new MySqlConnection(connectionString);
+                                connection.Open();
+                                string lekerdezesSzoveg = $"UPDATE `events` SET `EventName`='{txtGp.Text}',`EventDate`='{dpDate.SelectedDate.Value.Year}-{dpDate.SelectedDate.Value.Month}-{dpDate.SelectedDate.Value.Day}', `Location`='{txtCountry.Text}' WHERE EventID = '{eventCard.EventID}'";
+                                MySqlCommand lekerdezes = new MySqlCommand(lekerdezesSzoveg, connection);
+                                lekerdezes.CommandTimeout = 60;
+                                lekerdezes.ExecuteNonQuery();
+                                connection.Close();
+                                events.Clear();
+                                grdContainer.Children.Clear();
+                                loadEvents();
+                                addEventCards();
+                            }
+                            catch (Exception ex)
+                            {
+
+                                MessageBox.Show(ex.Message);
+                            }
+
                         }
+
+
 
                     }
+                    else
+                    {
 
+                        txtCountry.IsEnabled = true;
+                        txtGp.IsEnabled = true;
+                        dpDate.IsEnabled = true;
 
-                    
-                }
-                else
-                {
+                    }
+                };
+                Grid.SetColumn(btnEdit, 1);
+                grdButtons.Children.Add(btnEdit);
 
-                    txtCountry.IsEnabled = true;
-                    txtGp.IsEnabled = true;
-                    dpDate.IsEnabled = true;
+                containerPanel.Children.Add(grdButtons);
 
-                }
-            };
-            Grid.SetColumn(btnEdit, 1);
-            grdButtons.Children.Add(btnEdit);
+                Grid.SetRow(containerPanel, rowIndex);
+                grdContainer.Children.Add(containerPanel);
 
-            containerPanel.Children.Add(grdButtons);
-
-            Grid.SetRow(containerPanel, rowIndex);
-            grdContainer.Children.Add(containerPanel);
+                rowIndex++;
             
-            rowIndex++;
         }
 
 
@@ -197,6 +233,38 @@ namespace SorWpfApp
             foreach (var item in events)
             {
                 AddCard(item);
+            }
+        }
+
+        private void btnAddEvent_Click(object sender, RoutedEventArgs e)
+        {
+            if (txtEventName.Text != null && txtEventName.Text != "" && txtLocation.Text != null && txtLocation.Text != "")
+            {
+                try
+                {
+                    connection = new MySqlConnection(connectionString);
+                    connection.Open();
+                    string lekerdezesSzoveg = $"INSERT INTO `events`(`EventName`, `EventDate`, `Category`, `Location`) VALUES ('{txtEventName.Text}','{dpStartDate.SelectedDate.Value.Year}-{dpStartDate.SelectedDate.Value.Month}-{dpStartDate.SelectedDate.Value.Day}','{cbCategory.Text}','{txtLocation.Text}')";
+                    MySqlCommand lekerdezes = new MySqlCommand(lekerdezesSzoveg, connection);
+                    lekerdezes.CommandTimeout = 60;
+                    lekerdezes.ExecuteNonQuery();
+                    connection.Close();
+                    events.Clear();
+                    grdContainer.Children.Clear();
+                    loadEvents();
+                    addEventCards();
+                    MessageBox.Show("Az esemény sikeresen fel lett véve!", "Esemény felvétele", MessageBoxButton.OK, MessageBoxImage.Information);
+                    
+                }
+                catch (Exception ex)
+                {
+
+                    MessageBox.Show(ex.Message);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Egyik mezőt se hagyja üresen!", "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

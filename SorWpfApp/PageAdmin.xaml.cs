@@ -11,6 +11,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -77,12 +78,27 @@ namespace SorWpfApp
 
             //User Panel
 
+            DropShadowEffect activeShadow = new DropShadowEffect
+            {
+                Color = Colors.Lime,
+                BlurRadius = 15,
+                ShadowDepth = 0,
+                Opacity = 1
+            };
+            DropShadowEffect deactivatedShadow = new DropShadowEffect
+            {
+                Color = Colors.Red,
+                BlurRadius = 15,
+                ShadowDepth = 0,
+                Opacity = .9
+            };
+
 
             StackPanel userPanel = new StackPanel();
             userPanel.Width = 200;
             userPanel.Height = 350;
             userPanel.Style = (Style)FindResource("stackback");
-            userPanel.Margin = new Thickness(0,20,0,0);
+            userPanel.Margin = new Thickness(0,25,0,30);
 
             Image userImage = new Image();
             userImage.Width = 100;
@@ -155,12 +171,14 @@ namespace SorWpfApp
             {
                 btnDeactivate.Content = "Deaktiválás";
                 btnDeactivate.Background = new SolidColorBrush(Colors.Maroon);
+                userPanel.Effect = activeShadow;
 
             }
             else
             {
                 btnDeactivate.Content = "Aktiválás";
                 btnDeactivate.Background = new SolidColorBrush(Colors.DarkGreen);
+                userPanel.Effect = deactivatedShadow;
             }
             btnDeactivate.Margin = new Thickness(5);
             btnDeactivate.Click += (s, e) =>
@@ -181,6 +199,7 @@ namespace SorWpfApp
                         MessageBox.Show("Fiók sikeresen aktiválva!", "Fiók aktiválása", MessageBoxButton.OK, MessageBoxImage.Information);
                         btnDeactivate.Content = "Deaktiválás";
                         btnDeactivate.Background = new SolidColorBrush(Colors.Maroon);
+                        userPanel.Effect = activeShadow;
                         userCard.isActive = true;
                     }
                     catch (Exception ex)
@@ -205,6 +224,7 @@ namespace SorWpfApp
                         MessageBox.Show("Fiók sikeresen deaktiválva!", "Fiók deaktiválása", MessageBoxButton.OK, MessageBoxImage.Information);
                         btnDeactivate.Content = "Aktiválás";
                         btnDeactivate.Background = new SolidColorBrush(Colors.DarkGreen);
+                        userPanel.Effect = deactivatedShadow;
                         userCard.isActive = false;
                     }
                     catch (Exception ex)

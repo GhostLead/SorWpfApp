@@ -15,9 +15,13 @@
                 <Button Content="🔍" FontSize="15" Margin="15,0,0,0" Style="{DynamicResource TransparentButton}"/>
             </StackPanel>
 
-            <ScrollViewer Margin="25" Height="450" Width="980">
+            <Border Margin="0,15,0,0" Height="520" Width="980" BorderBrush="Black" BorderThickness="2" CornerRadius="5">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="10" ShadowDepth="1" Opacity="1" Color="Black"/>
+                </Border.Effect>
+                <ScrollViewer VerticalScrollBarVisibility="Hidden">
 
-                <Grid x:Name="grdUsers">
+                    <Grid x:Name="grdUsers">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                             <ColumnDefinition/>
@@ -27,7 +31,10 @@
 
                     </Grid>
 
-            </ScrollViewer>
+                </ScrollViewer>
+
+            </Border>
+            
         </StackPanel>
     </Border>
 </Page>
