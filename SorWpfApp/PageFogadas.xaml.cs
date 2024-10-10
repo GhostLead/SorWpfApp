@@ -64,21 +64,21 @@ namespace SorWpfApp
 
         private void AddCard(string titleText, string descriptionText, int eventID)
         {
-            // Create the main Grid with 4 columns and 2 rows
+
             Grid cardGrid = new Grid();
             cardGrid.Style = (Style)FindResource("EventStackpanelStyle");
 
-            // Define columns
+
             for (int i = 0; i < 4; i++)
             {
                 cardGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(135) });
             }
 
-            // Define rows
+
             cardGrid.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
             cardGrid.RowDefinitions.Add(new RowDefinition() { Height = GridLength.Auto });
 
-            // Title Label - Row 0, Column 0
+
             Label titleLabel = new Label
             {
                 Style = (Style)FindResource("EventLabelCategory"),
@@ -89,7 +89,7 @@ namespace SorWpfApp
             Grid.SetColumn(titleLabel, 0);
             cardGrid.Children.Add(titleLabel);
 
-            // Description Label - Row 1, Column 0 (below the title in the first column)
+
             Label descriptionLabel = new Label
             {
                 Style = (Style)FindResource("EventLabelDescription"),
@@ -100,7 +100,22 @@ namespace SorWpfApp
             Grid.SetColumn(descriptionLabel, 0);
             cardGrid.Children.Add(descriptionLabel);
 
-            // Create a StackPanel for Bet Type and Bet Value Labels with buttons
+            Random rnd = new Random();
+            double ujSzorzo = Math.Round((rnd.NextDouble() * 1 + 1), 2);
+            Label lblOdds = new Label
+            {
+                Style = (Style)FindResource("EventLabelCategory"),
+
+                Content = $"Szorzó: \t{ujSzorzo}",
+                FontWeight = FontWeights.Bold,
+                FontSize = 15,
+                Margin = new Thickness(0, -20, 0, 0)
+
+            };
+            Grid.SetRow(lblOdds, 2);
+            Grid.SetColumn(lblOdds, 0);
+            cardGrid.Children.Add(lblOdds);
+
             StackPanel betInfoStackPanel = new StackPanel();
             betInfoStackPanel.Orientation = Orientation.Vertical;
             betInfoStackPanel.HorizontalAlignment = HorizontalAlignment.Center;
@@ -133,13 +148,20 @@ namespace SorWpfApp
                 HorizontalAlignment = HorizontalAlignment.Center
             };
 
+
+
+
+
+
+
             // Decrement Button
+
             Button decrementButton = new Button
             {
                 Style = (Style)FindResource("EventValueChangeButton"),
                 Content = "-",
                 Margin = new Thickness(5),
-                HorizontalAlignment= HorizontalAlignment.Center,
+                HorizontalAlignment = HorizontalAlignment.Center,
             };
             decrementButton.Click += (s, e) =>
             {
@@ -147,6 +169,9 @@ namespace SorWpfApp
                 if (currentValue > 0)
                 {
                     betLabel.Content = (currentValue - 1).ToString();
+                    ujSzorzo = Math.Round(ujSzorzo / 1.1d, 2);
+                    lblOdds.Content = $"Szorzó: \t{ujSzorzo}";
+
                 }
             };
             buttonStackPanel.Children.Add(decrementButton);
@@ -159,10 +184,13 @@ namespace SorWpfApp
                 Margin = new Thickness(5),
                 HorizontalAlignment = HorizontalAlignment.Center
             };
+
             incrementButton.Click += (s, e) =>
             {
                 int currentValue = int.Parse(betLabel.Content.ToString());
                 betLabel.Content = (currentValue + 1).ToString();
+                ujSzorzo = Math.Round(ujSzorzo * 1.1d, 2);
+                lblOdds.Content = $"Szorzó: \t{ujSzorzo}";
             };
             buttonStackPanel.Children.Add(incrementButton);
 
@@ -172,8 +200,47 @@ namespace SorWpfApp
             // Place the betInfoStackPanel in the main grid at Row 0, Column 1
             Grid.SetRow(betInfoStackPanel, 0);
             Grid.SetColumn(betInfoStackPanel, 1);
-            Grid.SetColumnSpan(betInfoStackPanel,2);
+            Grid.SetColumnSpan(betInfoStackPanel, 2);
             cardGrid.Children.Add(betInfoStackPanel);
+
+
+            StackPanel spPay = new StackPanel();
+
+            Label lblPay = new Label
+            {
+                Content = "100",
+                HorizontalAlignment = HorizontalAlignment.Center,
+                FontSize = 17,
+                FontStyle = FontStyles.Italic,
+                FontWeight = FontWeights.Bold,
+                Foreground = new SolidColorBrush(Colors.Lime)
+            };
+            spPay.Children.Add(lblPay);
+
+            Slider sliPay = new Slider
+            {
+                Value = 100,
+                TickFrequency = 100,
+                Width = 130,
+                Margin = new Thickness(0, 20, 0, -20),
+                IsSnapToTickEnabled = true,
+
+            };
+            if (UserAtkuldese.bejelentkezettFogado.balance >= 100)
+            {
+                sliPay.Maximum = UserAtkuldese.bejelentkezettFogado.balance;
+                sliPay.Minimum = 100;
+            }
+
+            sliPay.ValueChanged += (s, e) =>
+            {
+                lblPay.Content = sliPay.Value.ToString();
+            };
+            spPay.Children.Add(sliPay);
+            Grid.SetRow(spPay, 0);
+            Grid.SetColumn(spPay, 3);
+            cardGrid.Children.Add(spPay);
+
 
             // Save Bet Button - Row 1, Column 3
             Button saveBet = new Button
@@ -190,14 +257,27 @@ namespace SorWpfApp
             {
                 try
                 {
+                    
+                    
+                    
                     using (var connection = new MySqlConnection(connectionString))
                     {
                         connection.Open();
-                        string query = $"INSERT INTO `bets`(`BetDate`, `Odds`, `Amount`, `BettorsID`, `EventID`, `Status`) VALUES ('{DateTime.Now:yyyy-MM-dd}','0.25','200','{UserAtkuldese.bejelentkezettFogado.bettorsID}','{eventID}','1');";
+                        string query = $"INSERT INTO `bets`(`BetDate`, `Odds`, `Amount`, `BettorsID`, `EventID`, `Status`) VALUES ('{DateTime.Now:yyyy-MM-dd}','{ujSzorzo.ToString().Replace(',','.')}','{sliPay.Value}','{UserAtkuldese.bejelentkezettFogado.bettorsID}','{eventID}','1');";
                         MySqlCommand command = new MySqlCommand(query, connection);
                         command.CommandTimeout = 60;
                         command.ExecuteNonQuery();
+
                         MessageBox.Show("Sikeresen leadta a fogadást!");
+                        UserAtkuldese.bejelentkezettFogado.balance -= (int)sliPay.Value;
+                        var ablak = Application.Current.Windows.OfType<MainWindow>().First();
+                        ablak.lblBalance.Content = $"{Convert.ToString(UserAtkuldese.bejelentkezettFogado.balance)} Ft";
+
+                        query = $"UPDATE `bettors` SET `Balance`='{UserAtkuldese.bejelentkezettFogado.balance}'WHERE Username = '{UserAtkuldese.bejelentkezettFogado.username}'";
+                        command = new MySqlCommand(query, connection);
+                        command.CommandTimeout = 60;
+                        command.ExecuteNonQuery();
+                        connection.Close();
                     }
                 }
                 catch (Exception ex)
@@ -205,7 +285,7 @@ namespace SorWpfApp
                     MessageBox.Show(ex.Message);
                 }
             };
-            Grid.SetRow(saveBet, 0);
+            Grid.SetRow(saveBet, 1);
             Grid.SetColumn(saveBet, 3);
             cardGrid.Children.Add(saveBet);
 
