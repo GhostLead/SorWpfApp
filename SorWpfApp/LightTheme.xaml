@@ -320,6 +320,10 @@
         <Setter Property="Background" Value="White"/>
     </Style>
 
+    <Style x:Key="stackback" TargetType="StackPanel">
+        <Setter Property="Background" Value="white"/>
+    </Style>
+
     <Style x:Key="txtb" TargetType="TextBlock">
         <Setter Property="Foreground" Value="Black"/>
     </Style>

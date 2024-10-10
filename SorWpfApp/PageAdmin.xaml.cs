@@ -90,14 +90,14 @@ namespace SorWpfApp
                 Color = Colors.Red,
                 BlurRadius = 15,
                 ShadowDepth = 0,
-                Opacity = .9
+                Opacity = 1
             };
 
 
             StackPanel userPanel = new StackPanel();
             userPanel.Width = 200;
             userPanel.Height = 350;
-            userPanel.Style = (Style)FindResource("stackback");
+            userPanel.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF2A2A2D"));
             userPanel.Margin = new Thickness(0,25,0,30);
 
             Image userImage = new Image();
@@ -122,6 +122,7 @@ namespace SorWpfApp
             Label lblEmail = new Label();
             lblEmail.Content = "Email: ";
             lblEmail.FontSize = 14;
+            lblEmail.Foreground = Brushes.White;
             lblEmail.FontWeight = FontWeights.DemiBold;
             userPanel.Children.Add(lblEmail);
 
@@ -136,6 +137,7 @@ namespace SorWpfApp
             Label lblPassword = new Label();
             lblPassword.Content = "Jelszó: ";
             lblPassword.FontSize = 14;
+            lblPassword.Foreground = Brushes.White;
             lblPassword.FontWeight = FontWeights.DemiBold;
             userPanel.Children.Add(lblPassword);
 
@@ -150,6 +152,7 @@ namespace SorWpfApp
             Label lblBalance = new Label();
             lblBalance.Content = "Egyenleg: ";
             lblBalance.FontSize = 14;
+            lblBalance.Foreground = Brushes.White;
             lblBalance.FontWeight = FontWeights.DemiBold;
             userPanel.Children.Add(lblBalance);
 
