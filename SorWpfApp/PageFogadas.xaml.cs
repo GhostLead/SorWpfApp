@@ -223,16 +223,9 @@ namespace SorWpfApp
                 Child = cardGrid
             };
 
-            // Ensure the ScrollViewer is used to encapsulate card elements
-            ScrollViewer scrollViewer = new ScrollViewer
-            {
-                HorizontalScrollBarVisibility = ScrollBarVisibility.Auto,
-                VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
-                Content = border
-            };
-
+            
             // Add the scroll viewer to the parent container
-            scrollContent.Children.Add(scrollViewer);
+            scrollContent.Children.Add(border);
         }
 
 
