@@ -295,6 +295,7 @@ namespace SorWpfApp
         {
             kartyaIndexRow = 0;
             kartyaIndexCol = 0;
+            
             for (int i = 0; i <= Math.Floor(Convert.ToDouble(userCount/3)); i++)
             {
                 grdUsers.RowDefinitions.Add(new RowDefinition());
@@ -307,5 +308,35 @@ namespace SorWpfApp
 
         }
 
+        private void btnSearch_Click(object sender, RoutedEventArgs e)
+        {
+            grdUsers.Children.Clear();
+            grdUsers.RowDefinitions.Clear();
+            kartyaIndexRow = 0;
+            kartyaIndexCol = 0;
+            int numberOfUsers = 0;
+            foreach (var item in users)
+            {
+                if (item.username.ToLower().StartsWith(txtSearch.Text.ToLower()))
+                {
+                    numberOfUsers++;    
+                }
+            }
+
+
+            for (int i = 0; i <= Math.Floor(Convert.ToDouble(numberOfUsers / 3)); i++)
+            {
+                grdUsers.RowDefinitions.Add(new RowDefinition());
+            }
+            foreach (var user in users)
+            {
+                if (user.username.ToLower().StartsWith(txtSearch.Text.ToLower()))
+                {
+                    
+                    AddCard(user);
+                }
+
+            }
+        }
     }
 }

@@ -42,7 +42,7 @@ namespace SorWpfApp
             {
                 connection = new MySqlConnection(connectionString);
                 connection.Open();
-                string lekerdezesSzoveg = "SELECT * FROM events ORDER BY EventID";
+                string lekerdezesSzoveg = "SELECT * FROM events ORDER BY EventID DESC";
 
                 MySqlCommand lekerdezes = new MySqlCommand(lekerdezesSzoveg, connection);
                 lekerdezes.CommandTimeout = 60;
@@ -288,7 +288,7 @@ namespace SorWpfApp
             Grid.SetRow(saveBet, 1);
             Grid.SetColumn(saveBet, 3);
             cardGrid.Children.Add(saveBet);
-
+            
             // Border around the card
             Border border = new Border
             {
@@ -311,10 +311,7 @@ namespace SorWpfApp
 
 
 
-
-
-
-
+        
 
         private void addEventCards()
         {

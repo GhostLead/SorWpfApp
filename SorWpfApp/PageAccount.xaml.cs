@@ -115,7 +115,7 @@ namespace SorWpfApp
             }
         }
 
-        private void AddCard(string eventName, string date, string price, string odds, int active)
+        private void AddCard(string eventName, string date, string price, string odds, int active, int betId)
         {
             int sorokSzama = scrollContent.RowDefinitions.Count;
             int oszlopokSzama = scrollContent.ColumnDefinitions.Count;
@@ -133,6 +133,7 @@ namespace SorWpfApp
                     titleLabel.FontWeight = FontWeights.Bold;
                     titleLabel.HorizontalAlignment = HorizontalAlignment.Center;
                     titleLabel.VerticalAlignment = VerticalAlignment.Center;
+                    titleLabel.MouseDoubleClick += (s, e) => { DeleteBet(betId); };
                     scrollContent.Children.Add(titleLabel);
                     Grid.SetColumn(titleLabel, 0);
                     Grid.SetRow(titleLabel, kartyaIndex);
@@ -141,6 +142,7 @@ namespace SorWpfApp
                     lblDate.Content = date;
                     lblDate.HorizontalAlignment = HorizontalAlignment.Center;
                     lblDate.VerticalAlignment = VerticalAlignment.Center;
+                    lblDate.MouseDoubleClick += (s, e) => { DeleteBet(betId); };
                     scrollContent.Children.Add(lblDate);
                     Grid.SetColumn(lblDate, 1);
                     Grid.SetRow(lblDate, kartyaIndex);
@@ -148,6 +150,7 @@ namespace SorWpfApp
                     lblOdds.Content = odds;
                     lblOdds.HorizontalAlignment = HorizontalAlignment.Center;
                     lblOdds.VerticalAlignment = VerticalAlignment.Center;
+                    lblOdds.MouseDoubleClick += (s, e) => { DeleteBet(betId); };
                     scrollContent.Children.Add(lblOdds);
                     Grid.SetColumn(lblOdds, 2);
                     Grid.SetRow(lblOdds, kartyaIndex);
@@ -155,6 +158,7 @@ namespace SorWpfApp
                     lblPrice.Content = price;
                     lblPrice.HorizontalAlignment = HorizontalAlignment.Center;
                     lblPrice.VerticalAlignment = VerticalAlignment.Center;
+                    lblPrice.MouseDoubleClick += (s, e) => { DeleteBet(betId); };
                     scrollContent.Children.Add(lblPrice);
                     Grid.SetColumn(lblPrice, 3);
                     Grid.SetRow(lblPrice, kartyaIndex);
@@ -173,14 +177,47 @@ namespace SorWpfApp
                     }
                     lblActive.HorizontalAlignment = HorizontalAlignment.Center;
                     lblActive.VerticalAlignment = VerticalAlignment.Center;
+                    lblActive.MouseDoubleClick += (s, e) => { DeleteBet(betId); };
                     scrollContent.Children.Add(lblActive);
                     Grid.SetColumn(lblActive, 4);
                     Grid.SetRow(lblActive, kartyaIndex);            
                     kartyaIndex++;
         }
+
+        private void DeleteBet(int betId)
+        {
+            Bet eventToRemove = fogadasok.FirstOrDefault(x => x.BetsID == betId);
+
+            MessageBoxResult messageBoxresult = MessageBox.Show("Biztos hogy törli ezt a fogadását?", "Fogadás törlése", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (messageBoxresult == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    connection = new MySqlConnection(connectionString);
+                    connection.Open();
+                    string lekerdezesSzoveg = $"DELETE FROM bets WHERE BetsID = {betId};";
+                    MySqlCommand lekerdezes = new MySqlCommand(lekerdezesSzoveg, connection);
+                    lekerdezes.CommandTimeout = 60;
+                    lekerdezes.ExecuteNonQuery();
+                    connection.Close();
+                    MessageBox.Show("A fogadás törlése sikeres!");
+                    loadBets();
+                    addEventCards();
+                }
+                catch (Exception ex)
+                {
+
+                    MessageBox.Show(ex.Message);
+                }
+            }
+
+
+        }
         private void addEventCards()
         {
             kartyaIndex = 0;
+            scrollContent.Children.Clear();
+            scrollContent.RowDefinitions.Clear();
             for (int i = 0; i <= fogadasokSzama; i++)
             {
                 scrollContent.RowDefinitions.Add(new RowDefinition());
@@ -201,7 +238,7 @@ namespace SorWpfApp
             }
             foreach (var item in fogadasok)
             {
-                AddCard(eventNevek[index], item.BetDate.ToString(), item.Amount.ToString(), item.Odds.ToString(), item.Status);
+                AddCard(eventNevek[index], item.BetDate.ToString(), item.Amount.ToString(), item.Odds.ToString(), item.Status, item.BetsID);
                 index++;
             }
             
