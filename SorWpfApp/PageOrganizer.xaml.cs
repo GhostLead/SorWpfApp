@@ -65,6 +65,7 @@ namespace SorWpfApp
 
         private void AddCard(Event eventCard)
         {
+            // DropShadowEffect for container panel
             DropShadowEffect shadowEffect = new DropShadowEffect
             {
                 Color = Colors.Black,
@@ -73,81 +74,105 @@ namespace SorWpfApp
                 Opacity = 1
             };
 
-            
+            // Main container StackPanel
+            StackPanel containerPanel = new StackPanel
+            {
+                Orientation = Orientation.Horizontal,
+                Width = 750,
+                Height = 110,
+                Margin = new Thickness(20),
+                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF2A2A2D"))
+            };
 
-            StackPanel containerPanel = new StackPanel();
-            containerPanel.Width = 750;
-            containerPanel.Height = 110;
-            containerPanel.Margin = new Thickness(20);
-            containerPanel.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF2A2A2D"));
-
-
-            Label lblCategory = new Label();
-            lblCategory.Content = eventCard.Category;
-            lblCategory.FontSize = 20;
-            lblCategory.Foreground = Brushes.White;
-            lblCategory.FontWeight = FontWeights.Bold;
-            lblCategory.FontStyle = FontStyles.Italic;
-            
+            // Category Label
+            Label lblCategory = new Label
+            {
+                Content = eventCard.Category,
+                FontSize = 20,
+                Foreground = Brushes.White,
+                FontWeight = FontWeights.Bold,
+                FontStyle = FontStyles.Italic,
+                Margin = new Thickness(10, 0, 0, 0)
+            };
             containerPanel.Children.Add(lblCategory);
 
+            // Grid for Labels and Inputs
             Grid grdLabels = new Grid();
             grdLabels.ColumnDefinitions.Add(new ColumnDefinition());
             grdLabels.ColumnDefinitions.Add(new ColumnDefinition());
             grdLabels.ColumnDefinitions.Add(new ColumnDefinition());
 
-            TextBox txtGp = new TextBox();
-            txtGp.Text = eventCard.EventName;
-            txtGp.FontSize = 15;
-            txtGp.IsEnabled = false;
+            // Event Name TextBox
+            TextBox txtGp = new TextBox
+            {
+                Text = eventCard.EventName,
+                FontSize = 15,
+                IsEnabled = false,
+                Margin = new Thickness(5)
+            };
             Grid.SetColumn(txtGp, 0);
             grdLabels.Children.Add(txtGp);
 
-            DatePicker dpDate = new DatePicker();
-            dpDate.SelectedDate = eventCard.EventDate.ToDateTime(TimeOnly.Parse("10:00 PM"));
-            dpDate.FontSize = 15;
-            dpDate.IsEnabled = false;
+            // Event Date DatePicker
+            DatePicker dpDate = new DatePicker
+            {
+                SelectedDate = eventCard.EventDate.ToDateTime(TimeOnly.Parse("10:00 PM")),
+                FontSize = 15,
+                IsEnabled = false,
+                Margin = new Thickness(5)
+            };
             Grid.SetColumn(dpDate, 1);
             grdLabels.Children.Add(dpDate);
 
-            TextBox txtCountry = new TextBox();
-            txtCountry.Text = eventCard.Location;
-            txtCountry.FontSize = 15;
-            txtCountry.IsEnabled = false;
+            // Location TextBox
+            TextBox txtCountry = new TextBox
+            {
+                Text = eventCard.Location,
+                FontSize = 15,
+                IsEnabled = false,
+                Margin = new Thickness(5)
+            };
             Grid.SetColumn(txtCountry, 2);
             grdLabels.Children.Add(txtCountry);
             containerPanel.Children.Add(grdLabels);
 
-
+            // Grid for Action Buttons
             Grid grdButtons = new Grid();
             grdButtons.ColumnDefinitions.Add(new ColumnDefinition());
             grdButtons.ColumnDefinitions.Add(new ColumnDefinition());
 
-            Button btnDelete = new Button();
-            btnDelete.Content = "Törlés";
-            btnDelete.Width = 150;
-            btnDelete.Height = 25;
-            btnDelete.Margin = new Thickness(0, 5, 0, 0);
-            btnDelete.Style = (Style)FindResource("GeneralButton");
-            btnDelete.Background = new SolidColorBrush(Brushes.Red.Color);
-            btnDelete.Foreground = new SolidColorBrush(Brushes.White.Color);
+            // Delete Button
+            Button btnDelete = new Button
+            {
+                Content = "Törlés",
+                Width = 150,
+                Height = 25,
+                Margin = new Thickness(0, 5, 5, 0),
+                Background = new SolidColorBrush(Colors.Red),
+                Foreground = Brushes.White,
+                Style = (Style)FindResource("GeneralButton")
+            };
             btnDelete.Click += (s, e) =>
             {
                 MessageBoxResult messageBoxresult = MessageBox.Show("Biztos hogy törli ezt az eseményt?", "Esemény törlése", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (messageBoxresult == MessageBoxResult.Yes)
                 {
-                    txtCountry.IsEnabled = false;
-                    txtGp.IsEnabled = false;
-                    dpDate.IsEnabled = false;
                     try
                     {
+                        txtCountry.IsEnabled = false;
+                        txtGp.IsEnabled = false;
+                        dpDate.IsEnabled = false;
+
+                        // Database deletion logic
                         connection = new MySqlConnection(connectionString);
                         connection.Open();
-                        string lekerdezesSzoveg = $"DELETE FROM `events` WHERE EventID = '{eventCard.EventID}'";
-                        MySqlCommand lekerdezes = new MySqlCommand(lekerdezesSzoveg, connection);
-                        lekerdezes.CommandTimeout = 60;
-                        lekerdezes.ExecuteNonQuery();
+                        string deleteQuery = $"DELETE FROM `events` WHERE EventID = '{eventCard.EventID}'";
+                        MySqlCommand command = new MySqlCommand(deleteQuery, connection);
+                        command.CommandTimeout = 60;
+                        command.ExecuteNonQuery();
                         connection.Close();
+
+                        // Refresh UI after deletion
                         events.Clear();
                         grdContainer.Children.Clear();
                         loadEvents();
@@ -155,82 +180,84 @@ namespace SorWpfApp
                     }
                     catch (Exception ex)
                     {
-
                         MessageBox.Show(ex.Message);
                     }
-                };
-
+                }
             };
-                Grid.SetColumn(btnDelete, 0);
-                grdButtons.Children.Add(btnDelete);
+            Grid.SetColumn(btnDelete, 0);
+            grdButtons.Children.Add(btnDelete);
 
-                Button btnEdit = new Button();
-                btnEdit.Content = "Szerkesztés";
-                btnEdit.Width = 150;
-                btnEdit.Height = 25;
-                btnEdit.Margin = new Thickness(0, 5, 0, 0);
-                btnEdit.Style = (Style)FindResource("GeneralButton");
-                btnEdit.Background = new SolidColorBrush(Brushes.Green.Color);
-                btnEdit.Foreground = new SolidColorBrush(Brushes.White.Color);
-                btnEdit.Click += (s, e) =>
+            // Edit Button
+            Button btnEdit = new Button
+            {
+                Content = "Szerkesztés",
+                Width = 150,
+                Height = 25,
+                Margin = new Thickness(5, 5, 0, 0),
+                Background = new SolidColorBrush(Colors.Green),
+                Foreground = Brushes.White,
+                Style = (Style)FindResource("GeneralButton")
+            };
+            btnEdit.Click += (s, e) =>
+            {
+                if (txtCountry.IsEnabled)
                 {
-                    if (txtCountry.IsEnabled)
+                    MessageBoxResult messageBoxresult = MessageBox.Show("Biztos hogy módosíja ezt az eseményt?", "Esemény módosítása", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    if (messageBoxresult == MessageBoxResult.Yes)
                     {
-                        MessageBoxResult messageBoxresult = MessageBox.Show("Biztos hogy módosíja ezt az eseményt?", "Esemény módosítása", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                        if (messageBoxresult == MessageBoxResult.Yes)
+                        txtCountry.IsEnabled = false;
+                        txtGp.IsEnabled = false;
+                        dpDate.IsEnabled = false;
+
+                        try
                         {
-                            txtCountry.IsEnabled = false;
-                            txtGp.IsEnabled = false;
-                            dpDate.IsEnabled = false;
-                            try
-                            {
-                                connection = new MySqlConnection(connectionString);
-                                connection.Open();
-                                string lekerdezesSzoveg = $"UPDATE `events` SET `EventName`='{txtGp.Text}',`EventDate`='{dpDate.SelectedDate.Value.Year}-{dpDate.SelectedDate.Value.Month}-{dpDate.SelectedDate.Value.Day}', `Location`='{txtCountry.Text}' WHERE EventID = '{eventCard.EventID}'";
-                                MySqlCommand lekerdezes = new MySqlCommand(lekerdezesSzoveg, connection);
-                                lekerdezes.CommandTimeout = 60;
-                                lekerdezes.ExecuteNonQuery();
-                                connection.Close();
-                                events.Clear();
-                                grdContainer.Children.Clear();
-                                loadEvents();
-                                addEventCards();
-                            }
-                            catch (Exception ex)
-                            {
+                            // Database update logic
+                            connection = new MySqlConnection(connectionString);
+                            connection.Open();
+                            string updateQuery = $"UPDATE `events` SET `EventName`='{txtGp.Text}',`EventDate`='{dpDate.SelectedDate.Value:yyyy-MM-dd}', `Location`='{txtCountry.Text}' WHERE EventID = '{eventCard.EventID}'";
+                            MySqlCommand command = new MySqlCommand(updateQuery, connection);
+                            command.CommandTimeout = 60;
+                            command.ExecuteNonQuery();
+                            connection.Close();
 
-                                MessageBox.Show(ex.Message);
-                            }
-
+                            // Refresh UI after update
+                            events.Clear();
+                            grdContainer.Children.Clear();
+                            loadEvents();
+                            addEventCards();
                         }
-
-
-
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
                     }
-                    else
-                    {
+                }
+                else
+                {
+                    txtCountry.IsEnabled = true;
+                    txtGp.IsEnabled = true;
+                    dpDate.IsEnabled = true;
+                }
+            };
+            Grid.SetColumn(btnEdit, 1);
+            grdButtons.Children.Add(btnEdit);
 
-                        txtCountry.IsEnabled = true;
-                        txtGp.IsEnabled = true;
-                        dpDate.IsEnabled = true;
+            containerPanel.Children.Add(grdButtons);
 
-                    }
-                };
-                Grid.SetColumn(btnEdit, 1);
-                grdButtons.Children.Add(btnEdit);
+            // Border for shadow effect
+            Border border = new Border
+            {
+                CornerRadius = new CornerRadius(10),
+                Effect = shadowEffect,
+                Child = containerPanel
+            };
 
-                containerPanel.Children.Add(grdButtons);
-            Border border = new Border();
-            border.CornerRadius = new CornerRadius(10);
-            border.Effect = shadowEffect;
-            border.Child = containerPanel;
-
+            // Add to main grid container with row tracking
             Grid.SetRow(border, rowIndex);
-                grdContainer.Children.Add(border);
-
-                rowIndex++;
-            
+            grdContainer.Children.Add(border);
+            rowIndex++;
         }
+
 
 
 
@@ -284,5 +311,184 @@ namespace SorWpfApp
                 MessageBox.Show("Egyik mezőt se hagyja üresen!", "Hiba", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+
+
+
+
+        private StackPanel AddCard()
+        {
+            // Main StackPanel
+            StackPanel mainStackPanel = new StackPanel
+            {
+                Orientation = Orientation.Horizontal,
+                Margin = new Thickness(0),
+            };
+
+            // Apply DynamicResource to Style if needed in code-behind, like:
+            // mainStackPanel.Style = (Style)FindResource("stackback");
+
+            // Category and Event Name StackPanel
+            StackPanel categoryStackPanel = new StackPanel
+            {
+                Orientation = Orientation.Vertical,
+                Margin = new Thickness(95, 0, 0, 0)
+            };
+
+            // Category Label and ComboBox
+            Label lblCategory = new Label
+            {
+                Content = "Kategória",
+                FontSize = 17
+            };
+
+            ComboBox cbCategory = new ComboBox
+            {
+                VerticalContentAlignment = VerticalAlignment.Center,
+                HorizontalContentAlignment = HorizontalAlignment.Left,
+                Padding = new Thickness(2),
+                Width = 150,
+                Height = 25,
+                HorizontalAlignment = HorizontalAlignment.Left,
+                Margin = new Thickness(5)
+            };
+            cbCategory.Items.Add(new ComboBoxItem { Content = "Race", IsSelected = true });
+
+            // Add Category Label and ComboBox to categoryStackPanel
+            categoryStackPanel.Children.Add(lblCategory);
+            categoryStackPanel.Children.Add(cbCategory);
+
+            // Event Name Label and TextBox
+            Label lblEventName = new Label
+            {
+                Content = "Esemény Neve",
+                FontSize = 17
+            };
+
+            TextBox txtEventName = new TextBox
+            {
+                VerticalContentAlignment = VerticalAlignment.Center,
+                HorizontalContentAlignment = HorizontalAlignment.Left,
+                Padding = new Thickness(2),
+                Width = 150,
+                Height = 25,
+                HorizontalAlignment = HorizontalAlignment.Left,
+                Margin = new Thickness(5)
+            };
+
+            // Add Event Name Label and TextBox to categoryStackPanel
+            categoryStackPanel.Children.Add(lblEventName);
+            categoryStackPanel.Children.Add(txtEventName);
+
+            // Date and Location StackPanel
+            StackPanel dateLocationStackPanel = new StackPanel
+            {
+                Orientation = Orientation.Vertical,
+                Margin = new Thickness(40, 0, 0, 0)
+            };
+
+            // Date Label and DatePicker
+            Label lblDate = new Label
+            {
+                Content = "Dátum",
+                FontSize = 17
+            };
+
+            DatePicker dpStartDate = new DatePicker
+            {
+                IsTodayHighlighted = true,
+                Margin = new Thickness(0, 5, 0, 0),
+                Height = 30,
+                VerticalAlignment = VerticalAlignment.Center,
+                Width = 150
+            };
+
+            // Add Date Label and DatePicker to dateLocationStackPanel
+            dateLocationStackPanel.Children.Add(lblDate);
+            dateLocationStackPanel.Children.Add(dpStartDate);
+
+            // Location Label and TextBox
+            Label lblLocation = new Label
+            {
+                Content = "Helyszín",
+                FontSize = 17
+            };
+
+            TextBox txtLocation = new TextBox
+            {
+                VerticalContentAlignment = VerticalAlignment.Center,
+                HorizontalContentAlignment = HorizontalAlignment.Left,
+                Padding = new Thickness(2),
+                Width = 150,
+                Height = 25,
+                HorizontalAlignment = HorizontalAlignment.Left,
+                Margin = new Thickness(5)
+            };
+
+            // Add Location Label and TextBox to dateLocationStackPanel
+            dateLocationStackPanel.Children.Add(lblLocation);
+            dateLocationStackPanel.Children.Add(txtLocation);
+
+            // Description and Button StackPanel
+            StackPanel descButtonStackPanel = new StackPanel
+            {
+                Orientation = Orientation.Vertical,
+                Margin = new Thickness(40, 0, 0, 0)
+            };
+
+            // Description Label and TextBox
+            Label lblDescription = new Label
+            {
+                Content = "Esemény leírása",
+                FontSize = 17
+            };
+
+            TextBox txtDesc = new TextBox
+            {
+                Width = 150,
+                Height = 50,
+                FontSize = 15,
+                TextWrapping = TextWrapping.Wrap,
+                Padding = new Thickness(2),
+                VerticalContentAlignment = VerticalAlignment.Top,
+                HorizontalContentAlignment = HorizontalAlignment.Left,
+                Margin = new Thickness(5)
+            };
+
+            // Add Description Label and TextBox to descButtonStackPanel
+            descButtonStackPanel.Children.Add(lblDescription);
+            descButtonStackPanel.Children.Add(txtDesc);
+
+            // Button for adding event
+            Button btnAddEvent = new Button
+            {
+                Content = "Hozzáadás",
+                Width = 95,
+                Height = 35,
+                Margin = new Thickness(5, 10, 0, 0),
+                Background = new SolidColorBrush(Colors.Black),
+                Foreground = new SolidColorBrush(Colors.Lime),
+                BorderBrush = new SolidColorBrush(Colors.Lime)
+            };
+
+            // Event handler for button click
+            btnAddEvent.Click += btnAddEvent_Click;
+
+            // Add button to descButtonStackPanel
+            descButtonStackPanel.Children.Add(btnAddEvent);
+
+            // Adding all sub-stack panels to the main stack panel
+            mainStackPanel.Children.Add(categoryStackPanel);
+            mainStackPanel.Children.Add(dateLocationStackPanel);
+            mainStackPanel.Children.Add(descButtonStackPanel);
+
+            return mainStackPanel;
+        }
+
+
+
+
+
+
     }
 }
