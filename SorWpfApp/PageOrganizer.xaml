@@ -50,7 +50,7 @@
                 <DropShadowEffect BlurRadius="15" ShadowDepth="0" Opacity="1" Color="Black"/>
             </Border.Effect>
             <ScrollViewer x:Name="scrollContent" Margin="5" VerticalScrollBarVisibility="Hidden">
-                <Grid x:Name="grdContainer"/>
+                <StackPanel x:Name="grdContainer"/>
             </ScrollViewer>
         </Border>
         

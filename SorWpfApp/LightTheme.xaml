@@ -319,6 +319,10 @@
     <Style x:Key="borderback" TargetType="Border">
         <Setter Property="Background" Value="White"/>
     </Style>
+    <Style x:Key="borderback2" TargetType="Border">
+        <Setter Property="Background" Value="#FFB3B3B3"/>
+    </Style>
+
 
     <Style x:Key="stackback" TargetType="StackPanel">
         <Setter Property="Background" Value="white"/>

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SorWpfApp"
         mc:Ignorable="d"
-        Title="LogRegWindow" Height="530" Width="320" WindowStyle="None" Background="Transparent" AllowsTransparency="True" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="LogRegWindow" Height="530" Width="320" WindowStyle="None" Background="Transparent" AllowsTransparency="True" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Icon="/best-beer-logo.png">
     <Border Style="{DynamicResource borderback}" CornerRadius="10" Height="520" Width="300" MouseLeftButtonDown="Border_MouseLeftButtonDown">
         <Border.Effect>
             <DropShadowEffect BlurRadius="12" Opacity=".7" ShadowDepth="0"/>
