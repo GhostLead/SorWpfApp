@@ -51,11 +51,13 @@ namespace SorWpfApp
                 MySqlDataReader reader = lekerdezes.ExecuteReader();
                 while (reader.Read())
                 {
-                    events.Add(new Event(reader));
+                    Event ujEvent = new Event(reader);
+                    events.Add(ujEvent);
+                    EventManager.Pliz[ujEvent] = "Hány ember fog meghalni az esemény alatt?";
                 }
                 reader.Close();
                 connection.Close();
-
+                
             }
             catch (Exception ex)
             {
@@ -233,7 +235,7 @@ namespace SorWpfApp
 
         //}
 
-        private void AddCard(Event evente)
+        private void AddCard(Event eventCard)
         {
             // Create the main Border
             Border border = new Border
@@ -270,7 +272,7 @@ namespace SorWpfApp
 
             // Category Label and ComboBox
             leftStackPanel.Children.Add(new Label { Content = "Kategória", FontSize = 17 });
-            ComboBox cbCategory = new ComboBox
+            TextBox txtCategory = new TextBox
             {
                 VerticalContentAlignment = VerticalAlignment.Center,
                 HorizontalContentAlignment = HorizontalAlignment.Left,
@@ -278,10 +280,11 @@ namespace SorWpfApp
                 Width = 150,
                 Height = 25,
                 HorizontalAlignment = HorizontalAlignment.Left,
-                Margin = new Thickness(5)
+                Margin = new Thickness(5),
+                IsEnabled = false,
+                Text = eventCard.Category
             };
-            cbCategory.Items.Add(new ComboBoxItem { Content = "Race", IsSelected = true });
-            leftStackPanel.Children.Add(cbCategory);
+            leftStackPanel.Children.Add(txtCategory);
 
             // Event Name Label and TextBox
             leftStackPanel.Children.Add(new Label { Content = "Esemény Neve", FontSize = 17 });
@@ -293,7 +296,9 @@ namespace SorWpfApp
                 Width = 150,
                 Height = 25,
                 HorizontalAlignment = HorizontalAlignment.Left,
-                Margin = new Thickness(5)
+                Margin = new Thickness(5),
+                IsEnabled = false,
+                Text= eventCard.EventName
             };
             leftStackPanel.Children.Add(txtEventName);
 
@@ -313,7 +318,9 @@ namespace SorWpfApp
                 Margin = new Thickness(0, 5, 0, 0),
                 Height = 30,
                 VerticalAlignment = VerticalAlignment.Center,
-                Width = 150
+                Width = 150,
+                IsEnabled = false,
+                SelectedDate = eventCard.EventDate.ToDateTime(TimeOnly.Parse("10:00 PM"))
             };
             middleStackPanel.Children.Add(dpStartDate);
 
@@ -327,7 +334,9 @@ namespace SorWpfApp
                 Width = 150,
                 Height = 25,
                 HorizontalAlignment = HorizontalAlignment.Left,
-                Margin = new Thickness(5)
+                Margin = new Thickness(5),
+                IsEnabled = false,
+                Text = eventCard.Location
             };
             middleStackPanel.Children.Add(txtLocation);
 
@@ -343,6 +352,7 @@ namespace SorWpfApp
             rightStackPanel.Children.Add(new Label { Content = "Esemény leírása", FontSize = 17 });
             TextBox txtDesc = new TextBox
             {
+                Text = EventManager.Pliz.Where(x=>x.Key.EventID == eventCard.EventID).First().Value,
                 Width = 150,
                 Height = 50,
                 FontSize = 15,
@@ -350,14 +360,59 @@ namespace SorWpfApp
                 Padding = new Thickness(2),
                 VerticalContentAlignment = VerticalAlignment.Top,
                 HorizontalContentAlignment = HorizontalAlignment.Left,
-                Margin = new Thickness(5)
+                Margin = new Thickness(5),
+                IsEnabled = false
             };
             rightStackPanel.Children.Add(txtDesc);
 
-            // Add Event Button
-            Button btnAddEvent = new Button
+            StackPanel buttonStackPanel = new StackPanel
             {
-                Content = "Hozzáadás",
+                Orientation = Orientation.Horizontal,
+                
+            };
+            // Add Event Button
+            Button btnDelete = new Button
+            {
+                Content = "Törlés",
+                Width = 95,
+                Height = 35,
+                Margin = new Thickness(5, 10, 0, 0),
+                Background = Brushes.Black,
+                Foreground = Brushes.Red,
+                BorderBrush = Brushes.Red
+            };
+            btnDelete.Click += (s, e) =>
+            {
+                MessageBoxResult messageBoxresult = MessageBox.Show("Biztos hogy törli ezt az eseményt?", "Esemény törlése", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (messageBoxresult == MessageBoxResult.Yes)
+                {
+                    
+                    try
+                    {
+                        connection = new MySqlConnection(connectionString);
+                        connection.Open();
+                        string lekerdezesSzoveg = $"DELETE FROM `events` WHERE EventID = '{eventCard.EventID}'";
+                        MySqlCommand lekerdezes = new MySqlCommand(lekerdezesSzoveg, connection);
+                        lekerdezes.CommandTimeout = 60;
+                        lekerdezes.ExecuteNonQuery();
+                        connection.Close();
+                        events.Clear();
+                        grdContainer.Children.Clear();
+                        loadEvents();
+                        addEventCards();
+                    }
+                    catch (Exception ex)
+                    {
+
+                        MessageBox.Show("Erre az eseményre már fogadtak, nem lehet törölni!", "Törlés error", MessageBoxButton.OK,MessageBoxImage.Error);
+                    }
+                };
+
+            };
+            buttonStackPanel.Children.Add(btnDelete);
+            Button btnEdit = new Button
+            {
+                Content = "Szerkesztés",
                 Width = 95,
                 Height = 35,
                 Margin = new Thickness(5, 10, 0, 0),
@@ -365,9 +420,55 @@ namespace SorWpfApp
                 Foreground = Brushes.Lime,
                 BorderBrush = Brushes.Lime
             };
-            btnAddEvent.Click += btnAddEvent_Click;
-            rightStackPanel.Children.Add(btnAddEvent);
+            btnEdit.Click += (s,e) =>
+            {
+                if (txtLocation.IsEnabled)
+                {
+                    MessageBoxResult messageBoxresult = MessageBox.Show("Biztos hogy módosíja ezt az eseményt?", "Esemény módosítása", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    if (messageBoxresult == MessageBoxResult.Yes)
+                    {
+                        txtLocation.IsEnabled = false;
+                        txtEventName.IsEnabled = false;
+                        dpStartDate.IsEnabled = false;
+                        txtDesc.IsEnabled = false;
+                        try
+                        {
+                            connection = new MySqlConnection(connectionString);
+                            connection.Open();
+                            string lekerdezesSzoveg = $"UPDATE `events` SET `EventName`='{txtEventName.Text}',`EventDate`='{dpStartDate.SelectedDate.Value.Year}-{dpStartDate.SelectedDate.Value.Month}-{dpStartDate.SelectedDate.Value.Day}', `Location`='{txtLocation.Text}' WHERE EventID = '{eventCard.EventID}'";
+                            MySqlCommand lekerdezes = new MySqlCommand(lekerdezesSzoveg, connection);
+                            lekerdezes.CommandTimeout = 60;
+                            lekerdezes.ExecuteNonQuery();
+                            connection.Close();
+                            events.Clear();
+                            grdContainer.Children.Clear();
+                            loadEvents();
+                            EventManager.Pliz[eventCard] = txtDesc.Text;
+                            addEventCards();
+                        }
+                        catch (Exception ex)
+                        {
 
+                            MessageBox.Show(ex.Message);
+                        }
+
+                    }
+
+
+
+                }
+                else
+                {
+
+                    txtLocation.IsEnabled = true;
+                    txtEventName.IsEnabled = true;
+                    dpStartDate.IsEnabled = true;
+                    txtDesc.IsEnabled = true;
+
+                }
+            };
+            buttonStackPanel.Children.Add(btnEdit);
+            rightStackPanel.Children.Add(buttonStackPanel);
             // Add the border to the main window or desired container
 
             grdContainer.Children.Add(border);
@@ -402,7 +503,7 @@ namespace SorWpfApp
                 {
                     connection = new MySqlConnection(connectionString);
                     connection.Open();
-                    string lekerdezesSzoveg = $"INSERT INTO `events`(`EventName`, `EventDate`, `Category`, `Location`) VALUES ('{txtEventName.Text}','{dpStartDate.SelectedDate.Value.Year}-{dpStartDate.SelectedDate.Value.Month}-{dpStartDate.SelectedDate.Value.Day}','{cbCategory.Text}','{txtLocation.Text}')";
+                    string lekerdezesSzoveg = $"INSERT INTO `events`(`EventName`, `EventDate`, `Category`, `Location`) VALUES ('{txtEventName.Text}','{dpStartDate.SelectedDate.Value.Year}-{dpStartDate.SelectedDate.Value.Month}-{dpStartDate.SelectedDate.Value.Day}','{txtCategory.Text}','{txtLocation.Text}')";
                     MySqlCommand lekerdezes = new MySqlCommand(lekerdezesSzoveg, connection);
                     lekerdezes.CommandTimeout = 60;
                     lekerdezes.ExecuteNonQuery();
@@ -412,6 +513,7 @@ namespace SorWpfApp
                     loadEvents();
                     addEventCards();
                     MessageBox.Show("Az esemény sikeresen fel lett véve!", "Esemény felvétele", MessageBoxButton.OK, MessageBoxImage.Information);
+
                     
                 }
                 catch (Exception ex)

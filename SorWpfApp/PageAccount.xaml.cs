@@ -102,7 +102,9 @@ namespace SorWpfApp
                 MySqlDataReader reader = lekerdezes.ExecuteReader();
                 while (reader.Read())
                 {
-                    events.Add(new Event(reader));
+                    Event ujEvent = new Event(reader);
+                    events.Add(ujEvent);
+                    EventManager.Pliz[ujEvent] = "Hány ember fog meghalni az esemény alatt?";
                 }
                 reader.Close();
                 connection.Close();

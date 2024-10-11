@@ -17,9 +17,9 @@
                 <StackPanel Orientation="Vertical" Margin="95,0,0,0">
                     <StackPanel>
                         <Label Content="Kategória" FontSize="17"/>
-                        <ComboBox x:Name="cbCategory" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Padding="2" Width="150" Height="25" HorizontalAlignment="Left" Margin="5">
-                            <ComboBoxItem Content="Race" IsSelected="True"/>
-                        </ComboBox>
+                        <TextBox x:Name="txtCategory" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Padding="2" Width="150" Height="25" HorizontalAlignment="Left" Margin="5">
+                            
+                        </TextBox>
                     </StackPanel>
                     <StackPanel>
                         <Label Content="Esemény Neve" FontSize="17"/>

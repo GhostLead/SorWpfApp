@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace SorWpfApp
 {
-    internal class Event
+    public class Event
     {
         public int EventID { get; set; }
         public string EventName { get; set; }
         public DateOnly EventDate { get; set; }
         public string Category { get; set; }
         public string Location { get; set; }
-
+        public string Description { get; set; }
 
         public Event(MySqlDataReader olvaso)
         {

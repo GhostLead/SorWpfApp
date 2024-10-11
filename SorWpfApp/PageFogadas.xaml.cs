@@ -30,7 +30,9 @@ namespace SorWpfApp
         public PageFogadas()
         {
             InitializeComponent();
+
             loadEvents();
+            
             addEventCards();
         }
 
@@ -62,7 +64,7 @@ namespace SorWpfApp
             }
         }
 
-        private void AddCard(string titleText, string descriptionText, int eventID)
+        private void AddCard(Event eventCard)
         {
 
             Grid cardGrid = new Grid();
@@ -82,7 +84,7 @@ namespace SorWpfApp
             Label titleLabel = new Label
             {
                 Style = (Style)FindResource("EventLabelCategory"),
-                Content = titleText,
+                Content = eventCard.Category,
                 FontWeight = FontWeights.Bold
             };
             Grid.SetRow(titleLabel, 0);
@@ -93,7 +95,7 @@ namespace SorWpfApp
             Label descriptionLabel = new Label
             {
                 Style = (Style)FindResource("EventLabelDescription"),
-                Content = descriptionText,
+                Content = eventCard.EventName,
                 VerticalAlignment = VerticalAlignment.Center,
             };
             Grid.SetRow(descriptionLabel, 0);
@@ -124,7 +126,7 @@ namespace SorWpfApp
             Label betType = new Label
             {
                 Style = (Style)FindResource("EventLabelCounter"),
-                Content = titleText == "Race" ? "Biztonsági autók száma a versenyben: " : "Bocsika, még nincs ilyen fogadás típus: ",
+                Content = EventManager.Pliz.Where(x=>x.Key.EventID == eventCard.EventID).First().Value,
                 Margin = new Thickness(5),
                 HorizontalAlignment = HorizontalAlignment.Center,
             };
@@ -136,7 +138,7 @@ namespace SorWpfApp
                 Style = (Style)FindResource("EventLabelCounter"),
                 Content = "0",
                 Margin = new Thickness(5),
-                Name = $"lblEvent{eventID}", // Use eventID for naming
+                Name = $"lblEvent{eventCard.EventID}", // Use eventID for naming
                 HorizontalAlignment = HorizontalAlignment.Center,
             };
             betInfoStackPanel.Children.Add(betLabel);
@@ -263,7 +265,7 @@ namespace SorWpfApp
                     using (var connection = new MySqlConnection(connectionString))
                     {
                         connection.Open();
-                        string query = $"INSERT INTO `bets`(`BetDate`, `Odds`, `Amount`, `BettorsID`, `EventID`, `Status`) VALUES ('{DateTime.Now:yyyy-MM-dd}','{ujSzorzo.ToString().Replace(',','.')}','{sliPay.Value}','{UserAtkuldese.bejelentkezettFogado.bettorsID}','{eventID}','1');";
+                        string query = $"INSERT INTO `bets`(`BetDate`, `Odds`, `Amount`, `BettorsID`, `EventID`, `Status`) VALUES ('{DateTime.Now:yyyy-MM-dd}','{ujSzorzo.ToString().Replace(',','.')}','{sliPay.Value}','{UserAtkuldese.bejelentkezettFogado.bettorsID}','{eventCard.EventID}','1');";
                         MySqlCommand command = new MySqlCommand(query, connection);
                         command.CommandTimeout = 60;
                         command.ExecuteNonQuery();
@@ -308,17 +310,13 @@ namespace SorWpfApp
             scrollContent.Children.Add(border);
         }
 
-
-
-
-        
-
         private void addEventCards()
         {
             eventIndex = 1;
             foreach (var item in events)
             {
-                AddCard(item.Category, item.EventName, item.EventID);
+
+                AddCard(item);
             }
         }
     }
