@@ -374,13 +374,6 @@ namespace SorWpfApp
         }
 
 
-
-
-
-
-
-
-
         private void addEventCards()
         {
             rowIndex = 0;
