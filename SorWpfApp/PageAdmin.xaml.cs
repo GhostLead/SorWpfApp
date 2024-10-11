@@ -35,6 +35,7 @@ namespace SorWpfApp
             InitializeComponent();
             loadUsers();
             addEventCards();
+            
         }
 
         private void loadUsers()
