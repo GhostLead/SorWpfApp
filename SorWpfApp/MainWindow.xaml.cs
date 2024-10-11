@@ -28,6 +28,21 @@ namespace SorWpfApp
             bejelentkezettBettor = UserAtkuldese.bejelentkezettFogado;
             lblUsername.Content = bejelentkezettBettor.username;
             lblBalance.Content = bejelentkezettBettor.balance+" Ft";
+            if (bejelentkezettBettor.username.ToLower().Contains("admin"))
+            {
+                btnAdmin.Visibility = Visibility.Visible;
+                btnOrganizer.Visibility = Visibility.Hidden;
+            }
+            else if (bejelentkezettBettor.username.ToLower().Contains("organizer"))
+            {
+                btnAdmin.Visibility = Visibility.Collapsed;
+                btnOrganizer.Visibility = Visibility.Visible;
+            }
+            else {
+                btnAdmin.Visibility = Visibility.Hidden;
+                btnOrganizer.Visibility = Visibility.Hidden;
+
+            }
         }
 
         private void megnyit_Click(object sender, RoutedEventArgs e)

@@ -24,7 +24,7 @@ namespace SorWpfApp
     {
         static List<Bettor> fogadok = new();
         public static string connectionString = "datasource = 127.0.0.1;port=3306;username=root;password=;database=fogadasok";
-        private MySqlConnection? connection;
+        private static MySqlConnection? connection;
         static LogInPage logp = new LogInPage();
         static RegistrationPage regp = new RegistrationPage();
         static bool vanHiba = false;
@@ -79,8 +79,8 @@ namespace SorWpfApp
                 btnLogin.Content = "Bejelentkezés";
                 btnLogin.Click -= HandleRegister;
                 btnLogin.Click += HandleLogin;
-                ;
                 
+
             }
             else
             {
@@ -116,7 +116,7 @@ namespace SorWpfApp
                 
             }
         }
-        private void loadUsers()
+        private static void loadUsers()
         {
             fogadok = new List<Bettor>();
 
@@ -151,6 +151,7 @@ namespace SorWpfApp
             bool isOrganizer = false;
             string loginUser = LoginClass.Username;
             string loginPassword = LoginClass.Password;
+            loadUsers();
             foreach (var user in fogadok)
             {
                 if (user.username == loginUser && user.password == loginPassword)
@@ -339,7 +340,7 @@ namespace SorWpfApp
             {
                 userUpload();
                 
-                MessageBox.Show("Köszönjük a regisztrálását!","",MessageBoxButton.OK,MessageBoxImage.Hand);
+                MessageBox.Show("Köszönjük a regisztrálását!","",MessageBoxButton.OK,MessageBoxImage.Information);
                 ////ApplicationWindow appwin = new ApplicationWindow();
                 var logRegWindow = Application.Current.Windows.OfType<LogRegWindow>().FirstOrDefault();
                 if (logRegWindow != null)
