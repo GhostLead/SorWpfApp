@@ -48,6 +48,11 @@ namespace SorWpfApp
             lblEmail.Text = user.email;
             txtEmail.Text = user.email;
             lblJoinDate.Content = user.joinDate;
+            if (!user.isActive)
+            {
+                lbisactive.Content = "Deaktiválva";
+                lbisactive.Foreground = Brushes.Red;
+            }
         }
 
         public bool IsDarkThemeApplied()
@@ -182,7 +187,7 @@ namespace SorWpfApp
                     lblActive.MouseDoubleClick += (s, e) => { DeleteBet(betId); };
                     scrollContent.Children.Add(lblActive);
                     Grid.SetColumn(lblActive, 4);
-                    Grid.SetRow(lblActive, kartyaIndex);            
+                    Grid.SetRow(lblActive, kartyaIndex);
                     kartyaIndex++;
         }
 

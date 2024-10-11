@@ -182,7 +182,7 @@ namespace SorWpfApp
                     break;
 
                 }
-
+                
 
             }
             if (isAdmin)

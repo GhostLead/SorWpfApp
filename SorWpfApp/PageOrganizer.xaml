@@ -39,7 +39,7 @@
                 <StackPanel Orientation="Vertical" Margin="40,0,0,0">
                     <Label Content="Esemény leírása" FontSize="17"/>
                     <TextBox x:Name="txtDesc" Width="150" Height="50" FontSize="15" TextWrapping="Wrap" Padding="2" VerticalContentAlignment="Top" HorizontalContentAlignment="Left" Margin="5"/>
-                    <Button x:Name="btnAddEvent" Content="Hozzáadás" Width="95" Height="35" Margin="5,10,0,0" Style="{DynamicResource GeneralButton}" Background="Black" Foreground="Lime" BorderBrush="Lime" Click="btnAddEvent_Click"/>
+                    <Button Style="{DynamicResource ShutdownButton}" x:Name="btnAddEvent" Content="Hozzáadás" Width="95" Height="35" Margin="5,10,0,0" Background="Black" Foreground="Lime" BorderBrush="Lime" Click="btnAddEvent_Click"/>
                 </StackPanel>
             </StackPanel>
         </Border>

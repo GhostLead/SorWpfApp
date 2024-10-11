@@ -43,6 +43,20 @@ namespace SorWpfApp
                 btnOrganizer.Visibility = Visibility.Hidden;
 
             }
+            if (!bejelentkezettBettor.isActive)
+            {
+                btnFogadas.Visibility = Visibility.Hidden;
+                btnThemeToggle.Content = "🌙";
+                Application.Current.Resources.MergedDictionaries.Clear();
+                Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary
+                {
+                    Source = new Uri("LightTheme.xaml", UriKind.Relative)
+                });
+                window.Background = Brushes.White;
+                navbar.Background = Brushes.White;
+                IsDarkModeOn = false;
+                btnThemeToggle.Visibility = Visibility.Hidden;
+            }
         }
 
         private void megnyit_Click(object sender, RoutedEventArgs e)

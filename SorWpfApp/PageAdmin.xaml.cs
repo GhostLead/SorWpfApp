@@ -96,8 +96,8 @@ namespace SorWpfApp
 
 
             StackPanel userPanel = new StackPanel();
-            userPanel.Width = 200;
-            userPanel.Height = 350;
+            userPanel.Width = 220;
+            userPanel.Height = 370;
             userPanel.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF2A2A2D"));
             userPanel.Margin = new Thickness(0,25,0,30);
 
@@ -133,6 +133,8 @@ namespace SorWpfApp
             txtEmail.HorizontalContentAlignment = HorizontalAlignment.Center;
             txtEmail.Style = (Style)FindResource("LogRegTextbox");
             txtEmail.HorizontalAlignment = HorizontalAlignment.Center;
+            txtEmail.Padding = new Thickness(1);
+            txtEmail.Height = 20;
             userPanel.Children.Add(txtEmail);
 
             Label lblPassword = new Label();
@@ -148,6 +150,8 @@ namespace SorWpfApp
             txtPass.HorizontalContentAlignment = HorizontalAlignment.Center;
             txtPass.Style = (Style)FindResource("LogRegTextbox");
             txtPass.HorizontalAlignment = HorizontalAlignment.Center;
+            txtPass.Padding = new Thickness(1);
+            txtPass.Height = 20;
             userPanel.Children.Add(txtPass);
 
             Label lblBalance = new Label();
@@ -163,6 +167,8 @@ namespace SorWpfApp
             txtBalance.HorizontalContentAlignment = HorizontalAlignment.Center; 
             txtBalance.TextWrapping = TextWrapping.Wrap;
             txtBalance.Style = (Style)FindResource("LogRegTextbox");
+            txtBalance.Padding = new Thickness(1);
+            txtBalance.Height = 20;
             txtBalance.HorizontalAlignment = HorizontalAlignment.Center;
             userPanel.Children.Add(txtBalance);
 

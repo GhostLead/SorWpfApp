@@ -11,7 +11,7 @@
             <Label Content="Pénz Felvétel" HorizontalAlignment="Center" FontSize="25" Margin="5"/>
             <Slider x:Name="sliFelvesz" Value="5000" Width="222" Minimum="100" Maximum="10000" Margin="0,20,0,0" TickFrequency="100" IsSnapToTickEnabled="True" Background="#019C8585" Foreground="Black"/>
             <Label Content="{Binding ElementName=sliFelvesz, Path=Value}" HorizontalAlignment="Center" FontSize="17" FontStyle="Italic" FontWeight="Bold" Foreground="Lime"/>
-            <Button x:Name="btnFelvetel" Style="{DynamicResource GeneralButton}" Height="30" Width="150" Content="Befizetés" FontSize="15" Background="#FFFFBB00" Click="btnFelvetel_Click" Margin="0,20,0,0"/>
+            <Button x:Name="btnFelvetel" Style="{DynamicResource GeneralButton}" Height="30" Width="150" Content="Felvétel" FontSize="15" Background="#FFFFBB00" Click="btnFelvetel_Click" Margin="0,20,0,0"/>
             <Button x:Name="btnCancel" Style="{DynamicResource GeneralButton}" Height="28" Width="80" Content="Mégsem" FontSize="15" Foreground="White" Background="Maroon" Margin="0,10,0,0" Click="cancelbtn_Click" />
         </StackPanel>
     </Border>

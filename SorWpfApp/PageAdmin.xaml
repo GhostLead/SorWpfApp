@@ -11,7 +11,7 @@
     <Border>
         <StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <TextBox x:Name="txtSearch" Text="Serach" Width="200" Margin="20,0,0,0" Height="25" Style="{DynamicResource LogRegTextbox}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                <TextBox x:Name="txtSearch" Width="200" Margin="20,0,0,0" Height="25" Style="{DynamicResource LogRegTextbox}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
                 <Button x:Name="btnSearch" Content="🔍" FontSize="15" Margin="15,0,0,0" Style="{DynamicResource TransparentButton}" Click="btnSearch_Click"/>
             </StackPanel>
 

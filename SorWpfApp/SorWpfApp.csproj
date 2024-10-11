@@ -9,6 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Images\**" />
+    <EmbeddedResource Remove="Images\**" />
+    <None Remove="Images\**" />
+    <Page Remove="Images\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="adcard1.jpg" />
     <None Remove="best-beer-logo-icon-design-vector-white.jpg" />
     <None Remove="best-beer-logo.png" />
@@ -17,10 +24,6 @@
     <None Remove="norris.jpg" />
     <None Remove="userimg.jpg" />
     <None Remove="verstappen.jpg" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Images\" />
   </ItemGroup>
 
   <ItemGroup>

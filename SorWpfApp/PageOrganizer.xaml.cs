@@ -376,11 +376,12 @@ namespace SorWpfApp
                 Content = "Törlés",
                 Width = 95,
                 Height = 35,
+                Style = (Style)FindResource("ShutdownButton"),
                 Margin = new Thickness(5, 10, 0, 0),
                 Background = Brushes.Black,
                 Foreground = Brushes.Red,
                 BorderBrush = Brushes.Red
-            };
+            }; 
             btnDelete.Click += (s, e) =>
             {
                 MessageBoxResult messageBoxresult = MessageBox.Show("Biztos hogy törli ezt az eseményt?", "Esemény törlése", MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -415,6 +416,7 @@ namespace SorWpfApp
                 Content = "Szerkesztés",
                 Width = 95,
                 Height = 35,
+                Style = (Style)FindResource("ShutdownButton"),
                 Margin = new Thickness(5, 10, 0, 0),
                 Background = Brushes.Black,
                 Foreground = Brushes.Lime,
