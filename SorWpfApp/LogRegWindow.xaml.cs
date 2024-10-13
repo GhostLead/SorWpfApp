@@ -23,7 +23,7 @@ namespace SorWpfApp
     public partial class LogRegWindow : Window
     {
         static List<Bettor> fogadok = new();
-        public static string connectionString = "datasource = 127.0.0.1;port=3306;username=root;password=;database=fogadasok";
+        public static string connectionString = dbConnection.connection;
         private static MySqlConnection? connection;
         static LogInPage logp = new LogInPage();
         static RegistrationPage regp = new RegistrationPage();
@@ -55,6 +55,7 @@ namespace SorWpfApp
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
+            loadUsers();
             if (!hasznalva || !vanJelszo || !vanNev)
             {
                 HandleLogin(sender,e);
@@ -348,7 +349,8 @@ namespace SorWpfApp
                     logRegWindow.Container.Content = new LogInPage();
                     logRegWindow.btnLogReg.Content = "Nincs fiókom / Regisztrálok";
                     logRegWindow.btnLogin.Content = "Bejelentkezés";
-                    
+                    logRegWindow.btnLogin.Click -= logRegWindow.HandleRegister;
+                    logRegWindow.btnLogin.Click += logRegWindow.HandleLogin;
                 }
 
                 

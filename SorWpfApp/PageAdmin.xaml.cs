@@ -23,7 +23,7 @@ namespace SorWpfApp
     /// </summary>
     public partial class PageAdmin : Page
     {
-        public static string connectionString = "datasource = 127.0.0.1;port=3306;username=root;password=;database=fogadasok";
+        public static string connectionString = dbConnection.connection;
         private MySqlConnection? connection;
         Bettor user = UserAtkuldese.bejelentkezettFogado;
         ObservableCollection<Bettor> users = new ObservableCollection<Bettor>();

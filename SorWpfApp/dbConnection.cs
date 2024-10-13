@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace SorWpfApp
 {
-    public static class EventManager
+    public class dbConnection
     {
-
-        public static Dictionary<Event, string> Pliz { get; } = new Dictionary<Event, string>();
-
-
+        public static string connection = "datasource = 127.0.0.1;port=3306;username=root;password=;database=fogadasokUres";
     }
 }

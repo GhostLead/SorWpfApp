@@ -37,6 +37,7 @@ namespace SorWpfApp
             {
                 btnAdmin.Visibility = Visibility.Collapsed;
                 btnOrganizer.Visibility = Visibility.Visible;
+                btnOrganizer.Margin = new Thickness(160,0,0,0);
             }
             else {
                 btnAdmin.Visibility = Visibility.Hidden;

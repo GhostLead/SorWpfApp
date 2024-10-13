@@ -23,10 +23,11 @@ namespace SorWpfApp
     /// </summary>
     public partial class PageAccount : Page
     {
-        public static string connectionString = "datasource = 127.0.0.1;port=3306;username=root;password=;database=fogadasok";
-        private MySqlConnection? connection;
+        public static string connectionString = dbConnection.connection;
+        private static MySqlConnection? connection;
         Bettor user = UserAtkuldese.bejelentkezettFogado;
         ObservableCollection<Bet> fogadasok;
+        ObservableCollection<Bettor>  fogadok;
         string backgroundcolor = "#FF343538";
         int fogadasokSzama = 0;
         int osszesKoltes = 0;
@@ -91,6 +92,34 @@ namespace SorWpfApp
             fogadasokSzama = fogadasok.Count;
             osszesKoltes = fogadasok.Sum(x => x.Amount);
         }
+
+        //private static void loadUsers()
+        //{
+        //    fogadok = new ObservableCollection<Bettor>();
+
+        //    try
+        //    {
+        //        connection = new MySqlConnection(connectionString);
+        //        connection.Open();
+        //        string lekerdezesSzoveg = "SELECT * FROM Bettors ORDER BY BettorsID";
+
+        //        MySqlCommand lekerdezes = new MySqlCommand(lekerdezesSzoveg, connection);
+        //        lekerdezes.CommandTimeout = 60;
+        //        MySqlDataReader reader = lekerdezes.ExecuteReader();
+        //        while (reader.Read())
+        //        {
+        //            fogadok.Add(new Bettor(reader));
+        //        }
+        //        reader.Close();
+        //        connection.Close();
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //        MessageBox.Show(ex.Message);
+        //    }
+        //}
 
         private void loadEvents()
         {
@@ -282,7 +311,7 @@ namespace SorWpfApp
             else
             {
                 MessageBoxResult messageBoxresult = MessageBox.Show("Biztos hogy módosíja a fiókja adatait?\nA módosítás után ismét be kell jelentkezni!", "Fiók módosítása", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                if (messageBoxresult == MessageBoxResult.Yes)
+                if (messageBoxresult == MessageBoxResult.Yes && txtPassword.Text.Length >= 8)
                 {
                     try
                     {
@@ -293,7 +322,7 @@ namespace SorWpfApp
                         lekerdezes.CommandTimeout = 60;
                         lekerdezes.ExecuteNonQuery();
                         connection.Close();
-                        
+
                     }
                     catch (Exception ex)
                     {
@@ -304,6 +333,10 @@ namespace SorWpfApp
                     logRegWindow.Show();
                     var ablakBezarasa = Window.GetWindow(this);
                     ablakBezarasa.Close();
+                }
+                else 
+                {
+                    MessageBox.Show("A jelszónak legalább 8 karakternek kell lennie!", "Hibás jelszó", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
 
                 txtUsername.IsEnabled = false;

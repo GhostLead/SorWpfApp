@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection.Metadata;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,10 +24,11 @@ namespace SorWpfApp
     /// </summary>
     public partial class PageFogadas : Page
     {
-        public static string connectionString = "datasource = 127.0.0.1;port=3306;username=root;password=;database=fogadasok";
+        public static string connectionString = dbConnection.connection;
         private MySqlConnection? connection;
         ObservableCollection<Event> events;
         int eventIndex = 1;
+        private static readonly Regex _regex = new Regex("[^0-9.-]+");
         public PageFogadas()
         {
             InitializeComponent();
@@ -151,11 +153,6 @@ namespace SorWpfApp
             };
 
 
-
-
-
-
-
             // Decrement Button
 
             Button decrementButton = new Button
@@ -208,16 +205,29 @@ namespace SorWpfApp
 
             StackPanel spPay = new StackPanel();
 
-            Label lblPay = new Label
+            //Label lblPay = new Label
+            //{
+            //    Content = "100",
+            //    HorizontalAlignment = HorizontalAlignment.Center,
+            //    FontSize = 17,
+            //    FontStyle = FontStyles.Italic,
+            //    FontWeight = FontWeights.Bold,
+            //    Foreground = new SolidColorBrush(Colors.Lime)
+            //};
+
+            TextBox txtPay = new TextBox
             {
-                Content = "100",
+                Text = "100",
                 HorizontalAlignment = HorizontalAlignment.Center,
                 FontSize = 17,
                 FontStyle = FontStyles.Italic,
                 FontWeight = FontWeights.Bold,
-                Foreground = new SolidColorBrush(Colors.Lime)
+                Margin = new Thickness(0,10,0,0),
+                Foreground = new SolidColorBrush(Colors.Lime),
+                Background = new SolidColorBrush(Color.FromRgb(52,53,57))
+
             };
-            spPay.Children.Add(lblPay);
+
 
             Slider sliPay = new Slider
             {
@@ -228,6 +238,35 @@ namespace SorWpfApp
                 IsSnapToTickEnabled = true,
 
             };
+            txtPay.TextChanged += (s, e) =>
+            {
+                txtPay.MaxLength = UserAtkuldese.bejelentkezettFogado.balance.ToString().Length;
+                if (!_regex.IsMatch(txtPay.Text) && txtPay.Text != "")
+                {
+                    sliPay.Value = Math.Round(double.Parse(txtPay.Text));
+                }
+                else
+                {
+                    if (txtPay.Text == "")
+                    {
+
+                    }
+                    else if (int.Parse(txtPay.Text) > UserAtkuldese.bejelentkezettFogado.balance)
+                    {
+                        txtPay.Text = UserAtkuldese.bejelentkezettFogado.balance.ToString();
+                    }
+                    else
+                    {
+                        txtPay.Text = "100";
+                        MessageBox.Show("Csak számokat adhat meg ebbe a bezőbe!");
+                        
+
+                    }
+                }
+
+
+                
+            };
             if (UserAtkuldese.bejelentkezettFogado.balance >= 100)
             {
                 sliPay.Maximum = UserAtkuldese.bejelentkezettFogado.balance;
@@ -236,8 +275,9 @@ namespace SorWpfApp
 
             sliPay.ValueChanged += (s, e) =>
             {
-                lblPay.Content = sliPay.Value.ToString();
+                txtPay.Text = sliPay.Value.ToString();
             };
+            spPay.Children.Add(txtPay);
             spPay.Children.Add(sliPay);
             Grid.SetRow(spPay, 0);
             Grid.SetColumn(spPay, 3);
@@ -257,35 +297,46 @@ namespace SorWpfApp
             };
             saveBet.Click += (s, e) =>
             {
-                try
+                if (sliPay.Value !<= UserAtkuldese.bejelentkezettFogado.balance)
                 {
-                    
-                    
-                    
-                    using (var connection = new MySqlConnection(connectionString))
+                    try
                     {
-                        connection.Open();
-                        string query = $"INSERT INTO `bets`(`BetDate`, `Odds`, `Amount`, `BettorsID`, `EventID`, `Status`) VALUES ('{DateTime.Now:yyyy-MM-dd}','{ujSzorzo.ToString().Replace(',','.')}','{sliPay.Value}','{UserAtkuldese.bejelentkezettFogado.bettorsID}','{eventCard.EventID}','1');";
-                        MySqlCommand command = new MySqlCommand(query, connection);
-                        command.CommandTimeout = 60;
-                        command.ExecuteNonQuery();
 
-                        MessageBox.Show("Sikeresen leadta a fogadást!");
-                        UserAtkuldese.bejelentkezettFogado.balance -= (int)sliPay.Value;
-                        var ablak = Application.Current.Windows.OfType<MainWindow>().First();
-                        ablak.lblBalance.Content = $"{Convert.ToString(UserAtkuldese.bejelentkezettFogado.balance)} Ft";
 
-                        query = $"UPDATE `bettors` SET `Balance`='{UserAtkuldese.bejelentkezettFogado.balance}'WHERE Username = '{UserAtkuldese.bejelentkezettFogado.username}'";
-                        command = new MySqlCommand(query, connection);
-                        command.CommandTimeout = 60;
-                        command.ExecuteNonQuery();
-                        connection.Close();
+
+                        using (var connection = new MySqlConnection(connectionString))
+                        {
+                            connection.Open();
+                            string query = $"INSERT INTO `bets`(`BetDate`, `Odds`, `Amount`, `BettorsID`, `EventID`, `Status`) VALUES ('{DateTime.Now:yyyy-MM-dd}','{ujSzorzo.ToString().Replace(',', '.')}','{sliPay.Value}','{UserAtkuldese.bejelentkezettFogado.bettorsID}','{eventCard.EventID}','1');";
+                            MySqlCommand command = new MySqlCommand(query, connection);
+                            command.CommandTimeout = 60;
+                            command.ExecuteNonQuery();
+
+                            MessageBox.Show("Sikeresen leadta a fogadást!");
+                            UserAtkuldese.bejelentkezettFogado.balance -= (int)sliPay.Value;
+                            var ablak = Application.Current.Windows.OfType<MainWindow>().First();
+                            ablak.lblBalance.Content = $"{Convert.ToString(UserAtkuldese.bejelentkezettFogado.balance)} Ft";
+
+                            query = $"UPDATE `bettors` SET `Balance`='{UserAtkuldese.bejelentkezettFogado.balance}'WHERE Username = '{UserAtkuldese.bejelentkezettFogado.username}'";
+                            command = new MySqlCommand(query, connection);
+                            command.CommandTimeout = 60;
+                            command.ExecuteNonQuery();
+                            connection.Close();
+                            PageFogadas newFogadas = new PageFogadas();
+                            ablak.Container.Content = newFogadas;
+                        }
                     }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+
                 }
-                catch (Exception ex)
+                else 
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show("Nincs elég pénz a fiókján, hogy fogadjon!", "Fogadási hiba", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
+                
             };
             Grid.SetRow(saveBet, 1);
             Grid.SetColumn(saveBet, 3);
